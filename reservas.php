@@ -70,65 +70,74 @@
 
     ?>
 
+    <?php 
 
-    <main>
+       // include_once("navegacion.php");
 
-        <form id = "reservaMesa", method="post" action="validacion_formulario_reserva.php">
-            
-            <p><i>Todos los campos son obligatorios</i></p>
+    ?>
 
-            <fieldset>
-                <legend>
-                    Detalles de Contacto
-                </legend>
+    <div class = "formulario">
+
+        <main>
+
+            <form id = "reservaMesa", method="post" action="validacion_formulario_reserva.php">
                 
-                <div>
-                    <label for = "nombre">Nombre: </label>
-                    <input id = "nombre" name = "nombre" type = "text" placeholder = "" size = "40" required autofocus/>
+                <p><i>Todos los campos son obligatorios</i></p>
+
+                <fieldset>
+                    <legend>
+                        Detalles de Contacto
+                    </legend>
+                    
+                    <div>
+                        <label for = "nombre">Nombre: </label>
+                        <input id = "nombre" name = "nombre" type = "text" placeholder = "" size = "30" required autofocus/>
+                    </div>
+
+                    <div>
+                        <label for = "apellidos">Apellidos: </label>
+                        <input id = "apellidos" name = "apellidos" type = "text" placeholder = "" size = "50" required/>
+                    </div>
+
+                    <div>
+                        <label for = "edad">Edad: </label>
+                        <input id = "edad" name = "edad" type = "number" placeholder = "" size = "10" required/>
+                    </div>
+
+                    <div>
+                        <label for = "telefono">Teléfono: </label>
+                        <input id = "telefono" name = "telefono" type = "tel" placeholder = "123456789"  size = "20" required/>
+                    </div>
+
+                </fieldset>
+                <br>
+
+                <fieldset>
+                    <legend>
+                        Detalles de la Reserva
+                    </legend>
+
+                    <div>
+                        <label for = "numeroPersonas">Nº de Personas: </label>
+                        <input id = "numeroPersonas" name = "numeroPersonas" type = "number" placeholder = "10 máximo" size = "15" required/>
+                    </div>
+
+                    <div>
+                        <label for = "fecha">Fecha de reserva: </label>
+                        <input id = "fecha" name = "fecha" type = "date" required/>
+                    </div>
+
+                </fieldset>
+
+                <div> 
+                    <input type = "submit" value = "Reservar"/>
                 </div>
+            
+            </form>
 
-                <div>
-                    <label for = "apellidos">Apellidos: </label>
-                    <input id = "apellidos" name = "apellidos" type = "text" placeholder = "" size = "80" required/>
-                </div>
+        </main>
 
-                <div>
-                    <label for = "edad">Edad: </label>
-                    <input id = "edad" name = "edad" type = "number" placeholder = "" size = "20" required/>
-                </div>
-
-                <div>
-                    <label for = "telefono">Teléfono: </label>
-                    <input id = "telefono" name = "telefono" type = "tel" placeholder = "123456789"  size = "30" required/>
-                </div>
-
-            </fieldset>
-            <br>
-
-            <fieldset>
-                <legend>
-                    Detalles de la Reserva
-                </legend>
-
-                <div>
-                    <label for = "numeroPersonas">Nº de Personas: </label>
-                    <input id = "numeroPersonas" name = "numeroPersonas" type = "number" placeholder = "10 máximo" size = "20" required/>
-                </div>
-
-                <div>
-                    <label for = "fecha">Fecha de reserva: </label>
-                    <input id = "fecha" name = "fecha" type = "date" required/>
-                </div>
-
-            </fieldset>
-
-            <div> 
-                <input type = "submit" value = "Reservar"/>
-            </div>
-        
-        </form>
-
-    </main>
+    </div>
 
     <?php
 
