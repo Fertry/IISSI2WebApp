@@ -19,7 +19,22 @@
 
 <body>
 
-<h3> Restaurante Casa Salvi - Gerencia </h3>
+    <?php 
+
+    include_once("header_personal.php");
+
+    ?>
+
+    <?php 
+
+    include_once("navegacion.php");
+
+    ?>
+
+    <h3> Restaurante Casa Salvi - Gerencia </h3>
+
+    <button type = "button" a href = "desconexion.php">Desconexión</button> 
+
 
 </body>
 

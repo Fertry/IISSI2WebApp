@@ -19,6 +19,17 @@
 
 <body>
 
+    <?php 
+
+    include_once("header_carta.php");
+
+    ?>
+
+    <?php 
+
+    include_once("navegacion.php");
+
+    ?>
 
 </body>
 

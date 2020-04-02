@@ -2,6 +2,9 @@
 
     // Iniciamos la sesión:
     session_start();
+
+    // Llamamos a gestionBD.php
+    require_once("gestionBD.php");
     
     // Comprobamos que no existen datos en la sesión: por tanto se crea una entrada con valores por defecto (vacíos):
     if (!isset($_SESSION["formulario_personal"])) {
