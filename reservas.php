@@ -2,7 +2,7 @@
 
     // Iniciamos la sesión:
     session_start();
-    
+
     // Comprobamos que no existen datos en la sesión: por tanto se crea una entrada con valores por defecto (vacíos):
     if (!isset($_SESSION["formulario"])) {
 
@@ -29,9 +29,6 @@
         unset($_SESSION["errores"]);
 
     }
-
-    // Abrimos una conexion con la base de datos:
-    // $conexion = abrirConexionBD();
 
 ?>
     
@@ -80,7 +77,7 @@
 
         <main>
 
-            <form id = "reservaMesa", method="post" action="validacion_formulario_reserva.php">
+            <form id = "formulario", method="post" action="validacion_formulario_reserva.php">
                 
                 <p><i>Todos los campos son obligatorios</i></p>
 
@@ -139,12 +136,6 @@
 
     </div>
 
-    <?php
-
-        // cerrarConexionBD($conexion);
-
-    ?>
-  
 </body>
 
 </html>
