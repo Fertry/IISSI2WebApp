@@ -1,0 +1,61 @@
+/* Página de ubicación */
+div.texto {
+	align-content: left;
+}
+
+div.map {
+	align-content: right;
+}
+
+
+/* Menú de navegación <nav> */
+nav {
+
+	align-content: center;
+	display: block;
+
+}
+
+/* Calendario */
+.mifecha2 {
+
+	border:1px solid #ff7800; 
+	background-color:#fff; 
+	padding:3px 0px 5px 6px; 
+	text-align:center; 
+	font-family:verdana, arial; 
+	font-size:10pt; 
+	overflow:hidden; 
+	width:206px;
+
+};
+
+.mifecha2 .mesano {
+	
+	width:100%; 
+	padding:3px 3px 5px; 
+	font-weight: bold; 
+	clear:both; 
+	color:#4ba3d8;
+
+} 
+
+.mifecha2 .dia, .mifecha2 .diaactual { 
+
+	width:20px; 
+	padding:3px; 
+	margin:3px 3px 0 0; 
+	background-color:#ffe3c1; 
+	float:left; 
+	text-shadow:none; 
+	font-size:11px;
+
+} 
+
+.mifecha2 .diaactual { 
+	
+	background-color: #ff7800; 
+	font-weight: bold; 
+	color:#fff;
+
+};

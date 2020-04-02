@@ -72,7 +72,7 @@
 
     <?php 
 
-       // include_once("navegacion.php");
+       include_once("navegacion.php");
 
     ?>
 
