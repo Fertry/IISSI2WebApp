@@ -1,3 +1,16 @@
+<?php
+
+    session_start();
+
+    // Comprobar que hemos llegado a esta página porque se ha rellenado y validado el formulario:
+	if (!isset($_SESSION["formulario"])) {
+
+        Header("Location: reservas.php");	
+
+    }
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="es">
@@ -30,6 +43,22 @@
     include_once("navegacion.php");
 
     ?>
+
+    <main>
+
+        <h2> Su reserva ha sido confirmada </h2>
+
+        <!-- Detalles de la reserva -->
+
+        <a href = "desconexion.php"><button type = "button">Volver</button></a>
+
+    </main>
+
+    <footer>
+
+        <h4><i>Si debido a una eventualidad no puede hacer uso de su reserva, <br> contacte con el restaurante. Gracias.</i></h4>
+
+    </footer>
 
 </body>
 

@@ -3,34 +3,28 @@
     // Iniciamos la sesión:
     session_start();
 
-    // Llamamos a gestionBD.php
-    require_once("gestionBD.php");
-    
     // Comprobamos que no existen datos en la sesión: por tanto se crea una entrada con valores por defecto (vacíos):
-    if (!isset($_SESSION["formulario_personal"])) {
+    if (!isset($_SESSION["user"])) {
 
-        $formulario_personal["nombre"] = "";
-        $formulario_personal["apellidos"] = "";
+        $user["usuario"] = "";
+        $user["password"] = "";
 
-        $_SESSION["formulario_personal"] = $formulario_personal;
+        $_SESSION["user"] = $user;
 
     } else {
 
         // Si ya existen valores en la sesión se usan para inicializar el formulario:
-        $formulario_personal = $_SESSION["formulario_personal"];
+        $user = $_SESSION["user"];
 
     }
 
     // Si se encuentran errores en la validación, se recogen para mostrarlos:
-    if (isset($_SESSION["errores_personal"])) {
+    if (isset($_SESSION["erroresLogin"])) {
         
-        $errores_personal = $_SESSION["errores_personal"];
-        unset($_SESSION["errores_personal"]);
+        $erroresLogin = $_SESSION["erroresLogin"];
+        // unset($_SESSION["erroresLogin"]);
 
     }
-
-    // Abrimos una conexion con la base de datos:
-    // $conexion = abrirConexionBD();
 
 ?>
 
@@ -75,13 +69,27 @@
 
     ?>
 
+    <?php
+
+        if (isset($erroresLogin) && count($erroresLogin) > 0) {
+
+            echo "<div class=\"error\">";
+            echo "<h4> Acceso denegado: </h4>";
+            foreach ($erroresLogin as $errorLogin)
+                echo $errorLogin;
+            echo "</div>";
+
+        } 
+
+    ?>
+
     <div class = "formulario">
 
         <main>
 
             <h2> Acceso Personal </h2>
 
-            <form id = "aacesoPersonal", method="post" action="validacion_formulario_personal.php">
+            <form id = "user", method="post" action="validacion_formulario_personal.php">
                 
                 <fieldset>
                     <legend>
@@ -94,8 +102,8 @@
                     </div>
 
                     <div>
-                        <label for = "pass">Contraseña: </label>
-                        <input id = "pass" name = "pass" type = "password" placeholder = "" size = "30" required/>
+                        <label for = "password">Contraseña: </label>
+                        <input id = "password" name = "password" type = "password" placeholder = "" size = "30" required/>
                     </div>
 
                     <div> 
@@ -107,12 +115,6 @@
         </main>
 
     </div>
-
-    <?php
-
-    // cerrarConexionBD($conexion);
-
-    ?>
 
 </body>
 

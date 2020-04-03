@@ -1,3 +1,16 @@
+<?php
+
+    session_start();
+
+    // Comprobar que hemos llegado a esta página porque se ha rellenado y validado el formulario:
+	if (!isset($_SESSION["user"])) {
+
+        Header("Location: personal.php");	
+
+    } 
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="es">
@@ -31,10 +44,15 @@
 
     ?>
 
-    <h3> Restaurante Casa Salvi - Gerencia </h3>
+    <main>
 
-    <button type = "button" a href = "desconexion.php">Desconexión</button> 
+        <h3> Restaurante Casa Salvi - Gerencia </h3>
 
+        <!-- Detalles de facturación y últimas reservas -->
+
+        <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
+
+    </main>
 
 </body>
 
