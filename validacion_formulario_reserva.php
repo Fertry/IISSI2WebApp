@@ -28,9 +28,7 @@
     $conexion = abrirConexionBD();
 
     // Recoger los errores:
-    // Validación PHP en servidor:
     $errores = validarDatos($reserva, $conexion);
-
 
     // Cerrar la conexión:
     cerrarConexionBD($conexion);
@@ -59,7 +57,7 @@
 
             $errores[] = "<p>El nombre no puede estar vacío</p>";
 
-        } else if (!preg_match("/[a-zA-Z]", $reserva["nombre"] || strlen($reserva["nombre"] < 3 ) || strlen($reserva["nombre"] > 30)){
+        } else if (!preg_match("/[a-zA-Z]/", $reserva["nombre"]) || strlen($reserva["nombre"] < 3 ) || strlen($reserva["nombre"] > 30)) {
             
             $errores[] = "<p>El nombre no es válido</p>";
 
@@ -70,7 +68,7 @@
 
             $errores[] = "<p>El apellido no puede estar vacío</p>";
 
-        } else if (!preg_match("/[a-zA-Z]/", $reserva["apellidos"] || strlen($reserva["apellidos"] < 10 ) || strlen($reserva["nombre"] > 50)){
+        } else if (!preg_match("/[a-zA-Z]/", $reserva["apellidos"]) || strlen($reserva["apellidos"] < 10 ) || strlen($reserva["nombre"] > 50)) {
             
             $errores[] = "<p>Los apellidos no son válidos</p>";
 
@@ -129,13 +127,20 @@
         }
 
         // Validación de disponibilidad de mesas en la BD para el numeroPersonas introducido:
-        
+        $nPersonas = $reserva["numeroPersonas"];
 
+        try {
+
+            $consulta = "SELECT COUNT(*) FROM Mesas WHERE (disponible = 1 AND capacidad => $nPersonas) ORDER BY capacidad";
+
+        } catch(PDOException $e) {
+
+            $errores[] = "<p>No hay mesas disponibles para el nº de personas solicitado</p>";
+
+        }
+        
         return $errores;
 
     }
 
-    function validacionDB
-
 ?>
-
