@@ -26,7 +26,7 @@
     if (isset($_SESSION["errores"])) {
         
         $errores = $_SESSION["errores"];
-        unset($_SESSION["errores"]);
+        // unset($_SESSION["errores"]);
 
     }
 
@@ -70,6 +70,20 @@
     <?php 
 
        include_once("navegacion.php");
+
+    ?>
+
+    <?php
+
+        if (isset($errores) && count($errores) > 0) {
+
+            echo "<div class=\"error\">";
+			echo "<h4> Errores en el formulario: </h4>";
+			foreach ($errores as $error)
+				echo $error;
+			echo "</div>";
+
+        } 
 
     ?>
 

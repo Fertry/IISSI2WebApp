@@ -1,4 +1,4 @@
-<nav>
+<nav class = "navegacion">
 
     <a href = "index.php">Inicio</a> |
     <a href = "carta.php">Carta</a> |

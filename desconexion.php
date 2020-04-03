@@ -2,9 +2,15 @@
 
 	session_start();
     
-    if (isset($_SESSION['login'])){
+    if (isset($_SESSION["user"])){
 
-        unset($_SESSION['login']);
+        unset($_SESSION["user"]);
+
+    }
+
+    if (isset($_SESSION["formulario"])){
+
+        unset($_SESSION["formulario"]);
 
     }
     

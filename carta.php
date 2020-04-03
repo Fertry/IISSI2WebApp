@@ -1,3 +1,9 @@
+<?php
+
+    session_start();
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="es">
@@ -30,6 +36,10 @@
     include_once("navegacion.php");
 
     ?>
+
+    <!-- Paginación -->
+
+    <!-- Carta del restaurante -->
 
 </body>
 
