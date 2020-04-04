@@ -2,7 +2,7 @@
 
     <div class = "header">
 
-        <img src = "images\header_personal.png" width = "100%" />
+        <img src = "images\header_personal.png"/>
 
     </div>
 

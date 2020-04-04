@@ -148,7 +148,7 @@
 
         try {
 
-            $stmt = $conexion -> query("SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad => $nPersonas) ORDER BY capacidad");
+            $stmt = $conexion -> query("SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad >= $nPersonas) AND ROWNUM = 1 ORDER BY capacidad;");
             $idMesa = $stmt -> fetch();
 
             return $idMesa;

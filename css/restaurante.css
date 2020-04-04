@@ -1,18 +1,68 @@
-/* Página de ubicación */
-div.texto {
-	align-content: left;
+/* Headers */
+
+	/*TO-DO*/
+
+/* Pie de página */
+
+	/*TO-DO*/
+
+/* Formularios */
+
+	/*TO-DO*/
+
+/* Menú de navegación */
+.navegacion {
+
+	background-color: rgb(213, 224, 213); 
+	border: 1px solid grey; 
+	padding: 10px 24px; 
+
 }
 
-div.map {
-	align-content: right;
+.button {
+
+	background-color: #FFFAFA;
+	border: #DCDCDC;
+	color: black;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: grab;
+
+  }
+
+/* Cuadro de error */
+
+	/*TO-DO*/
+
+/* Confirmación */
+
+	/*TO-DO*/
+
+ /* Paginación */
+.paginacion a {
+
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+
 }
+  
+.paginacion a.activo {
 
+	background-color: dodgerblue;
+	color: white;
 
-/* Menú de navegación <nav> */
-nav {
-
-	align-content: center;
-	display: block;
+}
+  
+.paginacion a:hover:not(.activo) {
+	  
+	background-color: #ddd;
 
 }
 
@@ -28,7 +78,7 @@ nav {
 	overflow:hidden; 
 	width:206px;
 
-};
+}
 
 .mifecha2 .mesano {
 	
@@ -58,4 +108,4 @@ nav {
 	font-weight: bold; 
 	color:#fff;
 
-};
+}

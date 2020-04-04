@@ -7,6 +7,10 @@
 
         Header("Location: reservas.php");	
 
+    } else {
+
+        $formulario = $_SESSION["formulario"];
+
     }
 
 ?>
@@ -43,20 +47,68 @@
     include_once("navegacion.php");
 
     ?>
+    <br>
 
     <main>
 
         <h2> Su reserva ha sido confirmada </h2>
 
         <!-- Detalles de la reserva -->
+        <div class = "detalles">
 
-        <a href = "desconexion.php"><button type = "button">Volver</button></a>
+                <form>
+
+                    <fieldset>
+
+                        <legend>Sus datos:</legend>
+                        <?php
+
+                            echo "<ul>";
+                            echo "<li>Nombre: $formulario["nombre"]";
+                            echo "<li>Apellidos: $formulario["apellidos"]";
+                            echo "<li>Edad: $formulario["edad"]";
+                            echo "<li>Teléfono: $formulario["telefono"]";
+                            echo "</ul>";
+
+                        ?>
+
+
+                    </fieldset>
+
+                    <fieldset>
+
+                        <legend>Su reserva:</legend>
+                        <?php
+
+                            echo "<ul>";
+                            echo "<li>Nº de personas: $formulario["numeroPersonas"]";
+                            echo "<li>Fecha: $formulario["fecha"]";;
+                            echo "</ul>";
+
+                        ?>
+
+                    </fieldset>
+
+
+                </form>
+
+            ?>
+
+        </div>
+
+        <a href = "desconexion.php"><button type = "button">Inicio</button></a>
 
     </main>
 
     <footer>
 
         <h4><i>Si debido a una eventualidad no puede hacer uso de su reserva, <br> contacte con el restaurante. Gracias.</i></h4>
+
+        <?php 
+
+            include_once("pie.php");
+
+        ?>
 
     </footer>
 
