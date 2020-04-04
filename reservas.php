@@ -72,6 +72,7 @@
        include_once("navegacion.php");
 
     ?>
+    <br>
 
     <?php
 

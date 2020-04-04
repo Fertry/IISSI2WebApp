@@ -45,7 +45,7 @@
 
     <!-- Scripts JS para la validación en cliente -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
-    <script src="js/validacion_reserva.js" type="text/javascript"></script>
+    <script src="js/validacion_personal.js" type="text/javascript"></script>
 	<title>Acceso Personal</title>
     
 </head>
@@ -68,6 +68,7 @@
        include_once("navegacion.php");
 
     ?>
+    <br>
 
     <?php
 

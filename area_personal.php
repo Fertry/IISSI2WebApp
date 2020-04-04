@@ -43,12 +43,24 @@
     include_once("navegacion.php");
 
     ?>
+    <br>
 
     <main>
 
         <h3> Restaurante Casa Salvi - Gerencia </h3>
 
         <!-- Detalles de facturación y últimas reservas -->
+        <?php
+            
+            // Abrir la conexión:
+
+            // Consulta BD:
+
+            // Mostrar los datos:
+
+            // Cerrar la conexión:
+
+        ?>
 
         <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
 

@@ -30,6 +30,7 @@
         include_once("navegacion.php");
 
     ?>
+    <br>
 
     <main>
 
