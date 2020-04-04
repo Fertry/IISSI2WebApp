@@ -27,9 +27,19 @@
     // Abrimos una conexion con la base de datos:
     $conexion = abrirConexionBD();
 
-    // Recoger los errores:
-    $errores = validarDatos($reserva, $conexion);
+    // Recoger los errores mediante PHP:
+    $errores = validarDatos($reserva);
 
+    // Obtener el ID de la mesa que esté disponible:
+    $nMesa = disponibilidadMesasYReservas($conexion, $reserva);
+
+    // Si hay mesa disponible, usamos su id para guardar la reserva en la BD:
+    if ($nMesa != "" && count($errores) = 0) {
+
+        guardarReserva($nMesa, $conexion);
+
+    }
+    
     // Cerrar la conexión:
     cerrarConexionBD($conexion);
 
@@ -48,7 +58,7 @@
     ////////////////////////////////////////////////////
     // Validación en servidor del formulario de reserva
     ////////////////////////////////////////////////////
-    function validarDatos($reserva, $conexion) {
+    function validarDatos($reserva) {
 
         $errores = array();
 
@@ -126,24 +136,39 @@
 
         }
 
-        // Validación de disponibilidad de mesas en la BD para el numeroPersonas introducido:
-        $nPersonas = $reserva["numeroPersonas"];
-
-        try {
-
-            $consulta = "SELECT COUNT(*) FROM Mesas WHERE (disponible = 1 AND capacidad => $nPersonas) ORDER BY capacidad";
-            $stmt = $conexion -> prepare($consulta);
-
-
-        } catch(PDOException $e) {
-
-            $errores[] = "<p>Ha ocurrido un error al confirmar la reserva. Por favor vuelva a intentarlo en unos minutos</p>";
-            // echo "Error: " . $e -> GetMessage();
-
-        }
-        
         return $errores;
 
     }
 
+    // Función que comprueba si existe una mesa en la BD que satisface el estado de disponible y el nº de personas solicitado:
+    function disponibilidadMesasYReservas($conexion, $reserva) {
+
+        $nPersonas = $reserva["numeroPersonas"];
+        global $errores;
+
+        try {
+
+            $stmt = $conexion -> query("SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad => $nPersonas) ORDER BY capacidad");
+            $idMesa = $stmt -> fetch();
+
+            return $idMesa;
+
+        } catch(PDOException $e) {
+
+            $errores[] = "<p>Lo sentimos, no hay mesas disponibles para el nº de personas solicitado</p>";
+            // echo "Error: " . $e -> GetMessage();
+
+            return $errores;
+
+        }
+
+    }
+    
+    // Función que guarde la reserva (inserte en la BD) en la tabla de Reservas:
+    function guardarReserva($nMesa, $conexion) {
+
+        // TO-DO
+
+    }
+    
 ?>
