@@ -1,0 +1,45 @@
+<?php
+
+    function consulta_paginada($conexion, $query, $pag_num, $pag_size) {
+
+        try {
+
+            //$first = ($pag_num - 1) * $pag_size + 1;
+            //$last  = $pag_num * $pag_size;
+        
+            $stmt = $conexion -> query("SELECT nombre, precioProducto FROM Productos WHERE disponibilidad = 1");
+            $consulta = $stmt -> fetch();
+
+            return $consulta;
+
+        } catch (PDOException $e) {
+
+            header("Location: index.php");
+            // echo "Error: " . $e -> GetMessage();
+
+        }
+
+    } 
+
+    function total_consulta($conexion, $query) {
+
+        try {
+
+            $total_consulta = "SELECT COUNT(*) AS TOTAL FROM ($query)";
+
+            $stmt = $conexion -> query($total_consulta);
+            $result = $stmt -> fetch();
+            $total = $result['TOTAL'];
+
+            return  $total;
+
+        } catch (PDOException $e) {
+
+            header("Location: index.php");
+            // echo "Error: " . $e -> GetMessage();
+
+        }
+
+    } 
+
+?>
