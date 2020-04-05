@@ -162,7 +162,11 @@
             <!-- Mostrar los datos solicitados -->
             <article>
 
-                <h4><?php echo $fila ?></h4>
+                <ul>
+
+                    <li><h4><?php echo $fila[1] ?> - <?php echo $fila[2] ?> €.</h4></li>
+
+                </ul>
 
             </article>
 
