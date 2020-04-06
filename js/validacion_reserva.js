@@ -9,7 +9,6 @@ function validatePhone() {
     // Atributos que debe cumplir el teléfono:
     var isPhone = /^\d{9}$/;
 
-
     if (!telefono.isPhone) {
 
         var error = "El teléfono no es válido";
