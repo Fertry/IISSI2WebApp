@@ -19,6 +19,12 @@
 
 <body>
 
+    <script>
+
+        <![CDATA[window.confirm(Esta web usa cookies para mejorar su experiencia de navegación. Si continúa navegando acepta su uso.)]]>
+        
+    </script>
+
     <?php 
 
         include_once("header_index.php");

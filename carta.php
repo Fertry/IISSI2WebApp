@@ -121,7 +121,7 @@
 
                 ?>
 
-                        <a href="consulta_libros.php?PAG_NUM=<?php echo $pagina; ?>&PAG_TAM=<?php echo $pag_tam; ?>"><?php echo $pagina; ?></a>
+                        <a href="carta.php?PAG_NUM=<?php echo $pagina; ?>&PAG_TAM=<?php echo $pag_tam; ?>"><?php echo $pagina; ?></a>
 
                 <?php
                 
@@ -165,6 +165,7 @@
                 <ul>
 
                     <li><h4><?php echo $fila[1] ?> - <?php echo $fila[2] ?> €.</h4></li>
+                    <?php //print_r($fila) ?>
 
                 </ul>
 
