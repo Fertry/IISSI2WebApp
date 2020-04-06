@@ -102,8 +102,6 @@
 
     <footer>
 
-        <h4><i>Si debido a una eventualidad no puede hacer uso de su reserva, <br> contacte con el restaurante. Gracias.</i></h4>
-
         <?php 
 
             include_once("pie.php");

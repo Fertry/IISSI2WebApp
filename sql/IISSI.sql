@@ -1,5 +1,14 @@
 -------- 3 ENTREGABLE IISSI 1 - RESTAURANTE SEVILLA --------
 
+/* 
+    Â· Master.sql contiene todo el cÃ³digo del proyecto.
+    Â· Borrado.sql contiene el borrado de tablas, secuencias, procedimientos, etc.
+    Â· Creacion_y_Poblado_de_Tablas.sql contiene la creaciÃ³n y poblado de todas las tablas asÃ­ como la creaciÃ³n de las secuencias.
+    Â· Triggers.sql contiene la creaciÃ³n de todos los triggers y la prueba de los mismos.
+    Â· Consultas_Funciones_y_Cursores.sql contiene la creaciÃ³n y prueba de las consultas, cursores y funciones asociados a requisitos funcionales.
+    Â· Pruebas_Automaticas.sql Contiene las pruebas automÃ¡ticas de las tablas.
+*/
+
 -------- BORRADO DE TABLAS -------- 
 DROP TABLE Reservas;
 DROP TABLE Mesas; 
@@ -53,7 +62,8 @@ DROP PROCEDURE updateComandas;
 DROP PROCEDURE updateMesas;
 DROP PROCEDURE updateReservas;
 
-/* Procedimientos asociados a cursores */
+-------- BORRADO DE CURSORES --------
+DROP PROCEDURE cursorRF1;
 DROP PROCEDURE cursorUno;
 DROP PROCEDURE cursorDos;
 DROP PROCEDURE cursorTres;
@@ -69,8 +79,11 @@ DROP PACKAGE PRUEBAS_ALERGENOS;
 DROP PACKAGE PRUEBAS_MESAS;
 DROP PACKAGE PRUEBAS_CARTAS;
 DROP PACKAGE PRUEBAS_PRODUCTOS;
+DROP PACKAGE PRUEBAS_PRODUCTO_CARTA;
+DROP PACKAGE PRUEBAS_MENUS;
+DROP PACKAGE PRUEBAS_COMANDAS;
 
--------- CREACIÓN DE TABLAS ----------- 
+-------- CREACIÃ“N DE TABLAS ----------- 
 CREATE TABLE Cartas (     
     idCarta SMALLINT PRIMARY KEY,   
     temporada DATE NOT NULL
@@ -155,11 +168,13 @@ CREATE TABLE Reservas (
     numPersonas SMALLINT NOT NULL CHECK (numPersonas <= 10),
     mesa SMALLINT,     
     usuario SMALLINT,
+    nombre VARCHAR2(50),
+    apellidos VARCHAR2(50),
     FOREIGN KEY(mesa) REFERENCES Mesas ON DELETE SET NULL, 
     FOREIGN KEY(usuario) REFERENCES Usuarios ON DELETE SET NULL
 );
 
--------- CREACIÓN DE SECUENCIAS --------
+-------- CREACIÃ“N DE SECUENCIAS --------
 CREATE SEQUENCE sec_cartas;
 CREATE OR REPLACE TRIGGER crea_oid_cartas
 BEFORE INSERT ON Cartas
@@ -259,9 +274,9 @@ SELECT sec_reservas.NEXTVAL INTO :NEW.idReserva FROM DUAL;
 END;
 /
 
--------- TRIGGERS DE REGLAS DE NEGOCIO --------
-/* RN001. Una misma mesa no puede ser reservada por más de un cliente y no puede hacer
-una reserva si el nº de personas es mayor a la capacidad de las mesa */
+-------- TRIGGERS ASOCIADOS A REGLAS DE NEGOCIO --------
+/* RN001. Una misma mesa no puede ser reservada por mÃ¡s de un cliente y no puede hacer
+una reserva si el nÂº de personas es mayor a la capacidad de las mesa */
 CREATE OR REPLACE TRIGGER TR_exclusividad_mesas BEFORE INSERT ON Reservas FOR EACH ROW
 DECLARE
 disponibilidad SMALLINT;
@@ -278,31 +293,43 @@ BEGIN
 END;
 /
 
-/* RN002. Un cliente no puede realizar más de una reserva en una miasma hora */
+/* Prueba del trigger 1 */
+EXECUTE insertReservas(TO_DATE('2019-12-11-09:46', 'YYYY-MM-DD-hh24:mi'), 4, 1, 1);
+EXECUTE insertReservas(TO_DATE('2019-12-11-09:46', 'YYYY-MM-DD-hh24:mi'), 5, 1, 1);
+
+/* RN002. Un cliente no puede realizar mÃ¡s de una reserva en una miasma hora */
 CREATE OR REPLACE TRIGGER TR_derecho_reserva BEFORE INSERT ON Reservas FOR EACH ROW
 DECLARE 
     contador SMALLINT;
 BEGIN
     SELECT COUNT(*) INTO contador FROM Reservas WHERE (usuario = :NEW.usuario AND fecha = :NEW.fecha);
     IF (contador > 0) THEN
-        RAISE_APPLICATION_ERROR(-20003, 'No puede reservar más de una mesa en la misma hora');
+        RAISE_APPLICATION_ERROR(-20003, 'No puede reservar mÃ¡s de una mesa en la misma hora');
     END IF;
 END;
 /
 
-/* RN003. Un cliente puede hacer, como máximo, 2 reservas al día */
+/* Prueba del trigger 2 */
+EXECUTE insertReservas(TO_DATE('2019-12-11-09:46', 'YYYY-MM-DD-hh24:mi'), 4, 1, 1);
+EXECUTE insertReservas(TO_DATE('2019-12-11-09:46', 'YYYY-MM-DD-hh24:mi'), 4, 2, 1);
+
+/* RN003. Un cliente puede hacer, como mÃ¡ximo, 2 reservas al dÃ­a */
 CREATE TRIGGER TR_limite_reservas BEFORE INSERT ON Reservas FOR EACH ROW
 DECLARE
     contador INTEGER;
 BEGIN
     SELECT COUNT(*) INTO contador FROM Reservas WHERE (usuario = :NEW.usuario AND TO_CHAR(fecha, 'YYYY/MM/DD') = TO_CHAR(:NEW.fecha, 'YYYY/MM/DD'));
     IF (contador > 1) THEN
-        RAISE_APPLICATION_ERROR(-20004, 'No puede realizar más de 2 reservas al día');
+        RAISE_APPLICATION_ERROR(-20004, 'No puede realizar mÃ¡s de 2 reservas al dÃ­a');
     END IF;
 END;
 /
 
-/* RN004. Un producto nulo no puede incluirse en el menú */
+/* Prueba del trigger 3 */
+EXECUTE insertReservas(TO_DATE('2019-12-11-14:00', 'YYYY-MM-DD-hh24:mi'), 4, 7, 1);
+EXECUTE insertReservas(TO_DATE('2019-12-11-22:00', 'YYYY-MM-DD-hh24:mi'), 4, 7, 1);
+
+/* RN004. Un producto nulo no puede incluirse en el menÃº */
 CREATE TRIGGER TR_producto_disponible BEFORE UPDATE OR INSERT ON ProductoMenu FOR EACH ROW
 DECLARE
     disponible SMALLINT;
@@ -313,6 +340,9 @@ BEGIN
     END IF;
 END;
 /
+
+/* Prueba del trigger 4 */
+EXECUTE insertProductoMenu ('Bebida', 4, 2);
 
 -------- TRIGGERS ASOCIADOS A REQUISITOS --------
 /* Cambia la disponibilidad de la mesa cuando es reservada */
@@ -408,88 +438,88 @@ END insertMesas;
 /
 
 CREATE OR REPLACE PROCEDURE insertReservas
-(fecha IN DATE, numPersonas IN SMALLINT, mesa IN SMALLINT, usuario IN SMALLINT) AS 
+(fecha IN DATE, numPersonas IN SMALLINT, mesa IN SMALLINT, usuario IN SMALLINT, nombre IN VARCHAR2, apellidos IN VARCHAR2) AS 
 BEGIN
-INSERT INTO Reservas (fecha, numPersonas, mesa, usuario) 
-VALUES (fecha, numPersonas, mesa, usuario);
+INSERT INTO Reservas (fecha, numPersonas, mesa, usuario, nombre, apellidos) 
+VALUES (fecha, numPersonas, mesa, usuario, nombre, apellidos);
 END insertReservas;
 /
 
 /* Procedimientos de UPDATE */
 CREATE OR REPLACE PROCEDURE updateCartas
-(idCarta IN SMALLINT, temporada IN DATE) AS 
+(idCartaP IN SMALLINT, temporadaP IN DATE) AS 
 BEGIN
-UPDATE Cartas SET temporada = temporada WHERE idCarta = idCarta;
+UPDATE Cartas SET temporada = temporadaP WHERE idCarta = idCartaP;
 END updateCartas;
 /
 
 CREATE OR REPLACE PROCEDURE updateProductos
-(idProducto IN SMALLINT, nombre IN VARCHAR2, descripcion IN VARCHAR2, tipoProducto IN VARCHAR2, disponibilidad IN SMALLINT, precioProducto IN FLOAT) AS 
+(idProductoP IN SMALLINT, nombreP IN VARCHAR2, descripcionP IN VARCHAR2, tipoProductoP IN VARCHAR2, disponibilidadP IN SMALLINT, precioProductoP IN FLOAT) AS 
 BEGIN
-UPDATE Productos SET nombre = nombre, descripcion = descripcion, tipoProducto = tipoProducto, disponibilidad = disponibilidad, precioProducto = precioProducto WHERE idProducto = idProducto;
+UPDATE Productos SET nombre = nombreP, descripcion = descripcionP, tipoProducto = tipoProductoP, disponibilidad = disponibilidadP, precioProducto = precioProductoP WHERE idProducto = idProductoP;
 END updateProductos;
 /
 
 CREATE OR REPLACE PROCEDURE updateProductoCarta 
-(idProductoCarta IN SMALLINT, idCarta IN SMALLINT, idProducto IN SMALLINT) AS
+(idProductoCartaP IN SMALLINT, idCartaP IN SMALLINT, idProductoP IN SMALLINT) AS
 BEGIN
-UPDATE ProductoCarta SET idCarta = idCarta, idProducto = idProducto WHERE idProductoCarta = idProductoCarta;
+UPDATE ProductoCarta SET idCarta = idCartaP, idProducto = idProductoP WHERE idProductoCarta = idProductoCartaP;
 END updateProductoCarta;
 /
 
 CREATE OR REPLACE PROCEDURE updateMenus
-(idMenu IN SMALLINT, precio IN FLOAT, carta in SMALLINT) AS
+(idMenuP IN SMALLINT, precioP IN FLOAT, cartaP in SMALLINT) AS
 BEGIN
-UPDATE Menus SET precio = precio, carta = carta WHERE idMenu = idMenu;
+UPDATE Menus SET precio = precioP, carta = cartaP WHERE idMenu = idMenuP;
 END updateMenus;
 /
 
 CREATE OR REPLACE PROCEDURE updateProductoMenu
-(idProductoMenu IN SMALLINT, tipoPlato IN VARCHAR2, idProducto IN SMALLINT, idMenu IN SMALLINT) AS
+(idProductoMenuP IN SMALLINT, tipoPlatoP IN VARCHAR2, idProductoP IN SMALLINT, idMenuP IN SMALLINT) AS
 BEGIN
-UPDATE ProductoMenu SET tipoPlato = tipoPlato, idProducto = idProducto, idMenu = idMenu WHERE idProductoMenu = idProductoMenu;
+UPDATE ProductoMenu SET tipoPlato = tipoPlatoP, idProducto = idProductoP, idMenu = idMenuP WHERE idProductoMenu = idProductoMenuP;
 END updateProductoMenu;
 /
 
 CREATE OR REPLACE PROCEDURE updateAlergenos
-(idAlergeno IN SMALLINT, nombre in VARCHAR2, descripcion IN VARCHAR2) AS 
+(idAlergenoP IN SMALLINT, nombreP IN VARCHAR2, descripcionP IN VARCHAR2) AS 
 BEGIN
-UPDATE Alergenos SET nombre = nombre, descripcion = descripcion WHERE idAlergeno = idAlergeno;
+UPDATE Alergenos SET nombre = nombreP, descripcion = descripcionP WHERE idAlergeno = idAlergenoP;
 END updateAlergenos;
 /
 
 CREATE OR REPLACE PROCEDURE updateContiene
-(OIDContiene IN SMALLINT, idProducto IN SMALLINT, idAlergeno IN SMALLINT) AS 
+(OIDContieneP IN SMALLINT, idProductoP IN SMALLINT, idAlergenoP IN SMALLINT) AS 
 BEGIN
-UPDATE Contiene SET idProducto = idProducto, idAlergeno = idAlergeno WHERE OIDContiene = OIDContiene;
+UPDATE Contiene SET idProducto = idProductoP, idAlergeno = idAlergenoP WHERE OIDContiene = OIDContieneP;
 END updateContiene;
 /
 
 CREATE OR REPLACE PROCEDURE updateUsuarios
-(idUsuario IN SMALLINT, clase IN VARCHAR2, nombre IN VARCHAR2, apellidos IN VARCHAR2, telefono IN VARCHAR2, carta IN SMALLINT, usuario IN VARCHAR2, pass IN VARCHAR2) AS 
+(idUsuarioP IN SMALLINT, claseP IN VARCHAR2, nombreP IN VARCHAR2, apellidosP IN VARCHAR2, telefonoP IN VARCHAR2, cartaP IN SMALLINT, usuarioP IN VARCHAR2, passP in VARCHAR2) AS 
 BEGIN
-UPDATE Usuarios SET clase = clase, nombre = nombre, apellidos = apellidos, telefono = telefono, carta = carta, usuario = usuario, pass = pass WHERE idUsuario = idUsuario;
+UPDATE Usuarios SET clase = claseP, nombre = nombreP, apellidos = apellidosP, telefono = telefonoP, carta = cartaP, usuario = usuarioP, pass = passP WHERE idUsuario = idUsuarioP;
 END updateUsuarios;
 /
 
 CREATE OR REPLACE PROCEDURE updateComandas
-(idComanda IN SMALLINT, fecha IN DATE, importe IN FLOAT, usuario IN SMALLINT) AS 
+(idComandaP IN SMALLINT, fechaP IN DATE, importeP IN FLOAT, usuarioP IN SMALLINT) AS 
 BEGIN
-UPDATE Comandas SET fecha = fecha, importe = importe, usuario = usuario WHERE idComanda = idComanda;
+UPDATE Comandas SET fecha = fechaP, importe = importeP, usuario = usuarioP WHERE idComanda = idComandaP;
 END updateComandas;
 /
 
 CREATE OR REPLACE PROCEDURE updateMesas
-(idMesa IN SMALLINT, disponible IN SMALLINT, capacidad IN SMALLINT) AS 
+(idMesaP IN SMALLINT, disponibleP IN SMALLINT, capacidadP IN SMALLINT) AS 
 BEGIN
-UPDATE Mesas SET disponible = disponible, capacidad = capacidad WHERE idMesa = idMesa;
+UPDATE Mesas SET disponible = disponibleP, capacidad = capacidadP WHERE idMesa = idMesaP;
 END updateMesas;
 /
 
 CREATE OR REPLACE PROCEDURE updateReservas
-(idReserva IN SMALLINT, fecha IN DATE, numPersonas IN SMALLINT, mesa IN SMALLINT, usuario IN SMALLINT) AS 
+(idReservaP IN SMALLINT, fechaP IN DATE, numPersonasP IN SMALLINT, mesaP IN SMALLINT, usuarioP IN SMALLINT, nombreP IN VARCHAR2, apellidosP IN VARCHAR2) AS 
 BEGIN
-UPDATE Reservas SET fecha = fecha, numPersonas = numPersonas, mesa = mesa, usuario = usuario WHERE idReserva = idReserva;
+UPDATE Reservas SET fecha = fechaP, numPersonas = numPersonasP, mesa = mesaP, usuario = usuarioP, nombre = nombreP, apellidos = apellidosP WHERE idReserva = idReservaP;
 END updateReservas;
 /
 
@@ -509,25 +539,25 @@ EXECUTE insertProductos('Macarrones', 'Macarrones con tomate', 'PRIMERPLATO', 1,
 EXECUTE insertProductos('Pechuga de Pollo', 'Pechuga de pollo a la carbonara', 'SEGUNDOPLATO', 1, 5);
 EXECUTE insertProductos('Mousse de Chocolate', 'Mousse de Chocolate', 'POSTRE', 1, 4);
 EXECUTE insertProductos('Estrella Galicia', 'Cerveza', 'BEBIDA', 1, 1);
+EXECUTE insertProductos('Cruzcampo', 'Cerveza', 'BEBIDA', 1, 1);
 EXECUTE insertProductos('Filete secreto', 'Filete de secreto', 'PRIMERPLATO', 1, 8);
 EXECUTE insertProductos('Flan', 'Flan de huevo', 'POSTRE', 1, 1);
 EXECUTE insertProductos('Coca-Cola', 'Coca-Cola', 'BEBIDA', 1, 1);
 EXECUTE insertProductos('Agua', 'Agua mineral', 'BEBIDA', 1, 1);
-EXECUTE insertProductos('Ensalada césar', 'Ensalada mixta', 'SEGUNDOPLATO', 1, 4);
+EXECUTE insertProductos('Ensalada cesar', 'Ensalada mixta', 'SEGUNDOPLATO', 1, 4);
 EXECUTE insertProductos('Merluza', 'Pescado raro', 'PRIMERPLATO', 1, 6);
 EXECUTE insertProductos('Brocheta verdura', 'Verdura a la plancha', 'SEGUNDOPLATO', 1, 3);
 EXECUTE insertProductos('Nestea', 'Bebida azucarada', 'BEBIDA', 0, 1);
 EXECUTE insertProductos('Filete ternera', 'Carne ternera', 'PRIMERPLATO', 1, 6);
-EXECUTE insertProductos('Salmón', 'Pescado', 'PRIMERPLATO', 1, 4);
+EXECUTE insertProductos('Salmon', 'Pescado', 'PRIMERPLATO', 1, 4);
 EXECUTE insertProductos('Sopa verduras', 'Sopa', 'SEGUNDOPLATO', 1, 4);
-
 /* Mediante INSERTS: */
 /*
 INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES ('Macarrones', 'Macarrones con tomate', 'PRIMERPLATO', 1, 9);
 INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES ('Pechuga de pollo', 'Pechuga de pollo a la carbonara', 'SEGUNDOPLATO', 1, 5);
 INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES ('Mousse de Chocolate', 'Mousse de chocolate', POSTRE, 1, 4);
 INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES ('Estrella Galicia', 'Cerveza', 'BEBIDA', 1, 1);
-Se han añadido más productos para IISSI2
+INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES ('Cruzcampo', 'Cerveza', 'BEBIDA', 0, 1);
 */
 
 /* Datos de ProductoCarta */
@@ -560,6 +590,7 @@ EXECUTE insertProductoMenu('PRIMERPLATO', 1, 1);
 EXECUTE insertProductoMenu('SEGUNDOPLATO', 2, 1);
 EXECUTE insertProductoMenu('POSTRE', 3, 1);
 EXECUTE insertProductoMenu('BEBIDA', 4, 1); 
+
 /* Mediante INSERTS: */
 /*
 INSERT INTO ProductoMenu (tipoPlato, idProducto, idMenu) VALUES ('PRIMERPLATO', 1, 1);
@@ -571,15 +602,16 @@ INSERT INTO ProductoMenu (tipoPlato, idProducto, idMenu) VALUES ('BEBIDA', 4, 1)
 /* Datos de Alergenos */
 /* Mediante procedimientos: */
 EXECUTE insertAlergenos('Lactosa', 'Lactosa');
-EXECUTE insertAlergenos('Caseína', 'Caseína');
+EXECUTE insertAlergenos('CaseÃ­na', 'CaseÃ­na');
 EXECUTE insertAlergenos('Gluten de trigo', 'Gluten de trigo');
-EXECUTE insertAlergenos('Proteína de soja', 'Proteína de soja');
+EXECUTE insertAlergenos('ProteÃ­na de soja', 'ProteÃ­na de soja');
+
 /* Mediante INSERTS: */
 /*
 INSERT INTO Alergenos (nombre, descripcion) VALUES ('Lactosa', 'Lactosa');
-INSERT INTO Alergenos (nombre, descripcion) VALUES ('Caseína', 'Caseína');
+INSERT INTO Alergenos (nombre, descripcion) VALUES ('CaseÃ­na', 'CaseÃ­na');
 INSERT INTO Alergenos (nombre, descripcion) VALUES ('Gluten de trigo', 'Gluten de trigo');
-INSERT INTO Alergenos (nombre, descripcion) VALUES ('Proteína de soja', 'Proteína de soja');
+INSERT INTO Alergenos (nombre, descripcion) VALUES ('ProteÃ­na de soja', 'ProteÃ­na de soja');
 */
 
 /* Datos de Contiene */
@@ -588,6 +620,7 @@ EXECUTE insertContiene(1, 1);
 EXECUTE insertContiene(2, 2);
 EXECUTE insertContiene(3, 3);
 EXECUTE insertContiene(4, 4);
+
 /* Mediante INSERTS: */
 /*
 INSERT INTO Contiene (idProducto, idAlergeno) VALUES (1, 1);
@@ -599,16 +632,18 @@ INSERT INTO Contiene (idProducto, idAlergeno) VALUES (4, 4);
 /* Datos de Usuarios */
 /* Mediante procedimientos: */
 EXECUTE insertUsuarios('GERENTE', 'Jose Manuel', 'Torres', '987567521', 1, 'admin', 'admin');
-EXECUTE insertUsuarios('MAITRE', 'Miguel', 'Carrasco', '673334582', null);
+EXECUTE insertUsuarios('MAITRE', 'Miguel', 'Carrasco', '673334582', null, null, null);
+/*
 EXECUTE insertUsuarios('CLIENTE', 'David', 'Fernandez', '756345987', null);
-EXECUTE insertUsuarios('CLIENTE', 'María', 'Triguero', '683450986', null);
+EXECUTE insertUsuarios('CLIENTE', 'MarÃ­a', 'Triguero', '683450986', null);
 EXECUTE insertUsuarios('CLIENTE', 'Ana', 'Gonzalez', '351789054', null);
+*/
 /* Mediante INSERTS: */
 /*
-INSERT INTO Usuarios (clase, nombre, apellidos, telefono, carta) VALUES ('GERENTE', 'Jose Manuel', 'Torres', '987567521', 1, 'admin', 'admin');
+INSERT INTO Usuarios (clase, nombre, apellidos, telefono, carta) VALUES ('GERENTE', 'Jose Manuel', 'Torres', '987567521', 1);
 INSERT INTO Usuarios (clase, nombre, apellidos, telefono, carta) VALUES ('MAITRE', 'Miguel', 'Carrasco', '673334582', null);
 INSERT INTO Usuarios (clase, nombre, apellidos, telefono, carta) VALUES ('CLIENTE', 'David', 'Fernandez', '756345987', null);
-INSERT INTO Usuarios (clase, nombre, apellidos, telefono, carta) VALUES ('CLIENTE', 'María', 'Triguero', '683450986', null);
+INSERT INTO Usuarios (clase, nombre, apellidos, telefono, carta) VALUES ('CLIENTE', 'MarÃ­a', 'Triguero', '683450986', null);
 INSERT INTO Usuarios (clase, nombre, apellidos, telefono, carta) VALUES ('CLIENTE', 'Ana', 'Gonzalez', '351789054', null);
 */
 
@@ -620,6 +655,7 @@ EXECUTE insertComandas(TO_DATE('2020/01/08','yyyy/mm/dd'), 24, 2);
 EXECUTE insertComandas(TO_DATE('2020/01/09','yyyy/mm/dd'), 25, 2);
 EXECUTE insertComandas(TO_DATE('2019/12/20','yyyy/mm/dd'), 26, 2);
 EXECUTE insertComandas(TO_DATE('2019/12/21','yyyy/mm/dd'), 27, 2);
+
 /* Mediante INSERTS: */
 /*
 INSERT INTO Comandas (fecha, importe, usuario) VALUES (TO_DATE('2020/01/11','yyyy/mm/dd'), 21, 2);
@@ -638,6 +674,12 @@ EXECUTE insertMesas(1, 6);
 EXECUTE insertMesas(1, 8);
 EXECUTE insertMesas(1, 10);
 EXECUTE insertMesas(1, 10);
+EXECUTE insertMesas(1, 10);
+EXECUTE insertMesas(1, 10);
+EXECUTE insertMesas(1, 4);
+EXECUTE insertMesas(1, 4);
+EXECUTE insertMesas(1, 4);
+
 /* Mediante INSERTS: */
 /*
 INSERT INTO Mesas (disponible, capacidad) VALUES (1, 4);
@@ -646,16 +688,21 @@ INSERT INTO Mesas (disponible, capacidad) VALUES (1, 6);
 INSERT INTO Mesas (disponible, capacidad) VALUES (1, 8);
 INSERT INTO Mesas (disponible, capacidad) VALUES (1, 10);
 INSERT INTO Mesas (disponible, capacidad) VALUES (1, 12);
+INSERT INTO Mesas (disponible, capacidad) VALUES (1, 8);
+INSERT INTO Mesas (disponible, capacidad) VALUES (1, 8);
 */
 
 /* Datos de Reservas */
 /* Mediante procedimientos: */
+/*
 EXECUTE insertReservas(TO_DATE('2020/01/11-13','yyyy/mm/dd-HH24'), 4, 1, 3);
 EXECUTE insertReservas(TO_DATE('2020/01/11-13','yyyy/mm/dd-HH24'), 4, 2, 4);
 EXECUTE insertReservas(TO_DATE('2020/01/08-20','yyyy/mm/dd-HH24'), 4, 3, 5);
 EXECUTE insertReservas(TO_DATE('2020/01/09-14','yyyy/mm/dd-HH24'), 6, 4, 3);
 EXECUTE insertReservas(TO_DATE('2020/02/16-15','yyyy/mm/dd-HH24'), 6, 5, 4);
 EXECUTE insertReservas(TO_DATE('2020/02/20-21','yyyy/mm/dd-HH24'), 8, 6, 5);
+*/
+
 /* Mediante INSERTS: */
 /*
 INSERT INTO Reservas (fecha, numPersonas, mesa, usuario) VALUES (TO_DATE('2020/01/11-13','yyyy/mm/dd-HH24'), 4, 1, 3);
@@ -681,10 +728,27 @@ SELECT count(idMesa) FROM Mesas;
 SELECT count(idReserva) FROM Reservas;
 
 /* Consultas asociadas a requisitos funcionales */
-/* RF1 - Listado de reservas dado un idUsuario */
-SELECT * FROM Reservas R, Usuarios U WHERE R.usuario = U.idUsuario;
 
-/* RF2 - Listado de comandas emitidas por cada maître */
+/* RF1 - Listado de reservas asociado a usuarios */
+/* En forma de cursor */
+CREATE OR REPLACE PROCEDURE cursorRF1 IS
+BEGIN
+    DECLARE
+        CURSOR cUno IS
+        SELECT * FROM Reservas R, Usuarios U WHERE R.usuario = U.idUsuario; 
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE('Listado de reservas asociado a usuarios:'); 
+            FOR fila IN cUno LOOP
+                DBMS_OUTPUT.PUT_LINE('Id:'||fila.idReserva||' '||'Fecha:'||fila.fecha||' '||'NumPersonas:'||fila.numPersonas||' '||'Mesa:'||fila.mesa||' '||'Usuario:'||fila.nombre||','||fila.clase) ; 
+            END LOOP;
+    END;
+END cursorRF1;
+/
+
+/* Prueba de RF1 */
+EXECUTE cursorRF1;
+
+/* RF2 - Listado de comandas emitidas por cada maÃ®tre */
 SELECT * FROM Comandas C, Usuarios U WHERE C.usuario = U.idUsuario ORDER BY importe DESC;
 
 /* RF3 - Listado de alergenos asociados a productos */
@@ -699,7 +763,8 @@ SELECT SUM(importe) FROM Comandas WHERE TO_CHAR(fecha, 'yyyy/mm') = TO_CHAR(SYSD
 -------- CURSORES --------
 SET SERVEROUTPUT ON
 
--- Las tres reservas más antiguas
+/* RF6 - Listado de reservas por antigÃ¼edad */
+-- Las tres reservas mÃ¡s antiguas
 CREATE OR REPLACE PROCEDURE cursorUno IS
 BEGIN
     DECLARE
@@ -715,14 +780,15 @@ BEGIN
 END cursorUno;
 /
 
--- Los tres primeros productos por orden alfabético
+/* RF7 - Listado de productos ordenados alfabÃ©ticamente */
+-- Los tres primeros productos por orden alfabÃ©tico
 CREATE OR REPLACE PROCEDURE cursorDos IS
 BEGIN
     DECLARE
         CURSOR cDos IS
         SELECT idProducto, nombre FROM Productos ORDER BY nombre; 
     BEGIN
-        DBMS_OUTPUT.PUT_LINE('Los tres primeros productos por orden alfabético'); 
+        DBMS_OUTPUT.PUT_LINE('Los tres primeros productos por orden alfabÃ©tico'); 
             FOR fila IN cDos LOOP
                 EXIT WHEN cDos%ROWCOUNT >3;
                 DBMS_OUTPUT.PUT_LINE(fila.idProducto||' '||fila.nombre) ; 
@@ -731,6 +797,7 @@ BEGIN
 END cursorDos;
 /
 
+/* RF8 - Listado de comandas por fecha */
 -- Las tres comandas mas recientes
 CREATE OR REPLACE PROCEDURE cursorTres IS
 BEGIN
@@ -755,6 +822,7 @@ EXECUTE cursorDos;
 EXECUTE cursorTres;
 
 -------- FUNCIONES --------
+/* RF9 - Detalles de usuario con id */
 /* Pasas una id de usuario y devuelve el nombre del usuario */
 CREATE OR REPLACE FUNCTION obtenerNombreConId (idu Usuarios.idUsuario%TYPE)
 RETURN VARCHAR2 IS nombreU Usuarios.nombre%TYPE;
@@ -764,6 +832,7 @@ RETURN (nombreU);
 END obtenerNombreConId;
 /
 
+/* RF10 - Comandas por fecha */
 /* Pasas una fecha y devuelve la suma de todas las comandas para esa fecha */
 CREATE OR REPLACE FUNCTION obtenerComandasPorFecha (fechaIntroducida IN Comandas.fecha%TYPE)
 RETURN FLOAT IS 
@@ -774,7 +843,8 @@ RETURN (total);
 END obtenerComandasPorFecha;
 /
 
-/* Pasas el id de una mesa y devuelve la capacidad máxima de dicha mesa  */
+/* RF11 - Capacidad de las mesas por id */
+/* Pasas el id de una mesa y devuelve la capacidad mÃ¡xima de dicha mesa  */
 CREATE OR REPLACE FUNCTION obtenerCapacidadConId (idm Mesas.idMesa%TYPE)
 RETURN VARCHAR2 IS capacidadM Mesas.capacidad%TYPE;
 BEGIN
@@ -783,7 +853,8 @@ RETURN (capacidadM);
 END obtenerCapacidadConId;
 /
 
-/* Pasas un nombre de un alérgeno y devuelve su descripción asociada */
+/* RF12 - DescripciÃ³n de alergenos por nombre */
+/* Pasas un nombre de un alÃ©rgeno y devuelve su descripciÃ³n asociada */
 CREATE OR REPLACE FUNCTION obtenerDescripcionConNombre (nombreA Alergenos.nombre%TYPE)
 RETURN VARCHAR2 IS descripcionA Alergenos.descripcion%TYPE;
 BEGIN
@@ -1248,7 +1319,7 @@ PACKAGE BODY PRUEBAS_PRODUCTOS AS
             
     END actualizar;
 
-    /* Eliminación */
+    /* EliminaciÃ³n */
     PROCEDURE eliminar (nombre_prueba VARCHAR2, idProductoP SMALLINT, salidaEsperada BOOLEAN) AS
         salida BOOLEAN := TRUE;
         numeroProducto INTEGER;
@@ -1276,6 +1347,8 @@ END PRUEBAS_PRODUCTOS;
 
 /* Prueba del paquete Productos */
 /* SET SERVEROUTPUT DEBE ESTAR EN ON */
+ALTER TRIGGER TR_producto_disponible DISABLE;
+/* ATENCIÃ“N: DESACTIVAR TRIGGER PRODUCTO_DISPONIBLE PARA EJECUTAR LA PRUEBA */
 DECLARE 
     idProducto SMALLINT;
 BEGIN
@@ -1286,30 +1359,351 @@ BEGIN
     PRUEBAS_PRODUCTOS.eliminar('PRUEBA 3 - Eliminacion', idProducto, TRUE);
 END;
 
+/* Paquete de la tabla Comandas */
+/* Cabecera */
+CREATE OR REPLACE 
+PACKAGE PRUEBAS_COMANDAS AS
+
+    PROCEDURE inicializar;
+    PROCEDURE insertar
+    (nombre_prueba VARCHAR2, fechaP DATE, importeP FLOAT, usuarioP SMALLINT, salidaEsperada BOOLEAN);
+    PROCEDURE actualizar
+    (nombre_prueba VARCHAR2, idComandaP SMALLINT, fechaP DATE, importeP FLOAT, usuarioP SMALLINT, salidaEsperada BOOLEAN);
+    PROCEDURE eliminar
+    (nombre_prueba VARCHAR2, idComandaP SMALLINT, salidaEsperada BOOLEAN);
+    
+END PRUEBAS_COMANDAS;
+/
+
+/* Body */
+CREATE OR REPLACE 
+PACKAGE BODY PRUEBAS_COMANDAS AS
+
+    /* Inicializacion */
+    PROCEDURE inicializar AS
+    BEGIN
+        DELETE FROM Comandas;
+    END inicializar;
+    
+    /* Insercion */
+    PROCEDURE insertar (nombre_prueba VARCHAR2, fechaP DATE, importeP FLOAT, usuarioP SMALLINT, salidaEsperada BOOLEAN) AS
+        salida BOOLEAN := TRUE;
+        comanda Comandas%ROWTYPE;
+        idComandaP SMALLINT;
+    BEGIN
+        /* Insertar comanda */
+        INSERT INTO Comandas (fecha, importe, usuario)
+        VALUES (fechaP, importeP, usuarioP);
+        
+        /* Seleccionar comanda y comprobar que los datos se insertaron correctamente */
+        idComandaP := sec_comandas.CURRVAL;
+        SELECT * INTO comanda FROM Comandas WHERE idComanda = idComandaP;
+        IF (comanda.fecha <> fechaP AND comanda.importe <> importeP AND comanda.usuario <> usuarioP) THEN
+            salida := FALSE;
+        END IF;
+        COMMIT WORK;
+        
+        /* Mostrar resultados de la prueba */
+        DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(salida, salidaEsperada));
+        EXCEPTION
+        WHEN OTHERS THEN 
+            DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(FALSE, salidaEsperada));
+            ROLLBACK;
+
+    END insertar;
+        
+    /* Actualizacion */
+    PROCEDURE actualizar (nombre_prueba VARCHAR2,idComandaP SMALLINT, fechaP DATE, importeP FLOAT, usuarioP SMALLINT, salidaEsperada BOOLEAN) AS
+        salida BOOLEAN := TRUE;
+        comanda Comandas%ROWTYPE;
+    BEGIN
+        /* Actualizar comanda */
+        UPDATE Comandas SET fecha = fechaP, importe = importeP, usuario = usuarioP WHERE idComanda = idComandaP;
+        
+        /* Seleccionar comanda y comprobar que los datos se actualizaron correctamente */
+        SELECT * INTO comanda FROM Comandas WHERE idComanda = idComandaP;
+        IF (comanda.fecha <> fechaP AND comanda.importe <> importeP AND comanda.usuario <> usuarioP) THEN
+            salida := FALSE;
+        END IF;
+        COMMIT WORK;
+        
+        /* Mostrar resultados de la prueba */
+        DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(salida, salidaEsperada));
+        EXCEPTION
+        WHEN OTHERS THEN 
+            DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(FALSE, salidaEsperada));
+            ROLLBACK;
+            
+    END actualizar;
+
+    /* EliminaciÃ³n */
+    PROCEDURE eliminar (nombre_prueba VARCHAR2, idComandaP SMALLINT, salidaEsperada BOOLEAN) AS
+        salida BOOLEAN := TRUE;
+        numeroComanda INTEGER;
+    BEGIN 
+        /* Eliminar comanda */
+        DELETE FROM Comandas WHERE idComanda = idComandaP;
+        
+        /* Verificar que comanda no se encuentra en la base de datos */
+        SELECT COUNT(*) INTO numeroComanda FROM Comandas WHERE idComanda = idComandaP;
+        IF (numeroComanda <> 0) THEN
+            salida := FALSE;
+        END IF;
+        COMMIT WORK;
+        
+        /* Mostrar resultados de la prueba */
+        DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(salida, salidaEsperada));
+        EXCEPTION
+        WHEN OTHERS THEN 
+            DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(FALSE, salidaEsperada));
+            ROLLBACK;
+            
+    END eliminar;
+    
+END PRUEBAS_COMANDAS;
+
+/* Prueba del paquete Comandas */
+/* SET SERVEROUTPUT DEBE ESTAR EN ON */
+DECLARE 
+    idComanda SMALLINT;
 BEGIN
-    PRUEBAS_PRODUCTOS.inicializar;
+    PRUEBAS_COMANDAS.inicializar;
+    PRUEBAS_COMANDAS.insertar('PRUEBA 1 - Insercion', TO_DATE('2020/05/13', 'yyyy/mm/dd'), 15, 2, TRUE);
+    idComanda := sec_comandas.CURRVAL;
+    PRUEBAS_COMANDAS.actualizar('PRUEBA 2 - Actualizacion', idComanda, TO_DATE('2020/05/13', 'yyyy/mm/dd'), 20, 2, TRUE);
+    PRUEBAS_COMANDAS.eliminar('PRUEBA 3 - Eliminacion', idComanda, TRUE);
 END;
 
-/* Consultas asociadas al proyecto de IISSI2 */
-/* NO para ejecutar en Oracle SQL Developer */
+/* Paquete de la tabla MenÃºs */
+/* Cabecera */
+CREATE OR REPLACE 
+PACKAGE PRUEBAS_MENUS AS
 
+    PROCEDURE inicializar;
+    PROCEDURE insertar
+    (nombre_prueba VARCHAR2, precioP FLOAT, cartaP SMALLINT, salidaEsperada BOOLEAN);
+    PROCEDURE actualizar
+    (nombre_prueba VARCHAR2, idMenuP SMALLINT, precioP FLOAT, cartaP SMALLINT,salidaEsperada BOOLEAN);
+    PROCEDURE eliminar
+    (nombre_prueba VARCHAR2, idMenuP SMALLINT, salidaEsperada BOOLEAN);
+    
+END PRUEBAS_MENUS;
+/
+
+/* Body */
+CREATE OR REPLACE 
+PACKAGE BODY PRUEBAS_MENUS AS
+
+    /* Inicializacion */
+    PROCEDURE inicializar AS
+    BEGIN
+        DELETE FROM Menus;
+    END inicializar;
+    
+    /* Insercion */
+    PROCEDURE insertar (nombre_prueba VARCHAR2, precioP FLOAT, cartaP SMALLINT, salidaEsperada BOOLEAN) AS
+        salida BOOLEAN := TRUE;
+        menu Menus%ROWTYPE;
+        idMenuP SMALLINT;
+    BEGIN
+        /* Insertar menu */
+        INSERT INTO Menus (precio, carta) VALUES (precioP, cartaP);
+        
+        /* Seleccionar menu y comprobar que los datos se insertaron correctamente */
+        idMenuP := sec_menus.CURRVAL;
+        SELECT * INTO menu FROM Menus WHERE idMenu = idMenuP;
+        IF (menu.precio <> precioP AND menu.carta <> cartaP) THEN
+            salida := FALSE;
+        END IF;
+        COMMIT WORK;
+        
+        /* Mostrar resultados de la prueba */
+        DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(salida, salidaEsperada));
+        EXCEPTION
+        WHEN OTHERS THEN 
+            DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(FALSE, salidaEsperada));
+            ROLLBACK;
+
+    END insertar;
+        
+    /* Actualizacion */
+    PROCEDURE actualizar (nombre_prueba VARCHAR2, idMenuP SMALLINT, precioP FLOAT, cartaP SMALLINT,salidaEsperada BOOLEAN) AS
+        salida BOOLEAN := TRUE;
+        menu Menus%ROWTYPE;
+    BEGIN
+        /* Actualizar menu */
+        UPDATE Menus SET precio = precioP, carta = cartaP WHERE idMenu = idMenuP;
+        
+        /* Seleccionar menu y comprobar que los datos se actualizaron correctamente */
+        SELECT * INTO menu FROM Menus WHERE idMenu = idMenuP;
+        IF (menu.precio <> precioP AND menu.carta <> cartaP) THEN
+            salida := FALSE;
+        END IF;
+        COMMIT WORK;
+        
+        /* Mostrar resultados de la prueba */
+        DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(salida, salidaEsperada));
+        EXCEPTION
+        WHEN OTHERS THEN 
+            DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(FALSE, salidaEsperada));
+            ROLLBACK;
+            
+    END actualizar;
+
+    /* EliminaciÃ³n */
+    PROCEDURE eliminar (nombre_prueba VARCHAR2, idMenuP SMALLINT, salidaEsperada BOOLEAN) AS
+        salida BOOLEAN := TRUE;
+        numeroMenu INTEGER;
+    BEGIN 
+        /* Eliminar menu */
+        DELETE FROM Menus WHERE idMenu = idMenuP;
+        
+        /* Verificar que menu no se encuentra en la base de datos */
+        SELECT COUNT(*) INTO numeroMenu FROM Menus WHERE idMenu = idMenuP;
+        IF (numeroMenu <> 0) THEN
+            salida := FALSE;
+        END IF;
+        COMMIT WORK;
+        
+        /* Mostrar resultados de la prueba */
+        DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(salida, salidaEsperada));
+        EXCEPTION
+        WHEN OTHERS THEN 
+            DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(FALSE, salidaEsperada));
+            ROLLBACK;
+            
+    END eliminar;
+    
+END PRUEBAS_MENUS;
+
+/* Prueba del paquete Menus */
+/* SET SERVEROUTPUT DEBE ESTAR EN ON */
+DECLARE 
+    idMenu SMALLINT;
+BEGIN
+    PRUEBAS_MENUS.inicializar;
+    PRUEBAS_MENUS.insertar('PRUEBA 1 - Insercion', 20, null, TRUE);
+    idMenu := sec_menus.CURRVAL;
+    PRUEBAS_MENUS.actualizar('PRUEBA 2 - Actualizacion', idMenu, 15, null, TRUE);
+    PRUEBAS_MENUS.eliminar('PRUEBA 3 - Eliminacion', idMenu, TRUE);
+END;
+
+/* Paquete de la tabla ProductoCarta */
+/* Cabecera */
+CREATE OR REPLACE 
+PACKAGE PRUEBAS_PRODUCTO_CARTA AS
+
+    PROCEDURE inicializar;
+    PROCEDURE insertar
+    (nombre_prueba VARCHAR2, idCartaP SMALLINT, idProductoP SMALLINT, salidaEsperada BOOLEAN);
+    PROCEDURE actualizar
+    (nombre_prueba VARCHAR2, idProductoCartaP SMALLINT, idCartaP SMALLINT, idProductoP SMALLINT,salidaEsperada BOOLEAN);
+    PROCEDURE eliminar
+    (nombre_prueba VARCHAR2, idProductoCartaP SMALLINT, salidaEsperada BOOLEAN);
+    
+END PRUEBAS_PRODUCTO_CARTA;
+/
+
+/* Body */
+CREATE OR REPLACE 
+PACKAGE BODY PRUEBAS_PRODUCTO_CARTA AS
+
+    /* Inicializacion */
+    PROCEDURE inicializar AS
+    BEGIN
+        DELETE FROM ProductoCarta;
+    END inicializar;
+    
+    /* Insercion */
+    PROCEDURE insertar (nombre_prueba VARCHAR2, idCartaP SMALLINT, idProductoP SMALLINT, salidaEsperada BOOLEAN) AS
+        salida BOOLEAN := TRUE;
+        producto_carta ProductoCarta%ROWTYPE;
+        idProductoCartaP SMALLINT;
+    BEGIN
+        /* Insertar productoCarta */
+        INSERT INTO ProductoCarta (idCarta, idProducto) VALUES (idCartaP, idProductoP);
+        
+        /* Seleccionar productoCarta y comprobar que los datos se insertaron correctamente */
+        idProductoCartaP := sec_producto_carta.CURRVAL;
+        SELECT * INTO producto_carta FROM ProductoCarta WHERE idProductoCarta = idProductoCartaP;
+        IF (producto_carta.idCarta <> idCartaP AND producto_carta.idProducto <> idProductoP) THEN
+            salida := FALSE;
+        END IF;
+        COMMIT WORK;
+        
+        /* Mostrar resultados de la prueba */
+        DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(salida, salidaEsperada));
+        EXCEPTION
+        WHEN OTHERS THEN 
+            DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(FALSE, salidaEsperada));
+            ROLLBACK;
+
+    END insertar;
+        
+    /* Actualizacion */
+    PROCEDURE actualizar (nombre_prueba VARCHAR2, idProductoCartaP SMALLINT, idCartaP SMALLINT, idProductoP SMALLINT,salidaEsperada BOOLEAN) AS
+        salida BOOLEAN := TRUE;
+        producto_carta ProductoCarta%ROWTYPE;
+    BEGIN
+        /* Actualizar productoCarta */
+        UPDATE ProductoCarta SET idCarta = idCartaP, idProducto = idProductoP WHERE idProductoCarta = idProductoCartaP;
+        
+        /* Seleccionar productoCarta y comprobar que los datos se actualizaron correctamente */
+        SELECT * INTO producto_carta FROM ProductoCarta WHERE idProductoCarta = idProductoCartaP;
+        IF (producto_carta.idCarta <> idCartaP AND producto_carta.idProducto <> idProductoP) THEN
+            salida := FALSE;
+        END IF;
+        COMMIT WORK;
+        
+        /* Mostrar resultados de la prueba */
+        DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(salida, salidaEsperada));
+        EXCEPTION
+        WHEN OTHERS THEN 
+            DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(FALSE, salidaEsperada));
+            ROLLBACK;
+            
+    END actualizar;
+
+    /* EliminaciÃ³n */
+    PROCEDURE eliminar (nombre_prueba VARCHAR2, idProductoCartaP SMALLINT, salidaEsperada BOOLEAN) AS
+        salida BOOLEAN := TRUE;
+        numeroProductoCarta INTEGER;
+    BEGIN 
+        /* Eliminar productoCarta */
+        DELETE FROM ProductoCarta WHERE idProductoCarta = idProductoCartaP;
+        
+        /* Verificar que productoCarta no se encuentra en la base de datos */
+        SELECT COUNT(*) INTO numeroProductoCarta FROM ProductoCarta WHERE idProductoCarta = idProductoCartaP;
+        IF (numeroProductoCarta <> 0) THEN
+            salida := FALSE;
+        END IF;
+        COMMIT WORK;
+        
+        /* Mostrar resultados de la prueba */
+        DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(salida, salidaEsperada));
+        EXCEPTION
+        WHEN OTHERS THEN 
+            DBMS_OUTPUT.PUT_LINE(nombre_prueba || ':' || ASSERT_EQUALS(FALSE, salidaEsperada));
+            ROLLBACK;
+            
+    END eliminar;
+    
+END PRUEBAS_PRODUCTO_CARTA;
+
+/* Prueba del paquete ProductoCarta */
+/* SET SERVEROUTPUT DEBE ESTAR EN ON */
+DECLARE 
+    idProductoCarta SMALLINT;
+BEGIN
+    PRUEBAS_PRODUCTO_CARTA.inicializar;
+    PRUEBAS_PRODUCTO_CARTA.insertar('PRUEBA 1 - Insercion', null, null, TRUE);
+    idProductoCarta := sec_producto_carta.CURRVAL;
+    PRUEBAS_PRODUCTO_CARTA.actualizar('PRUEBA 2 - Actualizacion', idProductoCarta, null, null, TRUE);
+    PRUEBAS_PRODUCTO_CARTA.eliminar('PRUEBA 3 - Eliminacion', idProductoCarta, TRUE);
+END;
+
+
+
+/* Pruebas de IISSI 2*/
 SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad >= 5) AND ROWNUM = 1 ORDER BY capacidad;
-/* Consulta para saber la mesa de la reseva*/
-SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad >= 4) AND ROWNUM =1 ORDER BY capacidad;
 
-/* Consulta para saber el usuario del gerente*/
-SELECT usuario FROM Usuarios WHERE (clase = 'GERENTE');
-
-/* Consulta para saber el pass del gerente*/
-SELECT pass FROM Usuarios WHERE (clase = 'GERENTE');
-
-/*Consulta para los productos de carta*/
-/*Esto es para los platos normales*/
-SELECT nombre, precioProducto FROM Productos WHERE (tipoProducto != 'POSTRE' AND tipoProducto != 'BEBIDA');
-/*Esto es para los postres*/
-SELECT nombre, precioProducto FROM Productos WHERE (tipoProducto = 'POSTRE');
-/*Esto es para las bebidas*/
-SELECT nombre, precioProducto FROM Productos WHERE (tipoProducto = 'BEBIDA');
-
-
-SELECT nombre, precioProducto FROM Productos WHERE (disponibilidad = 1 AND ROWNUM <= 4 AND ROWNUM >= 2);
