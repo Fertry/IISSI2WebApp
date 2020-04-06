@@ -505,10 +505,21 @@ INSERT INTO Cartas (temporada) VALUES (TO_DATE('2020/01/01','yyyy/mm/dd'));
 
 /* Datos de Productos */
 /* Mediante procedimientos: */
-EXECUTE insertProductos('Macarrones', 'Macarrones con tomate', 'PASTA', 1, 9);
-EXECUTE insertProductos('Pechuga de Pollo', 'Pechuga de pollo a la carbonara', 'CARNE', 1, 5);
+EXECUTE insertProductos('Macarrones', 'Macarrones con tomate', 'PRIMERPLATO', 1, 9);
+EXECUTE insertProductos('Pechuga de Pollo', 'Pechuga de pollo a la carbonara', 'SEGUNDOPLATO', 1, 5);
 EXECUTE insertProductos('Mousse de Chocolate', 'Mousse de Chocolate', 'POSTRE', 1, 4);
 EXECUTE insertProductos('Estrella Galicia', 'Cerveza', 'BEBIDA', 1, 1);
+EXECUTE insertProductos('Filete secreto', 'Filete de secreto', 'PRIMERPLATO', 1, 8);
+EXECUTE insertProductos('Flan', 'Flan de huevo', 'POSTRE', 1, 1);
+EXECUTE insertProductos('Coca-Cola', 'Coca-Cola', 'BEBIDA', 1, 1);
+EXECUTE insertProductos('Agua', 'Agua mineral', 'BEBIDA', 1, 1);
+EXECUTE insertProductos('Ensalada césar', 'Ensalada mixta', 'SEGUNDOPLATO', 1, 4);
+EXECUTE insertProductos('Merluza', 'Pescado raro', 'PRIMERPLATO', 1, 6);
+EXECUTE insertProductos('Brocheta verdura', 'Verdura a la plancha', 'SEGUNDOPLATO', 1, 3);
+EXECUTE insertProductos('Nestea', 'Bebida azucarada', 'BEBIDA', 0, 1);
+EXECUTE insertProductos('Filete ternera', 'Carne ternera', 'PRIMERPLATO', 1, 6);
+EXECUTE insertProductos('Salmón', 'Pescado', 'PRIMERPLATO', 1, 4);
+EXECUTE insertProductos('Sopa verduras', 'Sopa', 'SEGUNDOPLATO', 1, 4);
 
 /* Mediante INSERTS: */
 /*
@@ -516,6 +527,7 @@ INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precio
 INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES ('Pechuga de pollo', 'Pechuga de pollo a la carbonara', 'SEGUNDOPLATO', 1, 5);
 INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES ('Mousse de Chocolate', 'Mousse de chocolate', POSTRE, 1, 4);
 INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES ('Estrella Galicia', 'Cerveza', 'BEBIDA', 1, 1);
+Se han añadido más productos para IISSI2
 */
 
 /* Datos de ProductoCarta */
@@ -1279,4 +1291,25 @@ BEGIN
 END;
 
 /* Consultas asociadas al proyecto de IISSI2 */
-SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad >= 5) ORDER BY capacidad;
+/* NO para ejecutar en Oracle SQL Developer */
+
+SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad >= 5) AND ROWNUM = 1 ORDER BY capacidad;
+/* Consulta para saber la mesa de la reseva*/
+SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad >= 4) AND ROWNUM =1 ORDER BY capacidad;
+
+/* Consulta para saber el usuario del gerente*/
+SELECT usuario FROM Usuarios WHERE (clase = 'GERENTE');
+
+/* Consulta para saber el pass del gerente*/
+SELECT pass FROM Usuarios WHERE (clase = 'GERENTE');
+
+/*Consulta para los productos de carta*/
+/*Esto es para los platos normales*/
+SELECT nombre, precioProducto FROM Productos WHERE (tipoProducto != 'POSTRE' AND tipoProducto != 'BEBIDA');
+/*Esto es para los postres*/
+SELECT nombre, precioProducto FROM Productos WHERE (tipoProducto = 'POSTRE');
+/*Esto es para las bebidas*/
+SELECT nombre, precioProducto FROM Productos WHERE (tipoProducto = 'BEBIDA');
+
+
+SELECT nombre, precioProducto FROM Productos WHERE (disponibilidad = 1 AND ROWNUM <= 4 AND ROWNUM >= 2);

@@ -56,11 +56,6 @@
 
 <body>
 
-    <script>
-    // Validación de datos en cliente mediante JS:
-
-    </script>
-
     <?php 
 
         include_once("header_reservas.php");
