@@ -1,6 +1,6 @@
 // Validación datos para formulario de reservas:
 
-function validateTelefono() {
+function validatePhone() {
 
     // Obtenemos el teléfono:
     var telefono = document.getElementById("telefono");

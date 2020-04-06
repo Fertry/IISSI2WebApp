@@ -42,29 +42,6 @@
 
 	/*TO-DO*/
 
- /* Paginación */
-.paginacion a {
-
-	color: black;
-	float: left;
-	padding: 8px 16px;
-	text-decoration: none;
-	transition: background-color .3s;
-
-}
-  
-.paginacion a.activo {
-
-	background-color: dodgerblue;
-	color: white;
-
-}
-  
-.paginacion a:hover:not(.activo) {
-	  
-	background-color: #ddd;
-
-}
 
 /* Calendario */
 .mifecha2 {
