@@ -2,17 +2,25 @@
 
     session_start();
 
-    // Comprobar que hemos llegado a esta página porque se ha rellenado y validado el formulario:
-	if (!isset($_SESSION["formulario"])) {
+    // Llamamos a gestionBD.php
+    require_once("gestionBD.php");
+
+    // Comprobar que hemos llegado a esta página porque se ha rellenado el formulario y se ha validado:
+	if (isset($_SESSION["formulario"])) {
+
+        // Los datos que mostraremos en esta página:
+        $nuevaReserva = $_SESSION["formulario"];
+        
+        // Vaciamos la sesión:
+		$_SESSION["formulario"] = null;
+        $_SESSION["errores"] = null;
+        
+	} else  {
 
         Header("Location: reservas.php");	
 
-    } else {
-
-        $formulario = $_SESSION["formulario"];
-
     }
-
+		
 ?>
 
 <!DOCTYPE html>
@@ -61,38 +69,33 @@
                     <fieldset>
 
                         <legend>Sus datos:</legend>
-                        <?php
 
-                            echo "<ul>";
-                            echo "<li>Nombre: $formulario["nombre"]";
-                            echo "<li>Apellidos: $formulario["apellidos"]";
-                            echo "<li>Edad: $formulario["edad"]";
-                            echo "<li>Teléfono: $formulario["telefono"]";
-                            echo "</ul>";
+                            <ul>
 
-                        ?>
+                                <li>Nombre: <?php echo $nuevaReserva["nombre"] ?></li>
+                                <li>Apellidos: <?php echo $nuevaReserva["apellidos"] ?></li>
+                                <li>Edad: <?php echo $nuevaReserva["edad"] ?></li>
+                                <li>Teléfono: <?php echo $nuevaReserva["telefono"] ?></li>
 
+                            </ul>
 
                     </fieldset>
 
                     <fieldset>
 
                         <legend>Su reserva:</legend>
-                        <?php
 
-                            echo "<ul>";
-                            echo "<li>Nº de personas: $formulario["numeroPersonas"]";
-                            echo "<li>Fecha: $formulario["fecha"]";;
-                            echo "</ul>";
+                            <ul>
 
-                        ?>
+                                <li>Nº de personas: <?php echo $nuevaReserva["numeroPersonas"] ?></li>
+                                <li>Fecha: <?php echo $nuevaReserva["fecha"] ?></li>
+
+                            </ul>
 
                     </fieldset>
 
 
                 </form>
-
-            ?>
 
         </div>
 

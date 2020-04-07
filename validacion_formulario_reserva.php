@@ -5,7 +5,7 @@
     
     // Llamamos a gestionBD.php
     require_once("gestionBD.php");
-    
+
 	// Comprobar que hemos llegado a esta página porque se ha rellenado el formulario:
 	if (isset($_SESSION["formulario"])) {
 
@@ -16,6 +16,7 @@
         $reserva["numeroPersonas"] = $_REQUEST["numeroPersonas"];
         $reserva["fecha"] = $_REQUEST["fecha"];
         
+        // Guardar la variable local con los datos del formulario en la sesión:
         $_SESSION["formulario"] = $reserva;
 
     } else {
@@ -27,11 +28,17 @@
     // Abrimos una conexion con la base de datos:
     $conexion = abrirConexionBD();
 
-    // Recoger los errores mediante PHP:
+    // Validar el formulario:
     $errores = validarDatos($reserva);
 
     // Obtener el ID de la mesa que esté disponible:
     $idMesa = disponibilidadMesasYReservas($conexion, $reserva);
+
+    // Guardamos la reserva en BD:
+    guardarReserva($idMesa, $conexion, $reserva);
+
+    // Cerrar la conexión:
+    cerrarConexionBD($conexion);
 
     // Si se encuentran errores se redirige a reservas.php, de lo contrario se pasa a confirmacion_reserva.php:
     if (count($errores) > 0) {
@@ -41,14 +48,10 @@
 
     } else {
 
-        guardarReserva($idMesa, $conexion, $reserva);
         Header("Location: confirmacion_reserva.php");
-        
+
     }
-
-    // Cerrar la conexión:
-    cerrarConexionBD($conexion);
-
+           
     ////////////////////////////////////////////////////
     // Validación en servidor del formulario de reserva
     ////////////////////////////////////////////////////
@@ -120,11 +123,14 @@
         }
 
         // Validación de la fecha:
+        $date = new DateTime($nuevoUsuario["fechaNAC"]);
+        $now = new DateTime();
+
         if ($reserva["fecha"] == "") {
 
             $errores[] = "<p>La fecha no puede estar vacía</p>";
 
-        } else if ($reserva["fecha"] < $now) {
+        } else if ($date < $now) {
 
             $errores[] = "<p>La fecha no debe ser posterior a hoy</p>";
 
@@ -158,8 +164,6 @@
             $errores[] = "<p>Lo sentimos, no hay mesas disponibles para el nº de personas solicitado</p>";
             // echo "Error: " . $e -> GetMessage();
 
-            return $errores;
-
         }
 
     }
@@ -167,33 +171,30 @@
     // Función que guarde la reserva (inserte en la BD) en la tabla de Reservas:
     function guardarReserva($idMesa, $conexion, $reserva) {
 
-        $fechaFormateada = date("yyyy/mm/dd", strtotime($reserva["fecha"]));
-        $nombre = $reserva["nombre"];
-        $apellidos = $reserva["apellidos"];
-        $numero = $reserva["numeroPersonas"];
         global $errores;
+        $fecha = date('yyyy/mm/dd', strtotime($reserva["fecha"]));
+        //$fecha = $reservas["fecha"];
 
         try {
 
-            //$insert = "CALL insertReservas(:fecha, :numeroPersonas, :mesa, null, :nombre, :apellidos)";
-            //$stmt = $conexion -> exec("INSERT INTO Reservas(fecha, numPersonas, mesa, usuario, nombre, apellidos) VALUES ($fechaFormateada, $reserva["numeroPersonas"], $idMesa, null, $reserva["nombre"], $reserva["apellidos"])");
-            $stmt = $conexion -> exec("INSERT INTO Reservas(fecha, numPersonas, mesa, usuario, nombre, apellidos) VALUES (TO_DATE('2020/04/11','yyyy/mm/dd'), 3, $idMesa, null, $nombre, $apellidos)");
+            $consulta = "CALL insertReservas(TO_DATE(:fecha, 'yyyy/mm/dd'), :numeroPersonas, :mesa, null, :nombre, :apellidos)";
+            $stmt = $conexion -> prepare($consulta);
 
-            //$stmt -> bindParam(":fecha", $reserva["fecha"]);
-            //$stmt -> bindParam(":numeroPersonas", $reserva["numeroPersonas"]);
-            //$stmt -> bindParam(":mesa", $idMesa);
-            //$stmt -> bindParam(":nombre", $reserva["nombre"]);
-            //$stmt -> bindParam(":apellidos", $reserva["apellidos"]);
+            $stmt -> bindParam(':fecha', $fecha);
+            $stmt -> bindParam(':numeroPersonas', $reserva["numeroPersonas"]);
+            $stmt -> bindParam(':mesa', $idMesa);
+            $stmt -> bindParam(':nombre', $reserva["nombre"]);
+            $stmt -> bindParam(':apellidos', $reserva["apellidos"]);
+
+            $stmt -> execute();
 
         } catch(PDOException $e) {
 
-            $errores[] = "<p>Ha ocurrido un fallo al guardar su reserva</p>";
+            $errores[] = "<p>Lo sentimos, se ha producido un fallo al guardar la reserva</p>";
             // echo "Error: " . $e -> GetMessage();
-
-            return $errores;
-
+            
         }
 
     }
-    
+
 ?>
