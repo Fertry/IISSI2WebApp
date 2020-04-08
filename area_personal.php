@@ -1,6 +1,10 @@
 <?php
 
+    // Iniciamos la sesión:
     session_start();
+
+    // Llamamos a gestionBD.php
+    require_once("gestionBD.php");
 
     // Comprobar que hemos llegado a esta página porque se ha rellenado y validado el formulario:
 	if (!isset($_SESSION["user"])) {
@@ -8,6 +12,14 @@
         Header("Location: personal.php");	
 
     } 
+                
+    // Abrir la conexión:
+    $conexion = abrirConexionBD();
+
+    // Consulta BD:
+
+    // Cerrar la conexión:
+    cerrarConexionBD($conexion);
 
 ?>
 
@@ -51,14 +63,7 @@
 
         <!-- Detalles de facturación y últimas reservas -->
         <?php
-            
-            // Abrir la conexión:
 
-            // Consulta BD:
-
-            // Mostrar los datos:
-
-            // Cerrar la conexión:
 
         ?>
 
