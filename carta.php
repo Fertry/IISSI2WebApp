@@ -1,5 +1,6 @@
 <?php
-
+    
+    // Iniciamos la sesión:
     session_start();
 
     // Llamamos a gestionBD.php y a paginacion_consulta.php
