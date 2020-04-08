@@ -123,7 +123,7 @@
         }
 
         // Validación de la fecha:
-        $date = new DateTime($nuevoUsuario["fechaNAC"]);
+        $date = new DateTime($reserva["fecha"]);
         $now = new DateTime();
 
         if ($reserva["fecha"] == "") {
@@ -132,7 +132,7 @@
 
         } else if ($date < $now) {
 
-            $errores[] = "<p>La fecha no debe ser posterior a hoy</p>";
+            $errores[] = "<p>La fecha no puede ser anterior a hoy</p>";
 
         }
 
