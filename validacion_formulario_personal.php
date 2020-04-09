@@ -30,11 +30,11 @@
     // Obtener la contraseña:
     $pass = obtenerPassword($conexion);
 
+    // Validar el formulario:
+    $erroresLogin = validarDatosLogin($acceso, $nombreUsuario, $pass);
+
     // Cerrar la conexión:
     cerrarConexionBD($conexion);
-
-    // Validar el formulario:
-    $erroresLogin = validarDatosLogin($acceso);
 
     // Si se encuentran errores se redirige a personal.php, de lo contrario se pasa a area_personal.php:
     if (count($erroresLogin) > 0) {
@@ -51,7 +51,7 @@
     //////////////////////////////////////////////////
     // Validación en servidor del formulario de login
     //////////////////////////////////////////////////
-    function validarDatosLogin($acceso) {
+    function validarDatosLogin($acceso, $nombreUsuario, $pass) {
 
         $erroresLogin = array();
 
@@ -63,16 +63,16 @@
         }
 
         // Validación del nombre de usuario:
-        if (!preg_match("/[a-zA-Z]/", $acceso["usuario"]) || !preg_match("/[0-9]/", $acceso["usuario"])) {
+        if (!preg_match("/[a-zA-Z]/", $acceso["usuario"])) {
 
-            $erroresLogin[] = "<p> Los datos introducidos no son válidos</p>";
+            $erroresLogin[] = "<p>Los datos introducidos no son válidos</p>";
 
         }
 
         // Validación de la contraseña:
-        if (!preg_match("/[a-zA-Z]/", $acceso["password"]) || !preg_match("/[0-9]/", $acceso["password"])) {
+        if (!preg_match("/[a-zA-Z]/", $acceso["password"])) {
 
-            $erroresLogin[] = "<p> Los datos introducidos no son válidos</p>";
+            $erroresLogin[] = "<p>Los datos introducidos no son válidos</p>";
 
         }
 
@@ -89,15 +89,55 @@
 
     function obtenerNombreUsuario($conexion) {
 
-        // Consulta a la BD el nombre de usuario del administrador:
-        return $nombreUsuario;
+        global $erroresLogin;
+
+        try {
+
+            // Consulta a la BD el nombre de usuario del administrador:
+            $consultaUsuario = "SELECT usuario FROM Usuarios WHERE (clase = 'GERENTE')";
+
+            $stmt = $conexion -> prepare($consultaUsuario);
+
+            $stmt -> execute();
+            $stmt -> fetch();
+
+            return $stmt;
+
+        } catch(PDOException $e) {
+
+            $erroresLogin[] = "<p>Lo sentimos, se ha producido un fallo al acceder a la base de datos</p>";
+            // echo "Error: " . $e -> GetMessage();
+            
+            return $erroresLogin;
+
+        }
 
     }
 
     function obtenerPassword($conexion) {
 
-        // Consulta a la BD la contraseña del administrador:
-        return $pass;
+        global $erroresLogin;
+
+        try {
+
+            // Consulta a la BD la contraseña del administrador:
+            $consultaPass = "SELECT pass FROM Usuarios WHERE (clase = 'GERENTE')";
+
+            $stmt = $conexion -> prepare($consultaPass);
+
+            $stmt -> execute();
+            $stmt -> fetch();
+
+            return $stmt;
+
+        } catch(PDOException $e) {
+
+            $erroresLogin[] = "<p>Lo sentimos, se ha producido un fallo al acceder a la base de datos</p>";
+            // echo "Error: " . $e -> GetMessage();
+            
+            return $erroresLogin;
+
+        }
 
     }
 
