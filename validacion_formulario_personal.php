@@ -99,9 +99,9 @@
             $stmt = $conexion -> prepare($consultaUsuario);
 
             $stmt -> execute();
-            $stmt -> fetch();
+            $dato = $stmt -> fetch();
 
-            return $stmt;
+            return $dato;
 
         } catch(PDOException $e) {
 
@@ -126,9 +126,9 @@
             $stmt = $conexion -> prepare($consultaPass);
 
             $stmt -> execute();
-            $stmt -> fetch();
+            $dato = $stmt -> fetch();
 
-            return $stmt;
+            return $dato;
 
         } catch(PDOException $e) {
 
