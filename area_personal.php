@@ -5,13 +5,22 @@
 
     // Llamamos a gestionBD.php
     require_once("gestionBD.php");
+    
+    // Comprobar que hemos llegado a esta página porque se ha rellenado el formulario y se ha validado:
+	if (isset($_SESSION["user"])) {
 
-    // Comprobar que hemos llegado a esta página porque se ha rellenado y validado el formulario:
-	if (!isset($_SESSION["user"])) {
+        // Los datos que mostraremos en esta página:
+        $datosLogin = $_SESSION["user"];
+        
+        // Vaciamos la sesión:
+		$_SESSION["user"] = null;
+        $_SESSION["erroresLogin"] = null;
+        
+	} else {
 
         Header("Location: personal.php");	
 
-    } 
+    }
                 
     // Abrir la conexión:
     $conexion = abrirConexionBD();

@@ -19,26 +19,26 @@
         // Guardar la variable local con los datos del formulario en la sesión:
         $_SESSION["formulario"] = $reserva;
 
+        // Abrimos una conexion con la base de datos:
+        $conexion = abrirConexionBD();
+
+        // Validar el formulario:
+        $errores = validarDatos($reserva);
+
+        // Obtener el ID de la mesa que esté disponible:
+        $idMesa = disponibilidadMesasYReservas($conexion, $reserva);
+
+        // Guardamos la reserva en BD:
+        guardarReserva($idMesa, $conexion, $reserva);
+
+        // Cerrar la conexión:
+        cerrarConexionBD($conexion);
+
     } else {
 
         Header("Location: reservas.php");	
 
     }
-
-    // Abrimos una conexion con la base de datos:
-    $conexion = abrirConexionBD();
-
-    // Validar el formulario:
-    $errores = validarDatos($reserva);
-
-    // Obtener el ID de la mesa que esté disponible:
-    $idMesa = disponibilidadMesasYReservas($conexion, $reserva);
-
-    // Guardamos la reserva en BD:
-    guardarReserva($idMesa, $conexion, $reserva);
-
-    // Cerrar la conexión:
-    cerrarConexionBD($conexion);
 
     // Si se encuentran errores se redirige a reservas.php, de lo contrario se pasa a confirmacion_reserva.php:
     if (count($errores) > 0) {
@@ -143,8 +143,8 @@
     // Función que comprueba si existe una mesa en la BD que satisface el estado de disponible y el nº de personas solicitado:
     function disponibilidadMesasYReservas($conexion, $reserva) {
 
-        $nPersonas = $reserva["numeroPersonas"];
         global $errores;
+        $nPersonas = $reserva["numeroPersonas"];
 
         try {
 
@@ -164,6 +164,8 @@
             $errores[] = "<p>Lo sentimos, no hay mesas disponibles para el nº de personas solicitado</p>";
             // echo "Error: " . $e -> GetMessage();
 
+            return $errores;
+
         }
 
     }
@@ -172,12 +174,11 @@
     function guardarReserva($idMesa, $conexion, $reserva) {
 
         global $errores;
-        $fecha = date('yyyy/mm/dd', strtotime($reserva["fecha"]));
-        //$fecha = $reservas["fecha"];
-
+        $fecha = date('d/m/Y', strtotime($reserva["fecha"]));
+        
         try {
 
-            $consulta = "CALL insertReservas(TO_DATE(:fecha, 'yyyy/mm/dd'), :numeroPersonas, :mesa, null, :nombre, :apellidos)";
+            $consulta = "CALL insertReservas(:fecha, :numeroPersonas, :mesa, null, :nombre, :apellidos)";
             $stmt = $conexion -> prepare($consulta);
 
             $stmt -> bindParam(':fecha', $fecha);
@@ -193,6 +194,8 @@
             $errores[] = "<p>Lo sentimos, se ha producido un fallo al guardar la reserva</p>";
             // echo "Error: " . $e -> GetMessage();
             
+            return $errores;
+
         }
 
     }
