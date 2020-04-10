@@ -170,6 +170,7 @@ CREATE TABLE Reservas (
     usuario SMALLINT,
     nombre VARCHAR2(50),
     apellidos VARCHAR2(50),
+    telefono VARCHAR2(15) CHECK (LENGTH (telefono) = 9),
     FOREIGN KEY(mesa) REFERENCES Mesas ON DELETE SET NULL, 
     FOREIGN KEY(usuario) REFERENCES Usuarios ON DELETE SET NULL
 );
@@ -438,10 +439,10 @@ END insertMesas;
 /
 
 CREATE OR REPLACE PROCEDURE insertReservas
-(fecha IN DATE, numPersonas IN SMALLINT, mesa IN SMALLINT, usuario IN SMALLINT, nombre IN VARCHAR2, apellidos IN VARCHAR2) AS 
+(fecha IN DATE, numPersonas IN SMALLINT, mesa IN SMALLINT, usuario IN SMALLINT, nombre IN VARCHAR2, apellidos IN VARCHAR2, telefono IN VARCHAR2) AS 
 BEGIN
-INSERT INTO Reservas (fecha, numPersonas, mesa, usuario, nombre, apellidos) 
-VALUES (fecha, numPersonas, mesa, usuario, nombre, apellidos);
+INSERT INTO Reservas (fecha, numPersonas, mesa, usuario, nombre, apellidos, telefono) 
+VALUES (fecha, numPersonas, mesa, usuario, nombre, apellidos, telefono);
 END insertReservas;
 /
 
@@ -517,9 +518,9 @@ END updateMesas;
 /
 
 CREATE OR REPLACE PROCEDURE updateReservas
-(idReservaP IN SMALLINT, fechaP IN DATE, numPersonasP IN SMALLINT, mesaP IN SMALLINT, usuarioP IN SMALLINT, nombreP IN VARCHAR2, apellidosP IN VARCHAR2) AS 
+(idReservaP IN SMALLINT, fechaP IN DATE, numPersonasP IN SMALLINT, mesaP IN SMALLINT, usuarioP IN SMALLINT, nombreP IN VARCHAR2, apellidosP IN VARCHAR2, telefonoP IN VARCHAR2) AS 
 BEGIN
-UPDATE Reservas SET fecha = fechaP, numPersonas = numPersonasP, mesa = mesaP, usuario = usuarioP, nombre = nombreP, apellidos = apellidosP WHERE idReserva = idReservaP;
+UPDATE Reservas SET fecha = fechaP, numPersonas = numPersonasP, mesa = mesaP, usuario = usuarioP, nombre = nombreP, apellidos = apellidosP, telefono = telefonoP WHERE idReserva = idReservaP;
 END updateReservas;
 /
 
@@ -1706,4 +1707,7 @@ END;
 
 /* Pruebas de IISSI 2*/
 SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad >= 5) AND ROWNUM = 1 ORDER BY capacidad;
+
+SELECT * FROM Usuarios WHERE (clase = 'GERENTE');
+SELECT usuario FROM Usuarios WHERE (clase = 'GERENTE');
 

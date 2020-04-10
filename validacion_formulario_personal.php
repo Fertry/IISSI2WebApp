@@ -94,14 +94,13 @@
         try {
 
             // Consulta a la BD el nombre de usuario del administrador:
-            $consultaUsuario = "SELECT usuario FROM Usuarios WHERE (clase = 'GERENTE')";
+            $consultaUsuario = "SELECT usuario AS TOTAL FROM Usuarios WHERE (clase = 'GERENTE')";
 
             $stmt = $conexion -> prepare($consultaUsuario);
-
             $stmt -> execute();
-            $dato = $stmt -> fetch();
-
-            return $dato;
+            $result = $stmt -> fetch();
+			$total = $result['TOTAL'];
+            return $total;
 
         } catch(PDOException $e) {
 
@@ -121,14 +120,13 @@
         try {
 
             // Consulta a la BD la contraseña del administrador:
-            $consultaPass = "SELECT pass FROM Usuarios WHERE (clase = 'GERENTE')";
+            $consultaPass = "SELECT pass AS TOTAL FROM Usuarios WHERE (clase = 'GERENTE')";
 
             $stmt = $conexion -> prepare($consultaPass);
-
             $stmt -> execute();
-            $dato = $stmt -> fetch();
-
-            return $dato;
+            $result = $stmt -> fetch();
+			$total = $result['TOTAL'];
+            return $total;
 
         } catch(PDOException $e) {
 
