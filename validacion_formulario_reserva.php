@@ -19,20 +19,8 @@
         // Guardar la variable local con los datos del formulario en la sesión:
         $_SESSION["formulario"] = $reserva;
 
-        // Abrimos una conexion con la base de datos:
-        $conexion = abrirConexionBD();
-
         // Validar el formulario:
         $errores = validarDatos($reserva);
-
-        // Obtener el ID de la mesa que esté disponible:
-        $idMesa = disponibilidadMesasYReservas($conexion, $reserva);
-
-        // Guardamos la reserva en BD:
-        guardarReserva($idMesa, $conexion, $reserva);
-
-        // Cerrar la conexión:
-        cerrarConexionBD($conexion);
 
     } else {
 
@@ -47,7 +35,14 @@
         Header("Location: reservas.php");
 
     } else {
-
+		
+        $conexion = abrirConexionBD();
+        
+		$idMesa = disponibilidadMesasYReservas($conexion, $reserva);
+        guardarReserva($idMesa, $conexion, $reserva);
+        
+        cerrarConexionBD($conexion);
+        
         Header("Location: confirmacion_reserva.php");
 
     }
@@ -69,7 +64,6 @@
             $errores[] = "<p>El nombre sólo puede contener carácteres alfabéticos</p>";
 
         }
-
         // Validación del apellido:
         if ($reserva["apellidos"] == "") {
 
@@ -80,7 +74,6 @@
             $errores[] = "<p>Los apellidos sólo pueden contener carácteres alfabéticos</p>";
 
         }
-
         // Validación de la edad:
         if ($reserva["edad"] == "") {
 
@@ -93,9 +86,7 @@
         } else if ($reserva["edad"] < 18 || $reserva["edad"] > 100) {
 
             $errores[] = "<p>La edad debe estar comprendida entre 18 y 100</p>";
-
         }
-
         // Validación del nº de teléfono:
         if ($reserva["telefono"] == "") {
 
@@ -104,9 +95,7 @@
         } else if (!preg_match("/[0-9]/", $reserva["telefono"]) || strlen($reserva["telefono"]) != 9) {
             
             $errores[] = "<p>El teléfono no es válido</p>";
-
         }
-
         // Validación del nº de personas:
         if ($reserva["numeroPersonas"] == "") {
 
@@ -119,7 +108,6 @@
         } else if ($reserva["numeroPersonas"] < 1 || $reserva["numeroPersonas"] > 10) {
             
             $errores[] = "<p>El número de personas debe estar comprendido entre 1 y 10</p>";
-
         }
 
         // Validación de la fecha:
@@ -133,7 +121,6 @@
         } else if ($date < $now) {
 
             $errores[] = "<p>La fecha no puede ser anterior a hoy</p>";
-
         }
 
         return $errores;
@@ -148,24 +135,20 @@
 
         try {
 
-            //$stmt = $conexion -> query("SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad >= $nPersonas) AND ROWNUM = 1 ORDER BY capacidad;");
-            //$idMesa = $stmt -> fetch();
-
-            $consulta = "SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad >= :nPersonas) AND ROWNUM = 1 ORDER BY capacidad";
+            $consulta = "SELECT idMesa AS TOTAL FROM Mesas WHERE (disponible = 1 AND capacidad >= :nPersonas) AND ROWNUM = 1 ORDER BY capacidad";
             $stmt = $conexion -> prepare($consulta);
-
             $stmt -> bindParam(":nPersonas", $nPersonas);
             $stmt -> execute();
-
-            return (int)$stmt;
+			
+            $result = $stmt -> fetch();
+			$total = $result['TOTAL'];
+            return $total;
 
         } catch(PDOException $e) {
-
+			
             $errores[] = "<p>Lo sentimos, no hay mesas disponibles para el nº de personas solicitado</p>";
             // echo "Error: " . $e -> GetMessage();
-
             return $errores;
-
         }
 
     }
@@ -178,7 +161,7 @@
         
         try {
 
-            $consulta = "CALL insertReservas(:fecha, :numeroPersonas, :mesa, null, :nombre, :apellidos)";
+            $consulta = "CALL insertReservas(:fecha, :numeroPersonas, :mesa, null, :nombre, :apellidos, :telefono)";
             $stmt = $conexion -> prepare($consulta);
 
             $stmt -> bindParam(':fecha', $fecha);
@@ -186,6 +169,7 @@
             $stmt -> bindParam(':mesa', $idMesa);
             $stmt -> bindParam(':nombre', $reserva["nombre"]);
             $stmt -> bindParam(':apellidos', $reserva["apellidos"]);
+			$stmt -> bindParam(':telefono', $reserva["telefono"]);
 
             $stmt -> execute();
 
@@ -193,9 +177,7 @@
 
             $errores[] = "<p>Lo sentimos, se ha producido un fallo al guardar la reserva</p>";
             // echo "Error: " . $e -> GetMessage();
-            
             return $errores;
-
         }
 
     }
