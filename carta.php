@@ -154,29 +154,24 @@
 
         </nav>
                 
-    <?php
 
+	<table id = "tabla_listado">
+	<tr>
+		<th> Producto</th> <th> Precio </th>
+	</tr>
+		
+	<?php
         foreach($filas as $fila) {
 
     ?>
-
-            <!-- Mostrar los datos solicitados -->
-            <article>
-
-                <ul>
-
-                    <li><h4><?php echo $fila[1] ?> - <?php echo $fila[2] ?> €.</h4></li>
-                    <?php //print_r($fila) ?>
-
-                </ul>
-
-            </article>
-
+            <tr class = "producto">
+				<td> <?= $fila[1]?> </td>
+				<td class = "precio"><?=$fila[2]?> €</td>
+			</tr>
     <?php
-
         }
-
     ?>
+	</table>
 
     </main>
 
