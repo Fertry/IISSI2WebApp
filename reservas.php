@@ -47,9 +47,6 @@
 	<meta name="description" content="Formulario de reserva para restaurante">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, forms, reserva">
 
-    <!-- Scripts JS para la validación en cliente -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
-    <script src="js/validacion_reserva.js" type="text/javascript"></script>
 	<title>Formulario de Reserva</title>
     
 </head>

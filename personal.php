@@ -43,19 +43,11 @@
 	<meta name="description" content="Acceso al personal del restaurante">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, forms, personal">
 
-    <!-- Scripts JS para la validación en cliente -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
-    <script src="js/validacion_personal.js" type="text/javascript"></script>
 	<title>Acceso Personal</title>
     
 </head>
 
 <body>
-
-    <script>
-    // Validación de datos en cliente mediante JS:
-
-    </script>
 
     <?php 
 
