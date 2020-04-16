@@ -35,7 +35,7 @@
     $conexion = abrirConexionBD();
 
     // Consulta: nombre y precio de todos los platos disponibles:
-    $query = "SELECT nombre, precioProducto FROM Productos WHERE disponibilidad = 1";
+    $query = "SELECT nombre, precioProducto FROM Productos";
 
     // Se comprueba que el tamaño de página, página seleccionada y total de registros son conformes.
     $total_registros = total_consulta($conexion, $query);

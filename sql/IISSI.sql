@@ -1711,4 +1711,5 @@ SELECT idMesa FROM Mesas WHERE (disponible = 1 AND capacidad >= 5) AND ROWNUM = 
 SELECT * FROM Usuarios WHERE (clase = 'GERENTE');
 SELECT usuario FROM Usuarios WHERE (clase = 'GERENTE');
 SELECT nombre, telefono, fecha FROM Reservas;
+DELETE Productos WHERE idProducto = 1;
 

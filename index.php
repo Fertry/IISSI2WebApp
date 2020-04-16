@@ -57,7 +57,7 @@
 
         </script>
 
-        <h4> Teléfono del restaurante: 955783272 </h4>
+        <h4> Teléfono del restaurante: <a href="tel:955783272">955783272</a> </h4>
 
     </div>
 
