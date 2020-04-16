@@ -31,6 +31,10 @@
 	<meta name="description" content="Gestión del restaurante">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, gestión, personal">
 
+    <!-- Scripts para la validación de la contraseña -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="js/validacion.js" type="text/javascript"></script>
+
 	<title>Gestión Casa Salvi</title>
     
 </head>
