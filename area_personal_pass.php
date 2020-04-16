@@ -1,0 +1,1 @@
+Comprobar que hemos llegado a esta página porque se ha iniciado la sesión

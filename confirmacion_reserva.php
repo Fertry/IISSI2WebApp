@@ -98,6 +98,8 @@
 
                 </form>
 
+                <i>Recuerde que si por una eventualidad no puede hacer uso de su reserva, contacte con el restaurante para su cancelación en <a href="tel:955783272">955783272</a></i>
+
         </div>
 
         <a href = "desconexion.php"><button type = "button">Inicio</button></a>
