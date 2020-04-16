@@ -6,7 +6,7 @@
     // Comprobar que hemos llegado a esta página porque se ha iniciado la sesión:
 	if (!isset($_SESSION["user"])) {
 
-        Header("Location: personal.php");	
+        Header("Location: desconexion.php");	
 
     } else {
 

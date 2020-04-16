@@ -11,13 +11,11 @@
 	if (isset($_SESSION["user"])) {
 
         // Vaciamos la sesión:
-        // Si se vacía la sesión no funciona la paginación!
-		// $_SESSION["user"] = null;
         $_SESSION["erroresLogin"] = null;
         
 	} else {
 
-        Header("Location: personal.php");	
+        Header("Location: desconexion.php");	
 
     }
 
@@ -123,7 +121,7 @@
 
     <main>
 
-        <h2> Restaurante Casa Salvi - Gerencia </h2>
+        <h2> Gestión de Reservas </h2>
 
         <nav>
 

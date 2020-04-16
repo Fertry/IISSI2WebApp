@@ -6,6 +6,12 @@
     // Llamamos a gestionBD.php y a paginacion_consulta.php
     require_once("gestionBD.php");
     require_once("paginacion_consulta.php");
+
+    if (!isset($_SESSION["user"])) {
+
+        Header("Location: desconexion.php");	
+
+    }
     
     if (isset($_SESSION["paginacion"])) {
     
@@ -109,7 +115,7 @@
 
     <main>
 
-        <h2> Restaurante Casa Salvi - Gerencia </h2>
+        <h2> Gestión de Productos </h2>
 
         <nav>
 
