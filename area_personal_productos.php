@@ -18,6 +18,19 @@
         $paginacion = $_SESSION["paginacion"];
     
     }
+
+    if (!isset($_SESSION["insertar"])) {
+	
+        $insertar['nombreProducto'] = "";
+        $insertar['precioProducto'] = "";
+
+        $_SESSION["insertar"] = $insertar;
+
+    } else {
+
+        $insertar = $_SESSION["insertar"];
+
+    }
     
     // La página por defecto será la primera a menos que se cambie y el tamaño por defecto será de 5:
     $pagina_seleccionada = isset($_GET["PAG_NUM"]) ? (int)$_GET["PAG_NUM"] : (isset($paginacion) ? (int)$paginacion["PAG_NUM"] : 1);
@@ -117,9 +130,51 @@
 
         <h2> Gestión de Productos </h2>
 
+        <?php
+
+            if (isset($erroresInsertado) && count($erroresInsertado) > 0) {
+
+                echo "<div class=\"error\">";
+                echo "<h4> Errores en el formulario: </h4>";
+                foreach ($erroresInsertado as $error)
+                    echo $error;
+                echo "</div>";
+
+            } 
+
+        ?>
+
         <nav>
 
-            <div id="enlaces">
+            <div class = entrada>
+
+                <form id = "insertar" method = "post" action = "gestion_productos_insertar.php"> 
+
+                    <fieldset>
+                        <legend>Insertado de productos:</legend>
+
+                        <div> 
+                            <label for = "nombreProducto"> Nombre: </label>
+                            <input id = "nombreProducto" name = "nombreProducto" type="text" placeholder = "Nombre del producto" size = "40" required/>
+                        </div>
+
+                        <div>
+                            <label for = "precioProducto"> Precio: </label>
+                            <input id = "precioProducto" name = "precioProducto" type="number" min = 1 placeholder = "Precio" size = "20" required/>
+                        </div>
+
+                    </fieldset>
+
+                    <div>
+                        <input type = "submit" value = "Insertar"/>
+                    </div>
+
+                </form>
+
+            </div>
+            <br>
+
+            <div class = "enlaces">
 
                 <?php
 
@@ -161,7 +216,7 @@
                     <input id = "PAG_TAM" name = "PAG_TAM" type="number" min = "1" max = "<?php echo $total_registros; ?>" value = "<?php echo $pag_tam?>" autofocus/>
                     productos de <?php echo $total_registros?>
 
-                    <input type = "submit" value = "Cambiar">
+                    <input type = "submit" value = "Cambiar"/>
 
                 </div>
 

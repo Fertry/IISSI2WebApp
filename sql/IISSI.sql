@@ -92,9 +92,9 @@ CREATE TABLE Cartas (
 CREATE TABLE Productos (     
     idProducto SMALLINT PRIMARY KEY,     
     nombre VARCHAR2(100) NOT NULL, 
-    descripcion VARCHAR2(200) NOT NULL,     
-    tipoProducto VARCHAR2(100) NOT NULL, 
-    disponibilidad SMALLINT NOT NULL,     
+    descripcion VARCHAR2(200),     
+    tipoProducto VARCHAR2(100), 
+    disponibilidad SMALLINT,     
     precioProducto FLOAT NOT NULL
 );
 
@@ -331,6 +331,7 @@ EXECUTE insertReservas(TO_DATE('2019-12-11-14:00', 'YYYY-MM-DD-hh24:mi'), 4, 7, 
 EXECUTE insertReservas(TO_DATE('2019-12-11-22:00', 'YYYY-MM-DD-hh24:mi'), 4, 7, 1);
 
 /* RN004. Un producto nulo no puede incluirse en el menú */
+/*
 CREATE TRIGGER TR_producto_disponible BEFORE UPDATE OR INSERT ON ProductoMenu FOR EACH ROW
 DECLARE
     disponible SMALLINT;
@@ -341,6 +342,7 @@ BEGIN
     END IF;
 END;
 /
+*/
 
 /* Prueba del trigger 4 */
 EXECUTE insertProductoMenu ('Bebida', 4, 2);
@@ -1712,4 +1714,5 @@ SELECT * FROM Usuarios WHERE (clase = 'GERENTE');
 SELECT usuario FROM Usuarios WHERE (clase = 'GERENTE');
 SELECT nombre, telefono, fecha FROM Reservas;
 DELETE Productos WHERE idProducto = 1;
+INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES ('Filete de lomo', null, null, null, 6);
 

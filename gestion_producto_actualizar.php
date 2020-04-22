@@ -28,7 +28,7 @@
     // Cerramos la conexión:
     cerrarConexionBD($conexion);
 
-    // Redirigimos a area_personal.php de nuevo:
+    // Redirigimos a area_personal_productos.php de nuevo:
     Header("Location: area_personal_productos.php");
 
     function actualizarProducto($conexion, $eliminar) {
