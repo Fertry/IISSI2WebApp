@@ -10,17 +10,17 @@
 
     } else {
 
-        $gestionProductos["eliminarProducto"] = $_REQUEST["eliminarProducto"];
+        $gestionProductosEliminar["eliminarProducto"] = $_REQUEST["eliminarProducto"];
 
     }
 
-    $_SESSION["user"] = $gestionProductos;
+    $_SESSION["user"] = $gestionProductosEliminar;
 
     // Abrimos la conexion con la BD:
     $conexion = abrirConexionBD();
     
     // Obtenemos el nº del producto que se quiere eliminar:
-    $producto = $gestionProductos["eliminarProducto"];
+    $producto = $gestionProductosEliminar["eliminarProducto"];
 
     // Consulta SQL que elimina el producto de la BD:
     eliminarProducto($conexion, $producto);
@@ -28,7 +28,7 @@
     // Cerramos la conexión:
     cerrarConexionBD($conexion);
 
-    // Redirigimos a area_personal_eliminar.php de nuevo:
+    // Redirigimos a area_personal_productos.php de nuevo:
     Header("Location: area_personal_productos.php");
 
     function eliminarProducto($conexion, $producto) {

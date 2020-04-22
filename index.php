@@ -59,6 +59,26 @@
 
         <h4> Teléfono del restaurante: <a href="tel:955783272">955783272</a> </h4>
 
+        <fieldset>
+
+            <legend>Horario del restaurante</legend>
+
+            <table>
+
+                <tr>
+                    <th>Lunes-Viernes</th>
+                    <td>13:30 - 16:30 / 20:30 - 00:00</td>
+                </tr>
+
+                <tr>
+                    <th>Sábados-Domingos</th>
+                    <td>13:30 - 17:30 / 20:30 - 00:30</td>
+                </tr>
+
+            </table>
+
+        </fieldset>
+
     </div>
 
     <?php 
