@@ -11,8 +11,11 @@
         </a> 
         <a href = "area_personal_pass.php">
             <button class = "button">Gestión de Personal</button>
-        </a> 
-
+        </a>
+        <a href = "insertado_producto.php">
+            <button class = "button">Insertado de Productos</button>
+        </a>
+        
     </center>
 
 </nav>

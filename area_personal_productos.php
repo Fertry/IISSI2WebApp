@@ -7,6 +7,7 @@
     require_once("gestionBD.php");
     require_once("paginacion_consulta.php");
 
+    // Comprobar que hemos llegado a esta página porque se ha iniciado la sesión:
     if (!isset($_SESSION["user"])) {
 
         Header("Location: desconexion.php");	
@@ -19,19 +20,6 @@
     
     }
 
-    if (!isset($_SESSION["insertar"])) {
-	
-        $insertar['nombreProducto'] = "";
-        $insertar['precioProducto'] = "";
-
-        $_SESSION["insertar"] = $insertar;
-
-    } else {
-
-        $insertar = $_SESSION["insertar"];
-
-    }
-    
     // La página por defecto será la primera a menos que se cambie y el tamaño por defecto será de 5:
     $pagina_seleccionada = isset($_GET["PAG_NUM"]) ? (int)$_GET["PAG_NUM"] : (isset($paginacion) ? (int)$paginacion["PAG_NUM"] : 1);
     $pag_tam = isset($_GET["PAG_TAM"]) ? (int)$_GET["PAG_TAM"] : (isset($paginacion) ? (int)$paginacion["PAG_TAM"] : 5);
@@ -130,49 +118,7 @@
 
         <h2> Gestión de Productos </h2>
 
-        <?php
-
-            if (isset($erroresInsertado) && count($erroresInsertado) > 0) {
-
-                echo "<div class=\"error\">";
-                echo "<h4> Errores en el formulario: </h4>";
-                foreach ($erroresInsertado as $error)
-                    echo $error;
-                echo "</div>";
-
-            } 
-
-        ?>
-
         <nav>
-
-            <div class = entrada>
-
-                <form id = "insertar" method = "post" action = "gestion_productos_insertar.php"> 
-
-                    <fieldset>
-                        <legend>Insertado de productos:</legend>
-
-                        <div> 
-                            <label for = "nombreProducto"> Nombre: </label>
-                            <input id = "nombreProducto" name = "nombreProducto" type="text" placeholder = "Nombre del producto" size = "40" required/>
-                        </div>
-
-                        <div>
-                            <label for = "precioProducto"> Precio: </label>
-                            <input id = "precioProducto" name = "precioProducto" type="number" min = 1 placeholder = "Precio" size = "20" required/>
-                        </div>
-
-                    </fieldset>
-
-                    <div>
-                        <input type = "submit" value = "Insertar"/>
-                    </div>
-
-                </form>
-
-            </div>
-            <br>
 
             <div class = "enlaces">
 
@@ -224,7 +170,7 @@
 
         </nav>
 
-        <!-- Eliminación y añadido de platos -->
+        <!-- Eliminación y edición de platos -->
         <table id = "tabla_listado">
 
 	        <tr>

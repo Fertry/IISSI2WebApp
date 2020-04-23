@@ -1,5 +1,8 @@
 <?php
 
+    // Iniciamos la sesión:
+    session_start();
+
     // Llamamos a gestionBD.php
     require_once("gestionBD.php");
 
@@ -11,13 +14,13 @@
     } 
     
     // Comprobar que hemos llegado a esta página porque se ha rellenado el formulario:
-    if (isset($_SESSION["insertar"])) {
+    if (isset($_SESSION["insertarProducto"])) {
 
         $introducir["nombreProducto"] = $_REQUEST["nombreProducto"];
         $introducir["precioProducto"] = $_REQUEST["precioProducto"];
 
         // Guardar la variable local con los datos del formulario en la sesión:
-        $_SESSION["insertar"] = $introducir;
+        $_SESSION["insertarProducto"] = $introducir;
 
         // Validar el formulario:
         $erroresInsertado = validarDatosInsertado($introducir);
@@ -32,7 +35,7 @@
     if (count($erroresInsertado) > 0) {
 
         $_SESSION["erroresInsertado"] = $erroresInsertado;
-        Header("Location: area_personal_productos.php");
+        Header("Location: insertado_producto.php");
 
     } else {
 
@@ -40,39 +43,41 @@
         $conexion = abrirConexionBD();
         
         // Obtenemos los detalles del producto:
-        //$insertarNombre = $introducir["nombreProducto"];
-        //$insertarPrecio = $introducir["precioProducto"];
+        $insertarNombre = $introducir["nombreProducto"];
+        $insertarPrecio = $introducir["precioProducto"];
 
         // Consulta SQL que añade el producto:
-        insertarProducto($introducir, $conexion);
+        insertarProducto($insertarNombre, $insertarPrecio, $conexion);
 
         // Cerramos la conexión:
         cerrarConexionBD($conexion);
 
         // Redirigimos a area_personal_productos.php de nuevo:
-        Header("Location: area_personal_productos.php");
+        Header("Location: insertado_producto.php");
 
     }
     
-    function insertarProducto($introducir, $conexion) {
+    function insertarProducto($insertarNombre, $insertarPrecio, $conexion) {
 
         global $erroresInsertado;
 
-        $insertarNombre = $introducir["nombreProducto"];
-        $insertarPrecio = $introducir["precioProducto"];
-
         try {
  
-            $consulta = "INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES ($insertarNombre, null, null, null, $insertarPrecio)";
+            $consulta = "INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES (:nombre, null, null, null, :precio)";
 
-            $stmt = $conexion -> query($consulta);
+            $stmt = $conexion -> prepare($consulta);
+
+            $stmt -> bindParam(':nombre', $insertarNombre);
+            $stmt -> bindParam(':precio', $insertarPrecio);
+
+            $stmt -> execute();
 
             return "";
 
         } catch (PDOException $e) {
 
             // echo "Error: " . $e -> GetMessage();
-            Header("Location: area_personal_productos.php");
+            Header("Location: insertado_producto.php");
 
             $erroresInsertado[] = "<p>Ha ocurrido un error al guardar los datos en la BD</p>";
             return $erroresInsertado;
