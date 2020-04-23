@@ -111,6 +111,8 @@
 
     </div>
 
+    <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
+
 </body>
 
 </html>
