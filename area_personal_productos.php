@@ -116,7 +116,7 @@
 
     <main>
 
-        <h2> Gestión de Productos </h2>
+        <h2> Listado de Productos </h2>
 
         <nav>
 
@@ -170,7 +170,7 @@
 
         </nav>
 
-        <!-- Eliminación y edición de platos -->
+        <!-- Eliminación de platos -->
         <table id = "tabla_listado">
 
 	        <tr>
@@ -185,26 +185,20 @@
 
         ?>
 
-            <tr class = "producto">
+            <tr class = "productos">
 
-				<td> <?= $fila[2]?>  </td>
-                <td> <?=$fila[3]?> € </td>
+				<td> <?= $fila["NOMBRE"]?>  </td>
+                <td> <?=$fila["PRECIOPRODUCTO"]?> € </td>
                 <td> 
+
                     <form method = "post" action = "gestion_producto_eliminar.php"> 
 
-                        <button id = "eliminarProducto" name = "eliminarProducto" type = "submit" value = "<?php echo $fila[1]; ?>">
+                        <button id = "eliminarProducto" name = "eliminarProducto" type = "submit" value = "<?php echo $fila["IDPRODUCTO"]; ?>">
                             <img src = "images/eliminar.bmp" alt = "eliminar">
                         </button>
 
                     </form>
 
-                    <form method = "post" action = "gestion_producto_actualizar.php">
-
-                        <button id = "actualizar" name = "actualizar" type = "submit" value = "<?php echo $fila[1]; ?>">
-                            <img src = "images/actualizar.bmp" alt = "actualizar">
-                        </button>
-
-                    </form> 
                 </td>
                 
             </tr>

@@ -165,8 +165,8 @@
 
     ?>
             <tr class = "producto">
-				<td> <?= $fila[1]?> </td>
-				<td class = "precio"><?=$fila[2]?> €</td>
+				<td> <?= $fila["NOMBRE"]?> </td>
+				<td class = "precio"><?=$fila["PRECIOPRODUCTO"]?> €</td>
 			</tr>
     <?php
         }
