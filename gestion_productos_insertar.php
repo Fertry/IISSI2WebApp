@@ -27,11 +27,11 @@
 
     } else {
 
-        Header("Location: area_personal_productos.php");
+        Header("Location: insertado_producto.php");
 
     }
 
-    // Si se encuentran errores se redirige a area_personal_productos.php, de lo contrario se pasa a introducir el producto:
+    // Si se encuentran errores se redirige a insertado_producto.php, de lo contrario se pasa a introducir el producto:
     if (count($erroresInsertado) > 0) {
 
         $_SESSION["erroresInsertado"] = $erroresInsertado;
@@ -52,7 +52,7 @@
         // Cerramos la conexión:
         cerrarConexionBD($conexion);
 
-        // Redirigimos a area_personal_productos.php de nuevo:
+        // Redirigimos a insertado_producto.php de nuevo:
         Header("Location: insertado_producto.php");
 
     }

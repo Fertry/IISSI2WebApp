@@ -192,14 +192,14 @@
 
             <tr class = "reserva">
 
-				<td> <?= $fila[1]?> </td>
-                <td class = "telf"> <?=$fila[2]?> </td>
-                <td> <?= $fila[3]?> </td>
-                <td> <?= $fila[4]?> </td>
+				<td> <?= $fila["NOMBRE"]?> </td>
+                <td class = "telf"> <?=$fila["TELEFONO"]?> </td>
+                <td> <?= $fila["FECHA"]?> </td>
+                <td> <?= $fila["MESA"]?> </td>
                 <td> 
                     <form method = "post" action = "gestion_reserva.php"> 
 
-                        <button id = "eliminar" name = "eliminar" type = "submit" value = "<?php echo $fila[4]; ?>">
+                        <button id = "eliminar" name = "eliminar" type = "submit" value = "<?php echo $fila["MESA"]; ?>">
                             <img src = "images/eliminar.bmp" alt = "eliminar">
                         </button>
                         

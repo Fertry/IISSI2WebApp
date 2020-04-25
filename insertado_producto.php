@@ -23,6 +23,35 @@
 
     }
 
+    // Si se encuentran errores en la validación, se recogen para mostrarlos:
+    if (isset($_SESSION["erroresInsertado"])) {
+        
+        $erroresInsertado = $_SESSION["erroresInsertado"];
+        unset($_SESSION["erroresInsertado"]);
+        
+    }
+
+    if (!isset($_SESSION["actualizarProducto"])) {
+
+        $actualizarProducto['nombreProductoSeleccionado'] = "";
+        $actualizarProducto['nuevoPrecioProducto'] = "";
+
+        $_SESSION["actualizarProducto"] = $actualizarProducto;
+
+    } else {
+
+        $actualizarProducto = $_SESSION["actualizarProducto"];
+
+    }
+
+    // Si se encuentran errores en la validación, se recogen para mostrarlos:
+    if (isset($_SESSION["erroresActualizado"])) {
+        
+        $erroresActualizado = $_SESSION["erroresActualizado"];
+        unset($_SESSION["erroresActualizado"]);
+    
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -66,16 +95,17 @@
 
         <main>
 
-            <h2> Añadido de Productos </h2>
+            <h2> Gestión de Productos </h2>
 
             <h4> 
 
-                <?php
+            <?php
+                    
+                // Debug:
+                // echo $_SESSION["insertarProducto"]["nombreProducto"];
+                // echo $_SESSION["insertarProducto"]["precioProducto"];
 
-                    //echo $_SESSION["insertarProducto"]["nombreProducto"];
-                    //echo $_SESSION["insertarProducto"]["precioProducto"];
-
-                ?>
+            ?>
 
             </h4>
 
@@ -87,6 +117,16 @@
                     echo "<h4> Errores en el formulario: </h4>";
                     foreach ($erroresInsertado as $error)
                         echo $error;
+                    echo "</div>";
+
+                } 
+
+                if (isset($erroresActualizado) && count($erroresActualizado) > 0) {
+
+                    echo "<div class=\"error\">";
+                    echo "<h4> Errores en el formulario: </h4>";
+                    foreach ($erroresActualizado as $errorA)
+                        echo $errorA;
                     echo "</div>";
 
                 } 
@@ -120,7 +160,44 @@
 
             </div>
 
+            <?php
+                    
+                // Debug:
+                // echo $_SESSION["actualizadoProducto"]["nombreProductoSeleccionado"];
+                // echo $_SESSION["actualizadoProducto"]["nuevoPrecioProducto"];
+
+            ?>
+
+            <div class = entrada>
+
+                <form id = "actualizarProducto" method = "post" action = "gestion_producto_actualizar.php"> 
+
+                    <fieldset>
+                        <legend>Actualizado de precios:</legend>
+
+                        <div> 
+                            <label for = "nombreProductoSeleccionado"> Nombre: </label>
+                            <input id = "nombreProductoSeleccionado" name = "nombreProductoSeleccionado" type="text" placeholder = "Nombre del producto" size = "40" required/>
+                        </div>
+
+                        <div>
+                            <label for = "nuevoPrecioProducto"> Precio: </label>
+                            <input id = "nuevoPrecioProducto" name = "nuevoPrecioProducto" type="number" min = 1 placeholder = "Nuevo precio" size = "20" required/>
+                        </div>
+
+                        <div>
+                            <input type = "submit" value = "Actualizar"/>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+
+            </div>
+
         </main>
+
+        <br>
 
         <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
 
@@ -133,7 +210,3 @@
 </body>
 
 </html>
-
-
-
-
