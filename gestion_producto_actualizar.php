@@ -16,7 +16,7 @@
     // Comprobar que hemos llegado a esta página porque se ha rellenado el formulario:
     if (isset($_SESSION["actualizarProducto"])) {
 
-        $modificarPrecio["nombreProductoSeleccionado"] = $_REQUEST["nombreProductoSeleccionado"];
+        $modificarPrecio["IdProductoSeleccionado"] = $_REQUEST["IdProductoSeleccionado"];
         $modificarPrecio["nuevoPrecioProducto"] = $_REQUEST["nuevoPrecioProducto"];
 
         // Guardar la variable local con los datos del formulario en la sesión:
@@ -43,11 +43,11 @@
         $conexion = abrirConexionBD();
         
         // Obtenemos el producto actualizado y el nuevo precio:
-        $seleccionarNombre = $modificarPrecio["nombreProductoSeleccionado"];
+        $seleccionarId = $modificarPrecio["IdProductoSeleccionado"];
         $modificarPrecio = $modificarPrecio["nuevoPrecioProducto"];
 
         // Consulta SQL que modifica el producto:
-        modificarPrecioProducto($seleccionarNombre, $modificarPrecio, $conexion);
+        modificarPrecioProducto($seleccionarId, $modificarPrecio, $conexion);
 
         // Cerramos la conexión:
         cerrarConexionBD($conexion);
@@ -57,17 +57,17 @@
 
     }
     
-    function modificarPrecioProducto($seleccionarNombre, $modificarPrecio, $conexion) {
+    function modificarPrecioProducto($seleccionarId, $modificarPrecio, $conexion) {
 
         global $erroresActualizado;
 
         try {
  
-            $consulta = "UPDATE Productos SET precioProducto = :precio WHERE nombre = :nombre";
+            $consulta = "UPDATE Productos SET precioProducto = :precio WHERE idProducto = :id";
             
             $stmt = $conexion -> prepare($consulta);
 
-            $stmt -> bindParam(':nombre', $seleccionarNombre);
+            $stmt -> bindParam(':id', $seleccionarId);
             $stmt -> bindParam(':precio', $modificarPrecio);
 
             $stmt -> execute();
@@ -91,11 +91,11 @@
         $erroresActualizado = array();
 
         // Validación del nombre seleccionado:
-        if ($modificarPrecio["nombreProductoSeleccionado"] == "") {
+        if ($modificarPrecio["IdProductoSeleccionado"] == "") {
 
             $erroresActualizado[] = "<p>El nombre no puede estar vacío</p>";
 
-        } else if (!preg_match("/[a-zA-Z]/", $modificarPrecio["nombreProductoSeleccionado"])) {
+        } else if (!preg_match("/[0-9]/", $modificarPrecio["IdProductoSeleccionado"])) {
 
             $erroresActualizado[] = "<p>El nombre sólo puede contener carácteres alfabéticos</p>";
 

@@ -175,7 +175,7 @@
 
 	        <tr>
 
-                <th> Nombre </th> <th> Precio </th>
+                <th> Id </th><th> Nombre </th> <th> Precio </th>
                 
 	        </tr>
 		
@@ -187,6 +187,7 @@
 
             <tr class = "productos">
 
+				<td> <b><?= $fila["IDPRODUCTO"]?> </b> </td>
 				<td> <?= $fila["NOMBRE"]?>  </td>
                 <td> <?=$fila["PRECIOPRODUCTO"]?> € </td>
                 <td> 

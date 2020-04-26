@@ -33,7 +33,7 @@
 
     if (!isset($_SESSION["actualizarProducto"])) {
 
-        $actualizarProducto['nombreProductoSeleccionado'] = "";
+        $actualizarProducto['IdProductoSeleccionado'] = "";
         $actualizarProducto['nuevoPrecioProducto'] = "";
 
         $_SESSION["actualizarProducto"] = $actualizarProducto;
@@ -163,7 +163,7 @@
             <?php
                     
                 // Debug:
-                // echo $_SESSION["actualizadoProducto"]["nombreProductoSeleccionado"];
+                // echo $_SESSION["actualizadoProducto"]["IdProductoSeleccionado"];
                 // echo $_SESSION["actualizadoProducto"]["nuevoPrecioProducto"];
 
             ?>
@@ -176,8 +176,8 @@
                         <legend>Actualizado de precios:</legend>
 
                         <div> 
-                            <label for = "nombreProductoSeleccionado"> Nombre: </label>
-                            <input id = "nombreProductoSeleccionado" name = "nombreProductoSeleccionado" type="text" placeholder = "Nombre del producto" size = "40" required/>
+                            <label for = "IdProductoSeleccionado"> Id: </label>
+                            <input id = "IdProductoSeleccionado" name = "IdProductoSeleccionado" type="text" placeholder = "Id del producto" size = "40" required/>
                         </div>
 
                         <div>
