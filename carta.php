@@ -61,6 +61,15 @@
     // Datos que se van a mostrar: 
     $filas = consulta_paginada($conexion, $query, $pagina_seleccionada, $pag_tam);
 
+    // Productos del menú:
+    $primerPlato = consulta_menu_primero($conexion);
+    $segundoPlato = consulta_menu_segundo($conexion);
+    $postre = consulta_menu_postre($conexion);
+    $bebida = consulta_menu_bebida($conexion);
+
+    // Precio del menú:
+    $precio = consulta_precio($conexion);
+
     // Cerramos la conexión:
     cerrarConexionBD($conexion);
 
@@ -172,6 +181,43 @@
         }
     ?>
 	</table>
+    <br>
+
+    <!-- Mostrar el menú del día -->
+    <fieldset>
+
+        <legend>Menú del día</legend>
+
+    <table id = "tabla_menu">
+        
+        <tr>
+            <th>1º plato:</th>
+            <td><?php echo $primerPlato; ?></td>
+        </tr>
+
+        <tr>
+            <th>2º plato:</th>
+            <td><?php echo $segundoPlato; ?></td>
+        </tr>
+
+        <tr>
+            <th>Postre:</th>
+            <td><?php echo $postre; ?></td>
+        </tr>
+
+        <tr>
+            <th>Bebida:</th>
+            <td><?php echo $bebida; ?></td>
+        </tr>
+
+        <tr>
+            <th>Precio:</th>
+            <td><?php echo $precio; ?> €</td>
+        </tr>
+
+    <table>
+
+    </fieldset>
 
     </main>
 

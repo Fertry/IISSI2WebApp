@@ -115,6 +115,8 @@ CREATE TABLE Menus (
 
 CREATE TABLE ProductoMenu (
     idProductoMenu SMALLINT PRIMARY KEY,
+    nombre VARCHAR2(50) NOT NULL,
+    precio FLOAT NOT NULL,
     tipoPlato VARCHAR2(50),
     idProducto SMALLINT,
     idMenu SMALLINT,
@@ -393,10 +395,10 @@ END insertMenus;
 /
 
 CREATE OR REPLACE PROCEDURE insertProductoMenu
-(tipoPlato IN VARCHAR2, idProducto IN SMALLINT, idMenu IN SMALLINT) AS
+(nombre IN VARCHAR2, precio IN FLOAT, tipoPlato IN VARCHAR2, idProducto IN SMALLINT, idMenu IN SMALLINT) AS
 BEGIN
-INSERT INTO ProductoMenu (tipoPlato, idProducto, idMenu) 
-VALUES (tipoPlato, idProducto, idMenu);
+INSERT INTO ProductoMenu (nombre, precio, tipoPlato, idProducto, idMenu) 
+VALUES (nombre, precio, tipoPlato, idProducto, idMenu);
 END insertProductoMenu;
 /
 
@@ -478,9 +480,9 @@ END updateMenus;
 /
 
 CREATE OR REPLACE PROCEDURE updateProductoMenu
-(idProductoMenuP IN SMALLINT, tipoPlatoP IN VARCHAR2, idProductoP IN SMALLINT, idMenuP IN SMALLINT) AS
+(idProductoMenuP IN SMALLINT, nombreP IN VARCHAR2, precioP IN FLOAT, tipoPlatoP IN VARCHAR2, idProductoP IN SMALLINT, idMenuP IN SMALLINT) AS
 BEGIN
-UPDATE ProductoMenu SET tipoPlato = tipoPlatoP, idProducto = idProductoP, idMenu = idMenuP WHERE idProductoMenu = idProductoMenuP;
+UPDATE ProductoMenu SET nombre = nombreP, precio = precioP, tipoPlato = tipoPlatoP, idProducto = idProductoP, idMenu = idMenuP WHERE idProductoMenu = idProductoMenuP;
 END updateProductoMenu;
 /
 
@@ -589,10 +591,10 @@ INSERT INTO Menus (precio, carta) VALUES (18, 1);
 
 /* Datos de ProductoMenu */
 /* Mediante procedimientos: */
-EXECUTE insertProductoMenu('PRIMERPLATO', 1, 1);
-EXECUTE insertProductoMenu('SEGUNDOPLATO', 2, 1);
-EXECUTE insertProductoMenu('POSTRE', 3, 1);
-EXECUTE insertProductoMenu('BEBIDA', 4, 1); 
+EXECUTE insertProductoMenu('Macarrones', 9, 'PRIMERPLATO', 1, null);
+EXECUTE insertProductoMenu('Pechuga de Pollo', 5, 'SEGUNDOPLATO', 2, null);
+EXECUTE insertProductoMenu('Mousse de Chocolate', 4, 'POSTRE', 3, null);
+EXECUTE insertProductoMenu('Estrella Galicia', 1, 'BEBIDA', 4, null); 
 
 /* Mediante INSERTS: */
 /*
@@ -1715,4 +1717,7 @@ SELECT usuario FROM Usuarios WHERE (clase = 'GERENTE');
 SELECT nombre, telefono, fecha FROM Reservas;
 DELETE Productos WHERE idProducto = 1;
 INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES ('Filete de lomo', null, null, null, 6);
+SELECT idProducto, nombre, tipoProducto, precioProducto FROM Productos;
+SELECT idProducto FROM ProductoMenu;
+SELECT SUM(precio) FROM ProductoMenu;
 

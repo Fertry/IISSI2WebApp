@@ -18,7 +18,8 @@
 
         $introducir["nombreProducto"] = $_REQUEST["nombreProducto"];
         $introducir["precioProducto"] = $_REQUEST["precioProducto"];
-
+        $introducir["tipoProducto"] = $_REQUEST["tipoProducto"];
+        
         // Guardar la variable local con los datos del formulario en la sesión:
         $_SESSION["insertarProducto"] = $introducir;
 
@@ -45,9 +46,10 @@
         // Obtenemos los detalles del producto:
         $insertarNombre = $introducir["nombreProducto"];
         $insertarPrecio = $introducir["precioProducto"];
+        $insertarTipo = $introducir["tipoProducto"];
 
         // Consulta SQL que añade el producto:
-        insertarProducto($insertarNombre, $insertarPrecio, $conexion);
+        insertarProducto($insertarNombre, $insertarPrecio, $insertarTipo, $conexion);
 
         // Cerramos la conexión:
         cerrarConexionBD($conexion);
@@ -57,17 +59,18 @@
 
     }
     
-    function insertarProducto($insertarNombre, $insertarPrecio, $conexion) {
+    function insertarProducto($insertarNombre, $insertarPrecio, $insertarTipo, $conexion) {
 
         global $erroresInsertado;
 
         try {
  
-            $consulta = "INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES (:nombre, null, null, null, :precio)";
+            $consulta = "INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES (:nombre, null, :tipoProducto, null, :precio)";
 
             $stmt = $conexion -> prepare($consulta);
 
             $stmt -> bindParam(':nombre', $insertarNombre);
+            $stmt -> bindParam(':tipoProducto', $insertarTipo);
             $stmt -> bindParam(':precio', $insertarPrecio);
 
             $stmt -> execute();
@@ -113,6 +116,17 @@
         } else if ($introducir["precioProducto"] <= 0) {
 
             $erroresInsertado[] = "<p>El precio no puede ser menor o igual a 0</p>";
+
+        }
+
+        // Validación del tipo:
+        if ($introducir["tipoProducto"] == "") {
+
+            $erroresInsertado[] = "<p>El tipo de producto no puede ser nulo</p>";
+
+        } else if ($introducir["tipoProducto"] != "PRIMERPLATO" && $introducir["tipoProducto"] != "SEGUNDOPLATO" && $introducir["tipoProducto"] != "POSTRE" && $introducir["tipoProducto"] != "BEBIDA") {
+
+            $erroresInsertado[] = "<p>El tipo de producto no es válido</p>";
 
         }
 

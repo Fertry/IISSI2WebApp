@@ -14,6 +14,7 @@
 	
         $insertarProducto['nombreProducto'] = "";
         $insertarProducto['precioProducto'] = "";
+        $insertarProducto['tipoProducto'] = "";
 
         $_SESSION["insertarProducto"] = $insertarProducto;
 
@@ -104,6 +105,7 @@
                 // Debug:
                 // echo $_SESSION["insertarProducto"]["nombreProducto"];
                 // echo $_SESSION["insertarProducto"]["precioProducto"];
+                // echo $_SESSION["insertarProducto"]["tipoProducto"];
 
             ?>
 
@@ -148,6 +150,16 @@
                         <div>
                             <label for = "precioProducto"> Precio: </label>
                             <input id = "precioProducto" name = "precioProducto" type="number" min = 1 placeholder = "Precio" size = "20" required/>
+                        </div>
+
+                        <div>
+                            <label for = "tipoProducto"> Tipo: </label>
+                            <select id = "tipoProducto" name = "tipoProducto" required>
+                                <option value = "PRIMERPLATO"> Primer plato </option>
+                                <option value = "SEGUNDOPLATO"> Segundo plato </option>
+                                <option value = "POSTRE"> Postre </option>
+                                <option value = "BEBIDA"> Bebida </option>
+                            </select> 
                         </div>
 
                         <div>
