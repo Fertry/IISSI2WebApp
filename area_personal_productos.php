@@ -42,7 +42,7 @@
     $conexion = abrirConexionBD();
     
     // Consulta: nombre y precio de todos los platos disponibles:
-    $query = "SELECT idProducto, nombre, precioProducto FROM Productos";
+    $query = "SELECT idProducto, nombre, tipoProducto, precioProducto FROM Productos";
     
     // Se comprueba que el tamaño de página, página seleccionada y total de registros son conformes.
     $total_registros = total_consulta($conexion, $query);
@@ -175,7 +175,7 @@
 
 	        <tr>
 
-                <th> Id </th><th> Nombre </th> <th> Precio </th>
+                <th> Id </th><th> Nombre </th> <th> Tipo </th> <th> Precio </th>
                 
 	        </tr>
 		
@@ -188,7 +188,8 @@
             <tr class = "productos">
 
 				<td> <b><?= $fila["IDPRODUCTO"]?> </b> </td>
-				<td> <?= $fila["NOMBRE"]?>  </td>
+				<td> <?= $fila["NOMBRE"]?> </td>
+                <td> <?=$fila["TIPOPRODUCTO"]?> </td>
                 <td> <?=$fila["PRECIOPRODUCTO"]?> € </td>
                 <td> 
 

@@ -22,7 +22,7 @@
     if (isset($_SESSION["erroresLogin"])) {
         
         $erroresLogin = $_SESSION["erroresLogin"];
-        // unset($_SESSION["erroresLogin"]);
+        unset($_SESSION["erroresLogin"]);
 
     }
 

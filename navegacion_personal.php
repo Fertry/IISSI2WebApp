@@ -15,6 +15,9 @@
         <a href = "insertado_producto.php">
             <button class = "button">Gestión de Productos</button>
         </a>
+        <a href = "actualizar_menu.php">
+            <button class = "button">Gestión de Menú</button>
+        </a>
         
     </center>
 
