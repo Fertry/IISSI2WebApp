@@ -135,7 +135,7 @@
 
             ?>
 
-            <div class = entrada>
+            <div class = "formulario">
 
                 <form id = "insertarProducto" method = "post" action = "gestion_productos_insertar.php"> 
 
@@ -180,7 +180,7 @@
 
             ?>
 
-            <div class = entrada>
+            <div class = "formulario">
 
                 <form id = "actualizarProducto" method = "post" action = "gestion_producto_actualizar.php"> 
 
@@ -213,11 +213,13 @@
 
         <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
 
-    <?php 
+        <br>
 
-        include_once("pie.php");
+        <?php 
 
-    ?>
+           // include_once("pie.php");
+
+        ?>
 
 </body>
 

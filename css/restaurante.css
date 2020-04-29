@@ -1,14 +1,52 @@
 /* Headers */
 
-	/*TO-DO*/
+.header {
+
+	border: 1px solid grey; 
+	padding: 10px 24px; 
+	height: 10%;
+	width: 100%;
+
+}
+
+.cabecera {
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: auto;
+	width: auto;
+
+}
+
+/* Fondo de página */
+body {
+
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: rgb(228, 231, 228);
+
+}
 
 /* Pie de página */
+.pie {
 
-	/*TO-DO*/
+	border: 1px solid grey; 
+	padding: 10px 24px; 
+	background-color: rgb(213, 224, 213);
+	height: auto;
+	width: auto;
+
+}
+
+.icon {
+
+	padding: 1px;
+	width: 25px;
+
+}
 
 /* Formularios */
 
-	/*TO-DO*/
 
 /* Menú de navegación */
 .navegacion {
@@ -16,6 +54,8 @@
 	background-color: rgb(213, 224, 213); 
 	border: 1px solid grey; 
 	padding: 10px 24px; 
+	height: auto;
+	width: auto;
 
 }
 
@@ -34,7 +74,7 @@
 
   }
 
-/* Cuadro de error */
+/* Cuadros de error */
 
 	/*TO-DO*/
 

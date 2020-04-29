@@ -106,6 +106,8 @@
 
     </main>
 
+    <br>
+
     <footer>
 
         <?php 

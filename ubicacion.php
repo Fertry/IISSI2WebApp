@@ -49,6 +49,14 @@
 
     </main>
 
+    <br>
+
+    <?php 
+
+        include_once("pie.php");
+
+    ?>
+
 </body>
 
 </html>
