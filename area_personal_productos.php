@@ -221,7 +221,7 @@
 
     <?php 
 
-        include_once("pie.php");
+        // include_once("pie.php");
 
     ?>
 

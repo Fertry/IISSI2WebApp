@@ -73,6 +73,9 @@
     <meta name="description" content="Gestión del restaurante">
     <meta name="keywords" content="HTML, Casa Salvi, IISSI, gestión, personal">
 
+    <script src = "js/jquery-3.1.1.min.js" type = "text/javascript"></script>
+    <script src = "js/validacion.js" type = "text/javascript"></script>
+
     <title>Gestión Casa Salvi</title>
         
 </head>
@@ -164,9 +167,9 @@
 
         <!-- Formulario de actualización del menú -->
 
-    <div class = "entrada"> 
+    <div class = "formulario"> 
 
-        <form id = "modificarMenu" method = "post" action = "modificacion_menu.php">
+        <form id = "modificarMenu" method = "post" action = "modificacion_menu.php" onsubmit = "return validateForm()">
 
             <fieldset>
 
@@ -220,7 +223,7 @@
 
     <?php 
 
-        include_once("pie.php");
+        // include_once("pie.php");
 
     ?>
 

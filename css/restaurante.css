@@ -1,6 +1,23 @@
 /* Headers */
 
-	/*TO-DO*/
+.header {
+
+	border: 1px solid grey; 
+	padding: 10px 24px; 
+	height: 10%;
+	width: 100%;
+
+}
+
+.cabecera {
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: auto;
+	width: auto;
+
+}
 
 /* Fondo de página */
 body {
@@ -16,6 +33,8 @@ body {
 	border: 1px solid grey; 
 	padding: 10px 24px; 
 	background-color: rgb(213, 224, 213);
+	height: auto;
+	width: auto;
 
 }
 
@@ -28,7 +47,6 @@ body {
 
 /* Formularios */
 
-	/*TO-DO*/
 
 /* Menú de navegación */
 .navegacion {
@@ -36,6 +54,8 @@ body {
 	background-color: rgb(213, 224, 213); 
 	border: 1px solid grey; 
 	padding: 10px 24px; 
+	height: auto;
+	width: auto;
 
 }
 

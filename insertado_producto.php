@@ -135,7 +135,7 @@
 
             ?>
 
-            <div class = entrada>
+            <div class = "formulario">
 
                 <form id = "insertarProducto" method = "post" action = "gestion_productos_insertar.php"> 
 
@@ -180,7 +180,7 @@
 
             ?>
 
-            <div class = entrada>
+            <div class = "formulario">
 
                 <form id = "actualizarProducto" method = "post" action = "gestion_producto_actualizar.php"> 
 
@@ -217,15 +217,9 @@
 
         <?php 
 
-            include_once("pie.php");
+           // include_once("pie.php");
 
         ?>
-
-    <?php 
-
-        include_once("pie.php");
-
-    ?>
 
 </body>
 

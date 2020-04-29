@@ -1,8 +1,8 @@
-<header class = "header_index">
+<header class = "header">
 
-    <div class = "header">
+    <div>
 
-        <img src = "images\header_index.png" alt = "Imagen de portada"/>
+        <img src = "images\header_index.png" alt = "Imagen de portada" class = "cabecera"/>
 
     </div>
 

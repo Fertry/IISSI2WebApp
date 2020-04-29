@@ -1,8 +1,8 @@
-<header class = "header_reservas">
+<header class = "header">
 
-    <div class = "header">
+    <div>
 
-        <img src = "images\header_reservas.png" alt = "Imagen de portada"/>
+        <img src = "images\header_reservas_2.png" alt = "Imagen de portada" class = "cabecera"/>
 
     </div>
 
