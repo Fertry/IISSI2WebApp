@@ -113,6 +113,14 @@
 
     <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
 
+    <br>
+
+    <?php 
+
+        include_once("pie.php");
+
+    ?>
+
 </body>
 
 </html>

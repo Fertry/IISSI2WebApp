@@ -76,38 +76,46 @@
 
     ?>
 
-    <div class = "formulario">
-
         <main>
 
-            <h2> Acceso Personal </h2>
+        <h2> Acceso Personal </h2>
 
-            <form id = "user", method="post" action="validacion_formulario_personal.php">
-                
-                <fieldset>
-                    <legend>
-                        Acceso
-                    </legend>
+            <div class = "formulario">
+
+                <form id = "user", method="post" action="validacion_formulario_personal.php">
                     
-                    <div>
-                        <label for = "usuario">Usuario: </label>
-                        <input id = "usuario" name = "usuario" type = "text" placeholder = "" size = "30" required autofocus/>
-                    </div>
+                    <fieldset>
+                        <legend>
+                            Acceso
+                        </legend>
+                        
+                        <div>
+                            <label for = "usuario">Usuario: </label>
+                            <input id = "usuario" name = "usuario" type = "text" placeholder = "" size = "30" required autofocus/>
+                        </div>
 
-                    <div>
-                        <label for = "password">Contraseña: </label>
-                        <input id = "password" name = "password" type = "password" placeholder = "" size = "30" required/>
-                    </div>
+                        <div>
+                            <label for = "password">Contraseña: </label>
+                            <input id = "password" name = "password" type = "password" placeholder = "" size = "30" required/>
+                        </div>
 
-                    <div> 
-                        <input type = "submit" value = "Acceder"/>
-                    </div>
+                        <div> 
+                            <input type = "submit" value = "Acceder"/>
+                        </div>
 
-            </form>
+                </form>
+
+            </div>
 
         </main>
 
-    </div>
+        <br>
+
+        <?php 
+
+            include_once("pie.php");
+
+        ?>
 
 </body>
 

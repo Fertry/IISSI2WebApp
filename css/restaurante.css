@@ -2,9 +2,29 @@
 
 	/*TO-DO*/
 
-/* Pie de página */
+/* Fondo de página */
+body {
 
-	/*TO-DO*/
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: rgb(228, 231, 228);
+
+}
+
+/* Pie de página */
+.pie {
+
+	border: 1px solid grey; 
+	padding: 10px 24px; 
+	background-color: rgb(213, 224, 213);
+
+}
+
+.icon {
+
+	padding: 1px;
+	width: 25px;
+
+}
 
 /* Formularios */
 
@@ -34,7 +54,7 @@
 
   }
 
-/* Cuadro de error */
+/* Cuadros de error */
 
 	/*TO-DO*/
 

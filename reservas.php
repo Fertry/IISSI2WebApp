@@ -80,9 +80,9 @@
 
     ?>
 
-    <div class = "formulario">
+    <main>
 
-        <main>
+    <div class = "formulario">
 
             <form id = "formulario", method="post" action="validacion_formulario_reserva.php">
                 
@@ -139,9 +139,17 @@
             
             </form>
 
-        </main>
-
     </div>
+
+    </main>
+
+    <br>
+
+    <?php 
+
+        include_once("pie.php");
+
+    ?>
 
 </body>
 
