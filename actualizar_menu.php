@@ -169,7 +169,7 @@
 
     <div class = "formulario"> 
 
-        <form id = "modificarMenu" method = "post" action = "modificacion_menu.php" onsubmit = "return validateForm()">
+        <form id = "modificarMenu" method = "post" action = "modificacion_menu.php" onsubmit = "return Validar();">
 
             <fieldset>
 
@@ -202,6 +202,9 @@
                     <label for = "precioBebida"> Precio de la bebida: </label>
                     <input id = "precioBebida"  name = "precioBebida" type = "number" min = 1 size = "10" requied>
                 </div>
+
+                <div id = "sumatorio"></div>
+		        <div id = "errorSumatorio"></div>
 
                 <div>
                     <input type = "submit" value = "Modificar"/>
