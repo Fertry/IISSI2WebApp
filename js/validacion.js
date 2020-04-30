@@ -1,51 +1,44 @@
-function validateForm() {
+// Comprueba que el sumatorio de los 4 precios introducidos no sea superior a 20€:
+function Validar() {
 
-    var noValidation = document.getElementById("#modificarMenu").novalidate;
-    
-    if (!noValidation) {
+    var p1 = document.getElementById("precioPrimero"); 
+    var p2 = document.getElementById("precioSegundo");
+    var p3 = document.getElementById("precioPostre");
+    var p4 = document.getElementById("precioBebida");
 
-        // Comprobar que el precio del menú no excede los 20€:
-        var error1 = validacionPrecio();
+    var total = document.getElementById("sumatorio");
+    var calculo = Number(p1.value) + Number(p2.value) + Number(p3.value) + Number(p4.value);
+    total.innerHTML = "Precio total: ....... " + calculo + "€";		
 
-        return (error1.length==0) ;
+    if (calculo > 20) {
+
+        document.getElementById("errorSumatorio").innerHTML = "¡El precio del menú no puede exceder los 20€!";
+        return false;	
+
+    } else {
+
+        // alert ("Antes de volver al Submit!");
+        return true;
+
+    }
+
+}
+
+// Comprueba que los dos campos contienen la misma contraseña:
+function Confirmar() {
+
+    var t1 = document.getElementById("newPassword");
+    var t2 = document.getElementById("newPasswordConfirmation");
+
+    if (t1.value != t2.value) {
+
+        document.getElementById("errorDeCambio").innerHTML = "¡Las nuevas contraseñas deben coincidir!";
+        return false;
 
     } else {
 
         return true;
 
     }
-        
-}
 
-function validacionPrecio {
-
-    var precioPrimerPlato = document.getElementById("precioPrimero");
-    var precioSegundoPlato = document.getElementById("precioSegundo");
-    var precioPostre = document.getElementById("precioPostre");
-    var precioBebida = document.getElementById("precioBebida");
-
-    var valido = true;
-
-    // Comprobar el sumatorio de los 4 precios:
-    // No debe exceder 20€:
-    var sumatorio = precioPrimerPlato + precioSegundoPlato + precioPostre + precioBebida;
-
-    if (sumatorio > 20) {
-
-        valido = false;
-
-    }
-
-    if (!valido) {
-
-        var error = "El precio no puede exceder los 20€";
-
-    } else {
-
-        var error = "";
-
-    }
-
-    return error;
-    
 }

@@ -93,11 +93,11 @@
         // Validación del nombre seleccionado:
         if ($modificarPrecio["IdProductoSeleccionado"] == "") {
 
-            $erroresActualizado[] = "<p>El nombre no puede estar vacío</p>";
+            $erroresActualizado[] = "<p>El ID no puede estar vacío</p>";
 
         } else if (!preg_match("/[0-9]/", $modificarPrecio["IdProductoSeleccionado"])) {
 
-            $erroresActualizado[] = "<p>El nombre sólo puede contener carácteres alfabéticos</p>";
+            $erroresActualizado[] = "<p>El IS sólo puede ser numérico</p>";
 
         }
 

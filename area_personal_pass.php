@@ -8,10 +8,28 @@
 
         Header("Location: desconexion.php");	
 
+    }
+
+    if (!isset($_SESSION["cambio"])) {
+	
+        $cambio['actualPass'] = "";
+        $cambio['newPassword'] = "";
+        $cambio['newPasswordConfirmation'] = "";
+        
+        $_SESSION["cambio"] = $cambio;
+
     } else {
 
-        //
+        $cambio = $_SESSION["cambio"];
 
+    }
+
+    // Si se encuentran errores en la validación, se recogen para mostrarlos:
+    if (isset($_SESSION["erroresCambio"])) {
+        
+        $erroresCambio = $_SESSION["erroresCambio"];
+        unset($_SESSION["erroresCambio"]);
+        
     }
 
 ?>
@@ -79,7 +97,7 @@
 
             <h2> Cambio de contraseña </h2>
 
-            <form id = "cambio", method="post" action="validacion_formulario_cambio.php">
+            <form id = "cambio", method = "post" action = "validacion_formulario_cambio.php" onsubmit = "return Confirmar();">
                 
                 <fieldset>
                     <legend>
@@ -100,6 +118,8 @@
                         <label for = "newPasswordConfirmation">Confirmar contraseña: </label>
                         <input id = "newPasswordConfirmation" name = "newPasswordConfirmation" type = "password" placeholder = "" size = "30" required/>
                     </div>
+
+                    <div id = "errorDeCambio"></div>
 
                     <div> 
                         <input type = "submit" value = "Cambiar"/>

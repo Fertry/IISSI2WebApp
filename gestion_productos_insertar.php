@@ -18,7 +18,7 @@
 
         $introducir["nombreProducto"] = $_REQUEST["nombreProducto"];
         $introducir["precioProducto"] = $_REQUEST["precioProducto"];
-        $introducir["tipoProducto"] = $_REQUEST["tipoProducto"];
+        // $introducir["tipoProducto"] = $_REQUEST["tipoProducto"];
         
         // Guardar la variable local con los datos del formulario en la sesión:
         $_SESSION["insertarProducto"] = $introducir;
@@ -46,10 +46,10 @@
         // Obtenemos los detalles del producto:
         $insertarNombre = $introducir["nombreProducto"];
         $insertarPrecio = $introducir["precioProducto"];
-        $insertarTipo = $introducir["tipoProducto"];
+        // $insertarTipo = $introducir["tipoProducto"];
 
         // Consulta SQL que añade el producto:
-        insertarProducto($insertarNombre, $insertarPrecio, $insertarTipo, $conexion);
+        insertarProducto($insertarNombre, $insertarPrecio, $conexion);
 
         // Cerramos la conexión:
         cerrarConexionBD($conexion);
@@ -59,18 +59,18 @@
 
     }
     
-    function insertarProducto($insertarNombre, $insertarPrecio, $insertarTipo, $conexion) {
+    function insertarProducto($insertarNombre, $insertarPrecio, $conexion) {
 
         global $erroresInsertado;
 
         try {
  
-            $consulta = "INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES (:nombre, null, :tipoProducto, null, :precio)";
+            $consulta = "INSERT INTO Productos (nombre, descripcion, tipoProducto, disponibilidad, precioProducto) VALUES (:nombre, null, null, null, :precio)";
 
             $stmt = $conexion -> prepare($consulta);
 
             $stmt -> bindParam(':nombre', $insertarNombre);
-            $stmt -> bindParam(':tipoProducto', $insertarTipo);
+            // $stmt -> bindParam(':tipoProducto', $insertarTipo);
             $stmt -> bindParam(':precio', $insertarPrecio);
 
             $stmt -> execute();
@@ -98,7 +98,7 @@
 
             $erroresInsertado[] = "<p>El nombre no puede estar vacío</p>";
 
-        } else if (!preg_match("/[a-zA-Z]/", $introducir["nombreProducto"])) {
+        } else if (!preg_match("/^[a-zA-Z ]+$/", $introducir["nombreProducto"])) {
 
             $erroresInsertado[] = "<p>El nombre sólo puede contener carácteres alfabéticos</p>";
 
@@ -120,16 +120,16 @@
         }
 
         // Validación del tipo:
-        if ($introducir["tipoProducto"] == "") {
+        // if ($introducir["tipoProducto"] == "") {
 
-            $erroresInsertado[] = "<p>El tipo de producto no puede ser nulo</p>";
+        //    $erroresInsertado[] = "<p>El tipo de producto no puede ser nulo</p>";
 
-        } else if ($introducir["tipoProducto"] != "PRIMERPLATO" && $introducir["tipoProducto"] != "SEGUNDOPLATO" && $introducir["tipoProducto"] != "POSTRE" && $introducir["tipoProducto"] != "BEBIDA") {
+        // } else if ($introducir["tipoProducto"] != "PRIMERPLATO" && $introducir["tipoProducto"] != "SEGUNDOPLATO" && $introducir["tipoProducto"] != "POSTRE" && $introducir["tipoProducto"] != "BEBIDA") {
 
-            $erroresInsertado[] = "<p>El tipo de producto no es válido</p>";
+        //    $erroresInsertado[] = "<p>El tipo de producto no es válido</p>";
 
-        }
-
+        // }
+        
         return $erroresInsertado;
 
     }

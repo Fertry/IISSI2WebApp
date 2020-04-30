@@ -73,6 +73,7 @@
     <meta name="description" content="Gestión del restaurante">
     <meta name="keywords" content="HTML, Casa Salvi, IISSI, gestión, personal">
 
+    <!-- Scripts para la validación del precio del menú -->
     <script src = "js/jquery-3.1.1.min.js" type = "text/javascript"></script>
     <script src = "js/validacion.js" type = "text/javascript"></script>
 
@@ -103,16 +104,6 @@
     <main>
 
         <h2> Gestión de Menú </h2>
-
-        <h4> 
-
-        <?php
-                    
-            // Debug:
-
-        ?>
-
-        </h4>
 
         <?php
 
@@ -169,7 +160,7 @@
 
     <div class = "formulario"> 
 
-        <form id = "modificarMenu" method = "post" action = "modificacion_menu.php" onsubmit = "return validateForm()">
+        <form id = "modificarMenu" method = "post" action = "modificacion_menu.php" onsubmit = "return Validar();">
 
             <fieldset>
 
@@ -202,6 +193,9 @@
                     <label for = "precioBebida"> Precio de la bebida: </label>
                     <input id = "precioBebida"  name = "precioBebida" type = "number" min = 1 size = "10" requied>
                 </div>
+
+                <div id = "sumatorio"></div>
+		        <div id = "errorSumatorio"></div>
 
                 <div>
                     <input type = "submit" value = "Modificar"/>
