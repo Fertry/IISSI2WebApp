@@ -23,3 +23,22 @@ function Validar() {
     }
 
 }
+
+// Comprueba que los dos campos contienen la misma contraseña:
+function Confirmar() {
+
+    var t1 = document.getElementById("newPassword");
+    var t2 = document.getElementById("newPasswordConfirmation");
+
+    if (t1.value != t2.value) {
+
+        document.getElementById("errorDeCambio").innerHTML = "Las nuevas contraseñas deben coincidir";
+        return false;
+
+    } else {
+
+        return true;
+
+    }
+
+}
