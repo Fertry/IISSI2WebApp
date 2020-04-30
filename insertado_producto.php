@@ -191,7 +191,7 @@
 
                         <div> 
                             <label for = "IdProductoSeleccionado"> Id: </label>
-                            <input id = "IdProductoSeleccionado" name = "IdProductoSeleccionado" type="text" placeholder = "Id del producto" size = "40" required/>
+                            <input id = "IdProductoSeleccionado" name = "IdProductoSeleccionado" type="number" min = 1 placeholder = "Id del producto" size = "30" required/>
                         </div>
 
                         <div>

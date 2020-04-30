@@ -12,7 +12,7 @@ function Validar() {
 
     if (calculo > 20) {
 
-        document.getElementById("errorSumatorio").innerHTML = "¡El precio no puede exceder los 20€!";
+        document.getElementById("errorSumatorio").innerHTML = "¡El precio del menú no puede exceder los 20€!";
         return false;	
 
     } else {
@@ -32,7 +32,7 @@ function Confirmar() {
 
     if (t1.value != t2.value) {
 
-        document.getElementById("errorDeCambio").innerHTML = "Las nuevas contraseñas deben coincidir";
+        document.getElementById("errorDeCambio").innerHTML = "¡Las nuevas contraseñas deben coincidir!";
         return false;
 
     } else {

@@ -98,7 +98,7 @@
 
             $erroresInsertado[] = "<p>El nombre no puede estar vacío</p>";
 
-        } else if (!preg_match("/[a-zA-Z]/", $introducir["nombreProducto"])) {
+        } else if (!preg_match("/^[a-zA-Z ]+$/", $introducir["nombreProducto"])) {
 
             $erroresInsertado[] = "<p>El nombre sólo puede contener carácteres alfabéticos</p>";
 
