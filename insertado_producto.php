@@ -65,7 +65,7 @@
     <meta charset="UTF-8">
     <meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/restaurante.css"/>
+    <link rel="stylesheet" type="text/css" href="css/gestionProductos.css"/>
     <meta name="classification" content="Restaurante">
     <meta name="description" content="Gestión del restaurante">
     <meta name="keywords" content="HTML, Casa Salvi, IISSI, gestión, personal">
@@ -133,14 +133,14 @@
 
                 } 
 
-            ?>
+            ?>  
 
-            <div class = "formulario">
+            <div>
 
                 <form id = "insertarProducto" method = "post" action = "gestion_productos_insertar.php"> 
 
                     <fieldset>
-                        <legend>Insertado de productos:</legend>
+                        <legend>Insertado de productos</legend>
 
                         <div> 
                             <label for = "nombreProducto"> Nombre: </label>
@@ -171,7 +171,7 @@
                     </fieldset>
 
                 </form>
-
+			
             </div>
 
             <?php
@@ -182,12 +182,12 @@
 
             ?>
 
-            <div class = "formulario">
+            <div>
 
                 <form id = "actualizarProducto" method = "post" action = "gestion_producto_actualizar.php"> 
 
                     <fieldset>
-                        <legend>Actualizado de precios:</legend>
+                        <legend>Actualizado de precios</legend>
 
                         <div> 
                             <label for = "IdProductoSeleccionado"> Id: </label>
@@ -208,13 +208,13 @@
                 </form>
 
             </div>
-
+		
         </main>
 
         <br>
-
-        <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
-
+			
+			<a href = "desconexion.php"><button type = "button">Desconexión</button></a>
+			
         <br>
 
         <?php 
