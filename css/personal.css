@@ -46,8 +46,55 @@ body {
 
 }
 
-/* Formularios */
 
+/*Errores*/
+.error{
+	border-style: solid;
+	border-color: red;
+	text-align: center;
+	margin-left: 40%;
+	margin-right: 40%;
+}
+
+/* Formularios */
+.formulario{
+	margin-right: 33%;
+	margin-left: 38%;
+	
+}
+
+h2{
+	text-align: center;
+}
+
+form fieldset {
+  width: 72%;
+}
+div label {
+
+  width: 25%;
+  float: left;
+}
+
+div {
+  margin: .4em 0;
+}
+/*-------------------*/
+form input{
+	padding: .2em;
+}
+input:focus {
+  border: 2px solid #000;
+  background: #F3F3F3;
+}
+
+fieldset {
+  margin-bottom: 10px;
+
+}
+legend{
+	text-align: center;
+}
 
 /* Menú de navegación */
 .navegacion {
@@ -75,55 +122,3 @@ body {
 
   }
 
-/* Cuadros de error */
-
-	/*TO-DO*/
-
-/* Confirmación */
-
-	/*TO-DO*/
-
-
-/* Calendario */
-.mifecha2 {
-
-	border:1px solid #ff7800; 
-	background-color:#fff; 
-	padding:3px 0px 5px 6px; 
-	text-align:center; 
-	font-family:verdana, arial; 
-	font-size:10pt; 
-	overflow:hidden; 
-	width:206px;
-
-}
-
-.mifecha2 .mesano {
-	
-	width:100%; 
-	padding:3px 3px 5px; 
-	font-weight: bold; 
-	clear:both; 
-	color:#4ba3d8;
-
-} 
-
-.mifecha2 .dia, .mifecha2 .diaactual { 
-
-	width:20px; 
-	padding:3px; 
-	margin:3px 3px 0 0; 
-	background-color:#ffe3c1; 
-	float:left; 
-	text-shadow:none; 
-	font-size:11px;
-
-} 
-
-.mifecha2 .diaactual { 
-	
-	background-color: #ff7800; 
-	font-weight: bold; 
-	color:#fff;
-
-}
