@@ -1,67 +1,108 @@
 /* Headers */
-
 .header {
-
 	border: 1px solid grey; 
 	padding: 10px 24px; 
 	height: 10%;
 	width: auto;
-
 }
-
 .cabecera {
-
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	height: auto;
 	width: auto;
-
 }
-
+h2{
+	text-align: center;
+}
 
 /* Fondo de página */
 body {
-
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: rgb(228, 231, 228);
-
 }
 
 /* Pie de página */
 .pie {
-
 	border: 1px solid grey; 
 	padding: 10px 24px; 
 	background-color: rgb(213, 224, 213);
 	height: auto;
 	width: auto;
-
 }
 
 .icon {
-
 	padding: 1px;
 	width: 25px;
+}
 
+/*Errores*/
+
+.error{
+	border-style: solid;
+	border-color: red;
+	text-align: center;
+	margin-left: 40%;
+	margin-right: 40%;
 }
 
 /* Formularios */
 
+.formulario{
+	margin-right: 33%;
+	margin-left: 38%;
+}
+
+#prueba{
+	clear: left;
+	text-align: center;
+}
+/*-------------------*/
+form fieldset {
+  float: left;
+  width: 80%;
+}
+div label {
+
+  width: 18%;
+  float: left;
+}
+
+div {
+  margin: .4em 0;
+}
+/*-------------------*/
+form input{
+	padding: .2em;
+}
+input:focus {
+  border: 2px solid #000;
+  background: #F3F3F3;
+}
+
+fieldset {
+  margin-bottom: 10px;
+}
+legend{
+	text-align: center;
+}
+
+.prueba{
+	clear:left;
+}
+
+
 
 /* Menú de navegación */
 .navegacion {
-
 	background-color: rgb(213, 224, 213); 
 	border: 1px solid grey; 
 	padding: 10px 24px; 
 	height: auto;
 	width: auto;
-
 }
 
 .button {
-
 	background-color: #FFFAFA;
 	border: #DCDCDC;
 	color: black;
@@ -72,58 +113,4 @@ body {
 	font-size: 16px;
 	margin: 4px 2px;
 	cursor: grab;
-
   }
-
-/* Cuadros de error */
-
-	/*TO-DO*/
-
-/* Confirmación */
-
-	/*TO-DO*/
-
-
-/* Calendario */
-.mifecha2 {
-
-	border:1px solid #ff7800; 
-	background-color:#fff; 
-	padding:3px 0px 5px 6px; 
-	text-align:center; 
-	font-family:verdana, arial; 
-	font-size:10pt; 
-	overflow:hidden; 
-	width:206px;
-
-}
-
-.mifecha2 .mesano {
-	
-	width:100%; 
-	padding:3px 3px 5px; 
-	font-weight: bold; 
-	clear:both; 
-	color:#4ba3d8;
-
-} 
-
-.mifecha2 .dia, .mifecha2 .diaactual { 
-
-	width:20px; 
-	padding:3px; 
-	margin:3px 3px 0 0; 
-	background-color:#ffe3c1; 
-	float:left; 
-	text-shadow:none; 
-	font-size:11px;
-
-} 
-
-.mifecha2 .diaactual { 
-	
-	background-color: #ff7800; 
-	font-weight: bold; 
-	color:#fff;
-
-}

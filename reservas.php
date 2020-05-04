@@ -42,7 +42,7 @@
 	<meta charset="UTF-8">
 	<meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/restaurante.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reserva.css"/>
 	<meta name="classification" content="Restaurante">
 	<meta name="description" content="Formulario de reserva para restaurante">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, forms, reserva">
@@ -81,12 +81,12 @@
     ?>
 
     <main>
-
+	<h4><i>Todos los campos son obligatorios</i></h4>
     <div class = "formulario">
 
             <form id = "formulario", method="post" action="validacion_formulario_reserva.php">
                 
-                <p><i>Todos los campos son obligatorios</i></p>
+                
 
                 <fieldset>
                     <legend>
@@ -122,24 +122,24 @@
                     </legend>
 
                     <div>
-                        <label for = "numeroPersonas">Nº de Personas: </label>
+                        <label for = "numeroPersonas">Nº Personas: </label>
                         <input id = "numeroPersonas" name = "numeroPersonas" type = "number" placeholder = "10 máximo" size = "15" required/>
                     </div>
 
                     <div>
-                        <label for = "fecha">Fecha de reserva: </label>
+                        <label for = "fecha">Fecha: </label>
                         <input id = "fecha" name = "fecha" type = "date" required/>
                     </div>
 
                 </fieldset>
-
-                <div> 
+	</div>
+                <div class = "botonReservar"> 
                     <input type = "submit" value = "Reservar"/>
                 </div>
             
             </form>
 
-    </div>
+    
 
     </main>
 

@@ -65,7 +65,7 @@
     <meta charset="UTF-8">
     <meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/gestionProductos.css"/>
+    <link rel="stylesheet" type="text/css" href="css/personalProducto.css"/>
     <meta name="classification" content="Restaurante">
     <meta name="description" content="Gestión del restaurante">
     <meta name="keywords" content="HTML, Casa Salvi, IISSI, gestión, personal">
