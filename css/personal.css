@@ -1,5 +1,4 @@
 /* Headers */
-
 .header {
 
 	border: 1px solid grey; 
@@ -14,11 +13,10 @@
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	height: auto;
-	width: auto;
+	width:2500px; /*Ancho*/
+	height:420px; /*Alto*/
 
 }
-
 
 /* Fondo de página */
 body {
@@ -31,7 +29,6 @@ body {
 /* Pie de página */
 .pie {
 
-	border: 1px solid grey; 
 	padding: 10px 24px; 
 	background-color: rgb(213, 224, 213);
 	height: auto;
@@ -46,61 +43,81 @@ body {
 
 }
 
-
 /*Errores*/
-.error{
+.error {
+
 	border-style: solid;
 	border-color: red;
 	text-align: center;
 	margin-left: 40%;
 	margin-right: 40%;
+
 }
 
 /* Formularios */
-.formulario{
+.formulario {
+
 	margin-right: 33%;
 	margin-left: 38%;
 	
 }
 
-h2{
+h2 {
+
 	text-align: center;
+
 }
 
 form fieldset {
-  width: 72%;
+
+  	width: 72%;
+
 }
+
 div label {
 
-  width: 25%;
-  float: left;
+	width: 25%;
+	float: left;
+
 }
 
 div {
-  margin: .4em 0;
+
+	margin: .4em 0;
+	  
 }
-/*-------------------*/
-form input{
+
+/* ------------------- */
+
+form input {
+
 	padding: .2em;
+
 }
+
 input:focus {
-  border: 2px solid #000;
-  background: #F3F3F3;
+
+	border: 2px solid #000;
+	background: #F3F3F3;
+
 }
 
 fieldset {
-  margin-bottom: 10px;
+	
+ 	margin-bottom: 10px; 
 
 }
-legend{
+
+legend {
+
 	text-align: center;
+
 }
 
 /* Menú de navegación */
 .navegacion {
 
 	background-color: rgb(213, 224, 213); 
-	border: 1px solid grey; 
 	padding: 10px 24px; 
 	height: auto;
 	width: auto;
@@ -120,5 +137,4 @@ legend{
 	margin: 4px 2px;
 	cursor: grab;
 
-  }
-
+}

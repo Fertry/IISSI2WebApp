@@ -13,12 +13,12 @@
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	height: auto;
-	width: auto;
+	width:2500px; /*Ancho*/
+	height:420px; /*Alto*/
 
 }
 
-h2{
+h2 {
 
 	text-align: center;
 
@@ -35,7 +35,6 @@ body {
 /* Pie de página */
 .pie {
 
-	border: 1px solid grey; 
 	padding: 10px 24px; 
 	background-color: rgb(213, 224, 213);
 	height: auto;
@@ -58,7 +57,7 @@ form fieldset {
 
 }
 
-form input{
+form input {
 
 	padding: .2em;
 
@@ -90,7 +89,7 @@ fieldset {
 	  
 }
 
-legend{
+legend {
 
 	text-align: center;
 
@@ -100,7 +99,6 @@ legend{
 .navegacion {
 
 	background-color: rgb(213, 224, 213); 
-	border: 1px solid grey; 
 	padding: 10px 24px; 
 	height: auto;
 	width: auto;
