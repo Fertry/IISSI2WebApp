@@ -1,5 +1,4 @@
 /* Headers */
-
 .header {
 
 	border: 1px solid grey; 
@@ -14,11 +13,10 @@
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	height: auto;
-	width: auto;
+	width:2500px; /*Ancho*/
+	height:420px; /*Alto*/
 
 }
-
 
 /* Fondo de página */
 body {
@@ -30,8 +28,7 @@ body {
 
 /* Pie de página */
 .pie {
-
-	border: 1px solid grey; 
+ 
 	padding: 10px 24px; 
 	background-color: rgb(213, 224, 213);
 	height: auto;
@@ -46,14 +43,10 @@ body {
 
 }
 
-/* Formularios */
-
-
 /* Menú de navegación */
 .navegacion {
 
 	background-color: rgb(213, 224, 213); 
-	border: 1px solid grey; 
 	padding: 10px 24px; 
 	height: auto;
 	width: auto;
@@ -72,58 +65,5 @@ body {
 	font-size: 16px;
 	margin: 4px 2px;
 	cursor: grab;
-
-  }
-
-/* Cuadros de error */
-
-	/*TO-DO*/
-
-/* Confirmación */
-
-	/*TO-DO*/
-
-
-/* Calendario */
-.mifecha2 {
-
-	border:1px solid #ff7800; 
-	background-color:#fff; 
-	padding:3px 0px 5px 6px; 
-	text-align:center; 
-	font-family:verdana, arial; 
-	font-size:10pt; 
-	overflow:hidden; 
-	width:206px;
-
-}
-
-.mifecha2 .mesano {
-	
-	width:100%; 
-	padding:3px 3px 5px; 
-	font-weight: bold; 
-	clear:both; 
-	color:#4ba3d8;
-
-} 
-
-.mifecha2 .dia, .mifecha2 .diaactual { 
-
-	width:20px; 
-	padding:3px; 
-	margin:3px 3px 0 0; 
-	background-color:#ffe3c1; 
-	float:left; 
-	text-shadow:none; 
-	font-size:11px;
-
-} 
-
-.mifecha2 .diaactual { 
-	
-	background-color: #ff7800; 
-	font-weight: bold; 
-	color:#fff;
 
 }

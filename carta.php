@@ -165,57 +165,44 @@
                 
 
 	<table id = "tabla_listado">
+
 	<tr>
 		<th> Producto</th> <th> Precio </th>
 	</tr>
 		
-	<?php
+    <?php
+    
         foreach($filas as $fila) {
 
     ?>
+
             <tr class = "producto">
 				<td> <?= $fila["NOMBRE"]?> </td>
 				<td class = "precio"><?=$fila["PRECIOPRODUCTO"]?> €</td>
-			</tr>
+            </tr>
+            
     <?php
+
         }
+
     ?>
+
 	</table>
     <br>
 
     <!-- Mostrar el menú del día -->
     <fieldset>
+        <legend> Menú del día </legend>
 
-        <legend>Menú del día</legend>
+        <ul>
 
-    <table id = "tabla_menu">
-        
-        <tr>
-            <th>1º plato:</th>
-            <td><?php echo $primerPlato; ?></td>
-        </tr>
+            <li> 1º plato: <?php echo $primerPlato; ?> </li>
+            <li> 2º plato: <?php echo $segundoPlato; ?> </li>
+            <li> Postre:   <?php echo $postre; ?> </li>
+            <li> Bebida:   <?php echo $bebida; ?> </li>
+            <li> Precio:   <?php echo $precio; ?> € </li>
 
-        <tr>
-            <th>2º plato:</th>
-            <td><?php echo $segundoPlato; ?></td>
-        </tr>
-
-        <tr>
-            <th>Postre:</th>
-            <td><?php echo $postre; ?></td>
-        </tr>
-
-        <tr>
-            <th>Bebida:</th>
-            <td><?php echo $bebida; ?></td>
-        </tr>
-
-        <tr>
-            <th>Precio:</th>
-            <td><?php echo $precio; ?> €</td>
-        </tr>
-
-    <table>
+        </ul>
 
     </fieldset>
 
