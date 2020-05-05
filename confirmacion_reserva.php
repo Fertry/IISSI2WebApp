@@ -34,7 +34,7 @@
 	<meta charset="UTF-8">
 	<meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/restaurante.css"/>
+    <link rel="stylesheet" type="text/css" href="css/confirmacionReserva.css"/>
 	<meta name="classification" content="Restaurante">
 	<meta name="description" content="Confirmación de la reserva">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, confirmacion, reserva">
@@ -95,14 +95,15 @@
 
                     </fieldset>
 
-
                 </form>
-
-                <i>Recuerde que si por una eventualidad no puede hacer uso de su reserva, contacte con el restaurante para su cancelación en <a href="tel:955783272">955783272</a></i>
-
+                
         </div>
 
-        <a href = "desconexion.php"><button type = "button">Inicio</button></a>
+        <h4><i>Recuerde que si por una eventualidad no puede hacer uso de su reserva, contacte con el restaurante para su cancelación en <a href="tel:955783272">955783272</a></i></h4>
+
+        <div id = "boton">
+            <a href = "desconexion.php"><button type = "button">Inicio</button></a>
+        </div>
 
     </main>
 

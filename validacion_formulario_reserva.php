@@ -59,7 +59,7 @@
 
             $errores[] = "<p>El nombre no puede estar vacío</p>";
 
-        } else if (!preg_match("/^[a-zA-Z ]+$/", $reserva["nombre"])) {
+        } else if (!preg_match("/^[a-zA-Zñáéíóú ]+$/", $reserva["nombre"])) {
             
             $errores[] = "<p>El nombre sólo puede contener carácteres alfabéticos</p>";
 
@@ -69,7 +69,7 @@
 
             $errores[] = "<p>El apellido no puede estar vacío</p>";
 
-        } else if (!preg_match("/^[a-zA-Z ]+$/", $reserva["apellidos"])) {
+        } else if (!preg_match("/^[a-zA-Zñáéíóú ]+$/", $reserva["apellidos"])) {
             
             $errores[] = "<p>Los apellidos sólo pueden contener carácteres alfabéticos</p>";
 

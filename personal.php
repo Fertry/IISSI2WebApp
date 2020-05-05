@@ -38,7 +38,7 @@
 	<meta charset="UTF-8">
 	<meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/personal.css"/>
+    <link rel="stylesheet" type="text/css" href="css/personalProvisional2.css"/>
 	<meta name="classification" content="Restaurante">
 	<meta name="description" content="Acceso al personal del restaurante">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, forms, personal">
@@ -99,7 +99,7 @@
                             <input id = "password" name = "password" type = "password" placeholder = "" size = "30" required/>
                         </div>
 
-                        <div> 
+                        <div id = "acceso"> 
                             <input type = "submit" value = "Acceder"/>
                         </div>
 

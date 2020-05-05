@@ -83,7 +83,7 @@
 	<meta charset="UTF-8">
 	<meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/restaurante.css"/>
+    <link rel="stylesheet" type="text/css" href="css/listadoProductos.css"/>
 	<meta name="classification" content="Restaurante">
 	<meta name="description" content="Gestión del restaurante">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, gestión, personal">
@@ -120,7 +120,7 @@
 
         <nav>
 
-            <div class = "enlaces">
+            <div id = "enlaces">
 
                 <?php
 
@@ -146,8 +146,6 @@
 
                 ?>
                         
-            </div>
-
             <form method = "get" action = "area_personal_productos.php">
 
                 <div>
@@ -168,10 +166,14 @@
 
             </form>
 
+            </div>
+
         </nav>
+        <br>
 
         <!-- Eliminación de platos -->
-        <table id = "tabla_listado">
+        <div id = "tabla">
+        <table>
 
 	        <tr>
 
@@ -210,9 +212,13 @@
 
         ?>
 
-	    </table>
+        </table>
+        </div>
+        <br>
 
-        <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
+        <div id = "boton">
+            <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
+        </div>
 
     </main>
 
