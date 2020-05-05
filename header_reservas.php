@@ -2,7 +2,7 @@
 
     <div>
 
-        <img src = "images\header_reservas_2.png" alt = "Imagen de portada" class = "cabecera"/>
+        <img src = "images\header_reservas_1.png" alt = "Imagen de portada" class = "cabecera"/>
 
     </div>
 

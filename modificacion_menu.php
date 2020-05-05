@@ -189,7 +189,7 @@
 
             $erroresMenu[] = "<p>El nombre del primer plato no puede estar vacío</p>";
 
-        } else if (!preg_match("/^[a-zA-Z ]+$/", $modificarM["nombrePrimero"])) {
+        } else if (!preg_match("/^[a-zA-Zñáéíóú ]+$/", $modificarM["nombrePrimero"])) {
 
             $erroresMenu[] = "<p>El nombre del primer plato sólo puede contener carácteres alfabéticos</p>";
 
@@ -199,7 +199,7 @@
 
             $erroresMenu[] = "<p>El nombre del segundo plato no puede estar vacío</p>";
 
-        } else if (!preg_match("/^[a-zA-Z ]+$/", $modificarM["nombreSegundo"])) {
+        } else if (!preg_match("/^[a-zA-Zñáéíóú ]+$/", $modificarM["nombreSegundo"])) {
 
             $erroresMenu[] = "<p>El nombre del segundo plato sólo puede contener carácteres alfabéticos</p>";
 
@@ -209,7 +209,7 @@
 
             $erroresMenu[] = "<p>El nombre del postre no puede estar vacío</p>";
 
-        } else if (!preg_match("/^[a-zA-Z ]+$/", $modificarM["nombrePostre"])) {
+        } else if (!preg_match("/^[a-zA-Zñáéíóú ]+$/", $modificarM["nombrePostre"])) {
 
             $erroresMenu[] = "<p>El nombre del postre sólo puede contener carácteres alfabéticos</p>";
 
@@ -219,7 +219,7 @@
 
             $erroresMenu[] = "<p>El nombre de la bebida no puede estar vacío</p>";
 
-        } else if (!preg_match("/^[a-zA-Z ]+$/", $modificarM["nombreBebida"])) {
+        } else if (!preg_match("/^[a-zA-Zñáéíóú ]+$/", $modificarM["nombreBebida"])) {
 
             $erroresMenu[] = "<p>El nombre de la bebida sólo puede contener carácteres alfabéticos</p>";
 

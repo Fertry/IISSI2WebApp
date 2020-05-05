@@ -81,7 +81,7 @@
     ?>
 
     <main>
-	<h4><i>Todos los campos son obligatorios</i></h4>
+    <h4><i>Todos los campos son obligatorios</i></h4>
     <div class = "formulario">
 
             <form id = "formulario", method="post" action="validacion_formulario_reserva.php">

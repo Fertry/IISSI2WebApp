@@ -28,7 +28,7 @@ body {
 
 /* Pie de página */
 .pie {
-
+ 
 	padding: 10px 24px; 
 	background-color: rgb(213, 224, 213);
 	height: auto;
@@ -66,94 +66,40 @@ body {
 	margin: 4px 2px;
 	cursor: grab;
 
-  }
-
-/* Calendario */
-.mifecha2 {
-
-	border:1px solid #ff7800; 
-	background-color:#fff; 
-	padding:3px 0px 5px 6px; 
-	text-align:center; 
-	font-family:verdana, arial; 
-	font-size:10pt; 
-	overflow:hidden; 
-	width:306px;
-
 }
 
-.mifecha2 .mesano {
-	
-	width:100%; 
-	padding:3px 3px 5px; 
-	font-weight: bold; 
-	clear:both; 
-	color:#4ba3d8;
+h2 {
 
-} 
-
-.mifecha2 .dia, .mifecha2 .diaactual { 
-
-	width:20px; 
-	padding:3px; 
-	margin:3px 3px 0 0; 
-	background-color:#ffe3c1; 
-	float:left; 
-	text-shadow:none; 
-	font-size:11px;
-
-} 
-
-.mifecha2 .diaactual { 
-	
-	background-color: #ff7800; 
-	font-weight: bold; 
-	color:#fff;
-
-}
-
-.texto {
-
-	width: 30%;
 	text-align: center;
-	margin-left: 35%;
-	font-family: serif;
-	font-size: 22px;
 
 }
 
-.calendar {
+h4 {
 
-	float: left;
-	margin: 10px;
+	text-align: center;
 
 }
 
-#prueba {
+#boton {
 
-	margin-left: 35%;
+	text-align: center;
 
 }
 
 legend {
 
 	text-align: center;
-	font-weight: 600;
 
 }
 
-fieldset {
+.detalles {
 
-	width: 22%;
-	padding: 2%;
-	border-style: solid;
-	border-color: black;
+	margin-left: 42%;
 
 }
 
-h3 {
+form fieldset {
 
-	clear: left;
-	text-align: center;
+	width: 25%;
 
 }

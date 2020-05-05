@@ -78,9 +78,9 @@
 
             $erroresCambio[] = "La contraseña actual no es válida";
 
-        } else if (!preg_match("/^[a-zA-Z0-9]+$/", $modificarPass["newPassword"])) {
+        } else if (!preg_match("/^[a-zA-Z0-9ñáéíóú]+$/", $modificarPass["newPassword"])) {
 
-            $erroresCambio[] = "La nueva contraseña debe contener caracteres alfabéticos y numéricos exclusivamente";
+            $erroresCambio[] = "La nueva contraseña debe contener caracteres alfabéticos y/o numéricos exclusivamente";
 
         } else if ($modificarPass["newPassword"] == "") {
 

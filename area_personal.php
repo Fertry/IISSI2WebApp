@@ -88,7 +88,7 @@
 	<meta charset="UTF-8">
 	<meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/restaurante.css"/>
+    <link rel="stylesheet" type="text/css" href="css/gestionReservas.css"/>
 	<meta name="classification" content="Restaurante">
 	<meta name="description" content="Gestión del restaurante">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, gestión, personal">
@@ -151,8 +151,6 @@
 
                 ?>
                         
-            </div>
-
             <form method = "get" action = "area_personal.php">
 
                 <div>
@@ -173,10 +171,14 @@
 
             </form>
 
+            </div>
+
         </nav>
+        <br>
 
         <!-- Últimas reservas -->
-        <table id = "tabla_reservas">
+        <div id = "tabla">
+        <table>
 
 	        <tr>
 
@@ -214,9 +216,13 @@
 
         ?>
 
-	    </table>
+        </table>
+        </div>
+        <br>
 
-        <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
+        <div id = "boton">
+            <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
+        </div>
 
     </main>
 

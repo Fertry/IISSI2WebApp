@@ -85,7 +85,7 @@
 	<meta charset="UTF-8">
 	<meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/restaurante.css"/>
+    <link rel="stylesheet" type="text/css" href="css/carta2.css"/>
 	<meta name="classification" content="Restaurante">
 	<meta name="description" content="Carta del restaurante">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, carta">
@@ -110,6 +110,8 @@
     <br>
 
     <main>
+
+    <h2> Nuestra carta </h2>
 
         <nav>
 
@@ -139,8 +141,6 @@
 
                 ?>
                         
-            </div>
-
             <form method = "get" action = "carta.php">
 
                 <div>
@@ -161,33 +161,40 @@
 
             </form>
 
+            </div>
+
         </nav>
+        <br>
                 
 
-	<table id = "tabla_listado">
+    <div id = "tabla">
 
-	<tr>
-		<th> Producto</th> <th> Precio </th>
-	</tr>
-		
-    <?php
-    
-        foreach($filas as $fila) {
+        <table> 
 
-    ?>
-
-            <tr class = "producto">
-				<td> <?= $fila["NOMBRE"]?> </td>
-				<td class = "precio"><?=$fila["PRECIOPRODUCTO"]?> €</td>
-            </tr>
+        <tr>
+            <th> Producto</th> <th> Precio </th>
+        </tr>
             
-    <?php
+        <?php
+        
+            foreach($filas as $fila) {
 
-        }
+        ?>
 
-    ?>
+                <tr>
+                    <td> <?= $fila["NOMBRE"]?> </td>
+                    <td><?=$fila["PRECIOPRODUCTO"]?> €</td>
+                </tr>
+                
+        <?php
 
-	</table>
+            }
+
+        ?>
+
+        </table>
+
+    </div>
     <br>
 
     <!-- Mostrar el menú del día -->

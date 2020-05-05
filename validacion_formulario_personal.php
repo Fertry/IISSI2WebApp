@@ -70,7 +70,7 @@
         }
 
         // Validación de la contraseña:
-        if (!preg_match("/[a-zA-Z0-9]/", $acceso["password"])) {
+        if (!preg_match("/[a-zA-Z0-9ñáéíóú]/", $acceso["password"])) {
 
             $erroresLogin[] = "<p>Los datos introducidos no son válidos</p>";
 
