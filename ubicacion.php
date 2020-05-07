@@ -37,7 +37,7 @@
         <div class = "texto">
             
             <h3>Dirección: C/ Miguel de Cervantes 46, 41860, Gerena (Sevilla)</h3>
-            <h3>Teléfono de Contacto: 955783272</h3>
+            <h3>Teléfono de Contacto: <a href="tel:955783272">955783272</a> </h3>
 
         </div>
 
