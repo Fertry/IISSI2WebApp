@@ -17,7 +17,10 @@
         </a> 
         <a href = "personal.php">
             <button class = "button">PERSONAL</button>
-        </a> 
+        </a>
+        <a href = "about.php">
+            <button class = "button">ABOUT</button>
+        </a>  
 
     </center>
 

@@ -1,0 +1,75 @@
+/* Headers */
+.header {
+
+	border: 1px solid grey; 
+	padding: 10px 24px; 
+	height: 10%;
+	width: auto;
+
+}
+
+.cabecera {
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width:2500px; /*Ancho*/
+	height:420px; /*Alto*/
+
+}
+
+/* Fondo de página */
+body {
+
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: rgb(228, 231, 228);
+
+}
+
+/* Pie de página */
+.pie {
+
+	padding: 10px 24px; 
+	background-color: rgb(213, 224, 213);
+	height: auto;
+	width: auto;
+
+}
+
+.icon {
+
+	padding: 1px;
+	width: 25px;
+
+}
+
+/* Menú de navegación */
+.navegacion {
+
+	background-color: rgb(213, 224, 213); 
+	padding: 10px 24px; 
+	height: auto;
+	width: auto;
+
+}
+
+.button {
+
+	background-color: #FFFAFA;
+	border: #DCDCDC;
+	color: black;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: grab;
+
+}
+
+#about {
+
+	text-align: center;
+
+}
