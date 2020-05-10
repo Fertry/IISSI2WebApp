@@ -81,7 +81,7 @@
             <br><br>
 
             <a name = "paginasPublicas">
-                <h6> Páginas Públicas (visibles [frontend] para todos) </h6>
+                <h5> Páginas Públicas (visibles [frontend] para todos) </h5>
             </a>
             
             <br>
@@ -101,7 +101,7 @@
             <br>
 
             <a name = "paginasGerencia">
-                <h6> Páginas de Gerencia (visibles [frontend] tras login) </h6>
+                <h5> Páginas de Gerencia (visibles [frontend] tras login) </h5>
             </a>
 
             <br>
@@ -120,7 +120,7 @@
             <br>
 
             <a name = "paginasGestion">
-                <h6> Páginas de Gestion (invisibles [backend]) </h6>
+                <h5> Páginas de Gestion (invisibles [backend]) </h5>
             </a>
 
             <br>
@@ -145,7 +145,7 @@
             <br>
 
             <a name = "otrasPaginas">
-                <h6> Otras Páginas (insertadas en páginas visibles [frontend]) </h6>
+                <h5> Otras Páginas (insertadas en páginas visibles [frontend]) </h5>
             </a>
 
             <br>
@@ -167,14 +167,25 @@
             <br>
 
             <a name = "CSS">
-                <h6> CSS (hojas de estilo en cascada [backend]) </h6>
+                <h5> CSS (hojas de estilo en cascada [backend]) </h5>
             </a>
 
             <br>
 
             <ul>
 
-                <li> <i> -- </i> - </li>
+                <li> <i> css/about.css                </i> - Hoja de estilos de about.php                       </li>
+                <li> <i> css/carta2.css               </i> - Hoja de estilos de carta.php                       </li>
+                <li> <i> css/confirmacionReserva.css  </i> - Hoja de estilos de confirmacion_reserva.php        </li>
+                <li> <i> css/gestionReservas.css      </i> - Hoja de estilos de area_personal.php               </li>
+                <li> <i> css/index.css                </i> - Hoja de estilos de index.php                       </li>
+                <li> <i> css/listadoProductos.css     </i> - Hoja de estilos de area_personal_productos.php     </li>
+                <li> <i> css/personalPass.css         </i> - Hoja de estilos de area_personal_pass.php          </li>
+                <li> <i> css/personalProducto.css     </i> - Hoja de estilos de area_personal_productos.php     </li>
+                <li> <i> css/personalProvisional2.css </i> - Hoja de estilos de area_personal.php               </li>
+                <li> <i> css/reserva.css              </i> - Hoja de estilos de reservas.php                    </li>
+                <li> <i> css/restaurante.css          </i> - Hoja de estilos genérica del restaurante           </li>
+                <li> <i> css/ubicacion.css            </i> - Hoja de estilos de ubicacion.php                   </li>
                 <li> <i> <a href = "#indice"> Volver al índice </a> </i> </li>
 
             </ul>
@@ -182,14 +193,14 @@
             <br>
 
             <a name = "JS">
-                <h6> JavaScript (funciones JS [backend]) </h6>
+                <h5> JavaScript (funciones JS [backend]) </h5>
             </a>
 
             <br>
 
             <ul>
 
-                <li> <i> -- </i> - </li>
+                <li> <i> js/validacion.js </i> - Validación JS de la contraseña y de la modificación del menú. </li>
                 <li> <i> <a href = "#indice"> Volver al índice </a> </i> </li>
 
             </ul>
@@ -197,14 +208,14 @@
             <br>
 
             <a name = "SQL">
-                <h6> SQL (base de datos de IISSI 1 [backend]) </h6>
+                <h5> SQL (base de datos de IISSI 1 [backend]) </h5>
             </a>
 
             <br>
 
             <ul>
 
-                <li> <i> IISSI.sql </i> - Base de datos SQL trabajada en IISSI 1. </li>
+                <li> <i> sql/IISSI.sql </i> - Base de datos SQL trabajada en IISSI 1. </li>
                 <li> <i> <a href = "#indice"> Volver al índice </a> </i> </li>
 
             </ul>
@@ -212,7 +223,7 @@
             <br>
 
             <a name = "otros">
-                <h6> Otros Elementos (imágenes, PDFs, etc.) </h6>
+                <h5> Otros Elementos (imágenes, PDFs, etc.) </h5>
             </a>
 
             <br>
@@ -229,17 +240,94 @@
             <br>
 
             <a name = "funcionalidades">
-                <h6> Funcionalidades (explicación de la web) </h6>
+                <h5> Funcionalidades (explicación de la web) </h5>
             </a>
 
             <br>
 
-            <ul>
+            <p>
 
-                <li> </li>
-                <li> <i> <a href = "#indice"> Volver al índice </a> </i> </li>
+            Para realizar este proyecto nos hemos puesto en contacto con el propietario de un restaurante
+            situado en Miguel de Cervantes, 46, 41860 (Gerena-Sevilla), el cual quiere mejorar la gestión
+            de su negocio.
 
-            </ul>
+            <br><br>
+
+            Para dar solución a los problemas hemos desarrollado una aplicación web que permita por una parte, 
+            realizar reservas de forma telemática a los clientes y, por otra parte, gestionar esas reservas al 
+            restaurante. Así mismo, la aplicación permite a los clientes consultar en todo momento la carta y 
+            menú del día; mientras que el restaurante gana la capacidad de modificar dichos datos en tiempo real
+            (añadir, eliminar y modificar productos y el menú del día). 
+
+            <br><br>
+
+            La aplicación puede dividirse en páginas visibles (aquellas que puede ver cualquiera), páginas visibles
+            solo tras login (aquellas que precisan autenticación para verse) y por último, páginas 'ocultas' que
+            se encargan de la gestión de las consultas, modificaciones, validaciones, etc...
+ 
+            <br><br>
+
+            En el conjunto de las páginas visibles esta la página principal (index) que proporciona información
+            general sobre la misión del restaurante, su horario y un método de contacto telefónico. Todas las páginas
+            disponen de un menú de navegación (botonera) para moverse por las demás páginas.Las páginas de ubicación 
+            y carta proporcionan información específica sobre la localización del restaurante y la comida que sirve 
+            (junto con su precio). 
+
+            <br><br>
+
+            La página de reservas cuenta con un formulario que recoge: Nombre, Apellidos, Edad, Teléfono, Nº de personas 
+            y Fecha de la reserva. Todos los datos son validados en el momento en cliente (mediante HTML 5) y una vez 
+            enviados son validados en servidor (con PHP y consultas a la BD). Se comprueba que tanto los nombres como los 
+            apellidos sean de caracter alfabéticos, así cómo la edad debe ser superior a los 18 años y el teléfono debe ser
+            válido. También se valida que el nº de comensales no exceda la capacidad de las mesas y que existan mesas disponibles
+            para la reserva en la fecha solicitada. Asociado a la página de reservas existe una página de confirmación de reservas
+            a la que solo se llega tras rellenar el formulario de reserva y ser este correctamente validado; esta página muestra
+            la información de la reserva realizada al cliente y dispone de un botón para volver al inicio.
+
+            <br><br>
+
+            En el conjunto de las páginas visibles tras iniciar sesión, para llegar a ellas hay que pasar de forma obligatoria 
+            por la página de personal que cuenta con un login (acceso vía credenciales) para el personal administrador (gerente del
+            restaurante). Solo trás haberse autentificado correctamente (el formulario también se valida en cliente y en servidor)
+            se puede acceder al área de gerencia que cuenta con: 
+
+            <ol>
+
+                <li>
+                Gestión de las Reservas: una consulta paginada y tabulada que muestre las reservas realizadas con sus detalles y
+                dispone de un control para su anulación si fuera necesario.
+                </li>
+
+                <li>
+                Listado de productos: una consulta paginada y tabulada que muestre todos los productos de la carta junto con su
+                precio y un control para eliminarlos.
+                </li>
+
+                <li>
+                Gestión de personal: formulario que permite cambiar la contraseña previa validación (en cliente y servidor junto
+                con JavaScript) de que es una contraseña válida.
+                </li>
+
+                <li>
+                Gestión de productos: formularios que permiten insertar nuevos productos y/o modificar el precio de productos ya
+                existentes. Todo ello validado en cliente y servidor de forma que no pueden introducirse nombres no válidos, precios
+                negativos, etc...
+                </li>
+
+                <li>
+                Gestión de menú: área que muestre el menú actual (igual que en carta) y cuenta a su vez con un formulario de cambio 
+                para modificar el menú del día. Este formulario recoge los nombres y precios de los nuevos platos a incluir en el menú
+                y está validado (en cliente y servidor) junto con JavaScript para impedir que el sumatorio de los cuatro precios sean
+                mayores en ningún caso a 20€. 
+                </li>
+
+            </ol>
+
+            En todas las páginas de gerencia se añade además un menú de navegación adicional para moverse por las páginas de gerencia
+            así como un botón que permite cerrar la sesión en cualquier momento.
+            </p>
+
+            <p> <i> <a href = "#indice"> Volver al índice </a> </i> </p>
 
             <br>
 
