@@ -94,6 +94,7 @@
                 <li> <i> ubicacion.php            </i> - Información sobre la ubicación del restaurante.               </li>
                 <li> <i> personal.php             </i> - Acceso a la gerencia del restaurante (login).                 </li>
                 <li> <i> confirmacion_reserva.php </i> - Detalles de la reserva (solo se llega mediante reservas.php). </li>
+                <li> <i> about.php                </i> - Este mismo fichero.                                           </li>
                 <li> <i> <a href = "#indice"> Volver al índice </a> </i> </li>
 
             </ul>
@@ -137,7 +138,7 @@
                 <li> <i> gestion_productos_insertar.php     </i> - Validación del formulario de insertado de productos.  </li>
                 <li> <i> gestion_productos_eliminar.php     </i> - Validación y procesado del formulario de eliminación. </li>
                 <li> <i> gestion_productos_actualizar.php   </i> - Validación del insertado de nuevos productos.         </li>
-                <li> <i> desconexion.php                    </i> - Eliminación de la sesión actual (logout)</li>
+                <li> <i> desconexion.php                    </i> - Eliminación de la sesión actual (logout).             </li>
                 <li> <i> <a href = "#indice"> Volver al índice </a> </i> </li>
 
             </ul>
@@ -240,7 +241,7 @@
             <br>
 
             <a name = "funcionalidades">
-                <h5> Funcionalidades (explicación de la web) </h5>
+                <h5> Funcionalidades (explicación de la aplicación web) </h5>
             </a>
 
             <br>
