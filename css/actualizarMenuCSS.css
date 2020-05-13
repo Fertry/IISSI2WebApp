@@ -13,7 +13,7 @@
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	width:2480px; /*Ancho*/
+	width:2500px; /*Ancho*/
 	height:420px; /*Alto*/
 
 }
@@ -26,9 +26,84 @@ body {
 
 }
 
+/*Errores*/
+.error {
+
+	border-style: solid;
+	border-color: red;
+	text-align: center;
+	margin-left: 40%;
+	margin-right: 40%;
+
+}
+
+/* Formularios */
+h2 {
+
+    text-align: center;
+
+}
+
+.desconexion {
+
+    text-align: center;
+
+}
+
+#tabla_menu {
+
+    text-align: center;
+    margin-left: 46%;
+
+}
+
+.formulario {
+
+    width: 40%;
+    margin-left: 30%;
+      
+}
+
+.submit {
+
+    text-align: center;
+    
+}
+
+div {
+
+    margin: .4em 0;
+
+}
+
+form input {
+
+	padding: .2em;
+
+}
+
+input:focus {
+
+	border: 2px solid #000;
+	background: #F3F3F3;
+
+}
+
+fieldset {
+
+  	margin-bottom: 10px;
+
+}
+
+legend {
+
+	text-align: center;
+
+}
+
 /* Pie de página */
 .pie {
-
+ 
 	padding: 10px 24px; 
 	background-color: rgb(213, 224, 213);
 	height: auto;
@@ -65,11 +140,5 @@ body {
 	font-size: 16px;
 	margin: 4px 2px;
 	cursor: grab;
-
-}
-
-#about {
-
-	text-align: center;
 
 }

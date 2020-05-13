@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/about.css"/>
+    <link rel="stylesheet" type="text/css" href="css/aboutCSS.css"/>
 	<meta name="classification" content="Restaurante">
 	<meta name="description" content="About">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, about, informacion">
@@ -34,11 +34,9 @@
 
     <main>
 
+        <h1> <b> Contenidos del Proyecto </b> </h1>
+
         <div class = "about">
-
-            <h2> <b> Contenidos del Proyecto </b> </h2>
-
-            <br>
 
             <p> A continuación se describen los contenidos (páginas) y funcionalidades del proyecto <i>'Restaurante Casa Salvi'</i>
             de IISSI 2 realizado por Alejandro Fernández Trigo y Jesus Carrero Nuñez del G2 de IC. </p>
@@ -46,7 +44,7 @@
             <br><br>
 
             <a name = "indice">
-                <h4> <b> índice </b> </h4>
+                <h2> <b> Índice </b> </h2>
             </a>
 
             <ol>
@@ -81,7 +79,7 @@
             <br><br>
 
             <a name = "paginasPublicas">
-                <h5> Páginas Públicas (visibles [frontend] para todos) </h5>
+                <h2> Páginas Públicas (visibles [frontend] para todos) </h2>
             </a>
             
             <br>
@@ -102,7 +100,7 @@
             <br>
 
             <a name = "paginasGerencia">
-                <h5> Páginas de Gerencia (visibles [frontend] tras login) </h5>
+                <h2> Páginas de Gerencia (visibles [frontend] tras login) </h2>
             </a>
 
             <br>
@@ -121,7 +119,7 @@
             <br>
 
             <a name = "paginasGestion">
-                <h5> Páginas de Gestion (invisibles [backend]) </h5>
+                <h2> Páginas de Gestion (invisibles [backend]) </h2>
             </a>
 
             <br>
@@ -146,7 +144,7 @@
             <br>
 
             <a name = "otrasPaginas">
-                <h5> Otras Páginas (insertadas en páginas visibles [frontend]) </h5>
+                <h2> Otras Páginas (insertadas en páginas visibles [frontend]) </h2>
             </a>
 
             <br>
@@ -168,33 +166,33 @@
             <br>
 
             <a name = "CSS">
-                <h5> CSS (hojas de estilo en cascada [backend]) </h5>
+                <h2> CSS (hojas de estilo en cascada [backend]) </h2>
             </a>
 
             <br>
 
             <ul>
 
-                <li> <i> css/about.css                </i> - Hoja de estilos de about.php                       </li>
+                <li> <i> css/aboutCSS.css                </i> - Hoja de estilos de about.php                    </li>
                 <li> <i> css/carta2.css               </i> - Hoja de estilos de carta.php                       </li>
                 <li> <i> css/confirmacionReserva.css  </i> - Hoja de estilos de confirmacion_reserva.php        </li>
                 <li> <i> css/gestionReservas.css      </i> - Hoja de estilos de area_personal.php               </li>
                 <li> <i> css/index.css                </i> - Hoja de estilos de index.php                       </li>
                 <li> <i> css/listadoProductos.css     </i> - Hoja de estilos de area_personal_productos.php     </li>
-                <li> <i> css/personalPass.css         </i> - Hoja de estilos de area_personal_pass.php          </li>
-                <li> <i> css/personalProducto.css     </i> - Hoja de estilos de area_personal_productos.php     </li>
+                <li> <i> css/personalPassCSS.css      </i> - Hoja de estilos de area_personal_pass.php          </li>
+                <li> <i> css/personalProductoCSS.css  </i> - Hoja de estilos de area_personal_productos.php     </li>
                 <li> <i> css/personalProvisional2.css </i> - Hoja de estilos de area_personal.php               </li>
                 <li> <i> css/reserva.css              </i> - Hoja de estilos de reservas.php                    </li>
-                <li> <i> css/restaurante.css          </i> - Hoja de estilos genérica del restaurante           </li>
+                <li> <i> css/actualizarMenuCSS.css    </i> - Hoja de estilos de actualizar_menu.php             </li>
                 <li> <i> css/ubicacion.css            </i> - Hoja de estilos de ubicacion.php                   </li>
                 <li> <i> <a href = "#indice"> Volver al índice </a> </i> </li>
-
+                 
             </ul>
 
             <br>
 
             <a name = "JS">
-                <h5> JavaScript (funciones JS [backend]) </h5>
+                <h2> JavaScript (funciones JS [backend]) </h2>
             </a>
 
             <br>
@@ -209,14 +207,18 @@
             <br>
 
             <a name = "SQL">
-                <h5> SQL (base de datos de IISSI 1 [backend]) </h5>
+                <h2> SQL (base de datos de IISSI 1 [backend]) </h2>
             </a>
 
             <br>
 
             <ul>
 
-                <li> <i> sql/IISSI.sql </i> - Base de datos SQL trabajada en IISSI 1. </li>
+                <li> <i> sql/IISSI.sql                                    </i> - Base de datos SQL trabajada en IISSI 1.                            </li>
+                <li> <i> sql/0. Borrado de tablas.sql                     </i> - Borrado de tablas.                                                 </li>
+                <li> <i> sql/1. Creacion de tablas.sql                    </i> - Creación de tablas.                                                </li>
+                <li> <i> sql/2. Secuencias, triggers y procedimientos.sql </i> - Secuencias, triggers y procedimientos de insertado y actualizado.  </li>
+                <li> <i> sql/3. Carga de datos.sql                        </i> - Datos de prueba.                                                   </li>
                 <li> <i> <a href = "#indice"> Volver al índice </a> </i> </li>
 
             </ul>
@@ -224,7 +226,7 @@
             <br>
 
             <a name = "otros">
-                <h5> Otros Elementos (imágenes, PDFs, etc.) </h5>
+                <h2> Otros Elementos (imágenes, PDFs, etc.) </h2>
             </a>
 
             <br>
@@ -242,13 +244,12 @@
             <br>
 
             <a name = "funcionalidades">
-                <h5> Funcionalidades (explicación de la aplicación web) </h5>
+                <h2> Funcionalidades (explicación de la aplicación web) </h2>
             </a>
 
             <br>
 
             <p>
-
             Para realizar este proyecto nos hemos puesto en contacto con el propietario de un restaurante
             situado en Miguel de Cervantes, 46, 41860 (Gerena-Sevilla), el cual quiere mejorar la gestión
             de su negocio.
@@ -292,6 +293,7 @@
             por la página de personal que cuenta con un login (acceso vía credenciales) para el personal administrador (gerente del
             restaurante). Solo trás haberse autentificado correctamente (el formulario también se valida en cliente y en servidor)
             se puede acceder al área de gerencia que cuenta con: 
+            </p>
 
             <ol>
 
@@ -325,6 +327,7 @@
 
             </ol>
 
+            <p>
             En todas las páginas de gerencia se añade además un menú de navegación adicional para moverse por las páginas de gerencia
             así como un botón que permite cerrar la sesión en cualquier momento.
             </p>

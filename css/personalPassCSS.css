@@ -55,22 +55,22 @@ body {
 }
 
 /* Formularios */
-.prueba {
+.formulario {
 
-	margin-right: 33%;
-	margin-left: 33%;
+	margin-right: 35%;
+	margin-left: 40%;
 		
 }
 
 form fieldset {
 
-  	width: 90%;
-
+    width: 75%;
+      
 }
 
 div label {
 
-	width: 30%;
+	width: 35%;
 	float: left;
 
 }
@@ -81,15 +81,15 @@ h2 {
 
 }
 
-#botonDesc {
-
-	text-align: center;
-
-}
-
 div {
 
   	margin: .4em 0;
+
+}
+
+#submit {
+
+    text-align: center;
 
 }
 
@@ -117,6 +117,12 @@ fieldset {
 legend {
 
 	text-align: center;
+
+}
+
+.desconexion {
+
+    text-align: center;
 
 }
 

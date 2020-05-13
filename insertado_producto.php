@@ -65,7 +65,7 @@
     <meta charset="UTF-8">
     <meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/personalProducto.css"/>
+    <link rel="stylesheet" type="text/css" href="css/personalProductoCSS.css"/>
     <meta name="classification" content="Restaurante">
     <meta name="description" content="Gestión del restaurante">
     <meta name="keywords" content="HTML, Casa Salvi, IISSI, gestión, personal">
@@ -94,128 +94,105 @@
 
     ?>
 
-        <main>
+			<main>
 
-            <h2> Gestión de Productos </h2>
+				<h2> Gestión de Productos </h2>
 
-            <h4> 
 
-            <?php
-                    
-                // Debug:
-                // echo $_SESSION["insertarProducto"]["nombreProducto"];
-                // echo $_SESSION["insertarProducto"]["precioProducto"];
-                // echo $_SESSION["insertarProducto"]["tipoProducto"];
+				<?php
 
-            ?>
+					if (isset($erroresInsertado) && count($erroresInsertado) > 0) {
 
-            </h4>
+						echo "<div class=\"error\">";
+						echo "<h4> Errores en el formulario: </h4>";
+						foreach ($erroresInsertado as $error)
+							echo $error;
+						echo "</div>";
 
-            <?php
+					} 
 
-                if (isset($erroresInsertado) && count($erroresInsertado) > 0) {
+					if (isset($erroresActualizado) && count($erroresActualizado) > 0) {
 
-                    echo "<div class=\"error\">";
-                    echo "<h4> Errores en el formulario: </h4>";
-                    foreach ($erroresInsertado as $error)
-                        echo $error;
-                    echo "</div>";
+						echo "<div class=\"error\">";
+						echo "<h4> Errores en el formulario: </h4>";
+						foreach ($erroresActualizado as $errorA)
+							echo $errorA;
+						echo "</div>";
 
-                } 
+					} 
 
-                if (isset($erroresActualizado) && count($erroresActualizado) > 0) {
+				?>  
+				
+				<div class = "formulario">
+					<form id = "insertarProducto" method = "post" action = "gestion_productos_insertar.php"> 
 
-                    echo "<div class=\"error\">";
-                    echo "<h4> Errores en el formulario: </h4>";
-                    foreach ($erroresActualizado as $errorA)
-                        echo $errorA;
-                    echo "</div>";
+						<fieldset>
+							<legend>Insertado de productos</legend>
 
-                } 
+							<div> 
+								<label for = "nombreProducto"> Nombre: </label>
+								<input id = "nombreProducto" name = "nombreProducto" type="text" placeholder = "Nombre del producto" size = "40" required/>
+							</div>
 
-            ?>  
+							<div>
+								<label for = "precioProducto"> Precio: </label>
+								<input id = "precioProducto" name = "precioProducto" type="number" min = 1 placeholder = "Precio" size = "20" required/>
+							</div>
 
-            <div>
+							<!--
+							<div>
+								<label for = "tipoProducto"> Tipo: </label>
+								<select id = "tipoProducto" name = "tipoProducto" required>
+									<option value = "PRIMERPLATO"> Primer plato </option>
+									<option value = "SEGUNDOPLATO"> Segundo plato </option>
+									<option value = "POSTRE"> Postre </option>
+									<option value = "BEBIDA"> Bebida </option>
+								</select> 
+							</div>
+							-->
 
-                <form id = "insertarProducto" method = "post" action = "gestion_productos_insertar.php"> 
+							<div class = "submit">
+								<input type = "submit" value = "Insertar"/>
+							</div>
 
-                    <fieldset>
-                        <legend>Insertado de productos</legend>
+						</fieldset>
 
-                        <div> 
-                            <label for = "nombreProducto"> Nombre: </label>
-                            <input id = "nombreProducto" name = "nombreProducto" type="text" placeholder = "Nombre del producto" size = "40" required/>
-                        </div>
+					</form>		
+				
 
-                        <div>
-                            <label for = "precioProducto"> Precio: </label>
-                            <input id = "precioProducto" name = "precioProducto" type="number" min = 1 placeholder = "Precio" size = "20" required/>
-                        </div>
+					<form id = "actualizarProducto" method = "post" action = "gestion_producto_actualizar.php"> 
 
-                        <!--
-                        <div>
-                            <label for = "tipoProducto"> Tipo: </label>
-                            <select id = "tipoProducto" name = "tipoProducto" required>
-                                <option value = "PRIMERPLATO"> Primer plato </option>
-                                <option value = "SEGUNDOPLATO"> Segundo plato </option>
-                                <option value = "POSTRE"> Postre </option>
-                                <option value = "BEBIDA"> Bebida </option>
-                            </select> 
-                        </div>
-                        -->
+						<fieldset>
+							<legend>Actualizado de precios</legend>
 
-                        <div>
-                            <input type = "submit" value = "Insertar"/>
-                        </div>
+							<div> 
+								<label for = "IdProductoSeleccionado"> Id: </label>
+								<input id = "IdProductoSeleccionado" name = "IdProductoSeleccionado" type="number" min = 1 placeholder = "Id del producto" size = "30" required/>
+							</div>
 
-                    </fieldset>
+							<div>
+								<label for = "nuevoPrecioProducto"> Precio: </label>
+								<input id = "nuevoPrecioProducto" name = "nuevoPrecioProducto" type="number" min = 1 placeholder = "Nuevo precio" size = "20" required/>
+							</div>
 
-                </form>
-			
-            </div>
+							<div class = "submit">
+								<input type = "submit" value = "Actualizar"/>
+							</div>
 
-            <?php
-                    
-                // Debug:
-                // echo $_SESSION["actualizadoProducto"]["IdProductoSeleccionado"];
-                // echo $_SESSION["actualizadoProducto"]["nuevoPrecioProducto"];
+						</fieldset>
 
-            ?>
-
-            <div>
-
-                <form id = "actualizarProducto" method = "post" action = "gestion_producto_actualizar.php"> 
-
-                    <fieldset>
-                        <legend>Actualizado de precios</legend>
-
-                        <div> 
-                            <label for = "IdProductoSeleccionado"> Id: </label>
-                            <input id = "IdProductoSeleccionado" name = "IdProductoSeleccionado" type="number" min = 1 placeholder = "Id del producto" size = "30" required/>
-                        </div>
-
-                        <div>
-                            <label for = "nuevoPrecioProducto"> Precio: </label>
-                            <input id = "nuevoPrecioProducto" name = "nuevoPrecioProducto" type="number" min = 1 placeholder = "Nuevo precio" size = "20" required/>
-                        </div>
-
-                        <div>
-                            <input type = "submit" value = "Actualizar"/>
-                        </div>
-
-                    </fieldset>
-
-                </form>
-
-            </div>
+					</form>
+				</div>	
 		
-        </main>
+			</main>
 
         <br>
 			
-			<a href = "desconexion.php"><button type = "button">Desconexión</button></a>
-			
+			<div id = "prueba">
+				<a href = "desconexion.php"><button type = "button">Desconexión</button></a>
+			</div>
         <br>
+		
 
         <?php 
 
