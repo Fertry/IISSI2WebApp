@@ -68,7 +68,7 @@
     <meta charset="UTF-8">
     <meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/restaurante.css"/>
+    <link rel="stylesheet" type="text/css" href="css/actualizarMenuCSS.css"/>
     <meta name="classification" content="Restaurante">
     <meta name="description" content="Gestión del restaurante">
     <meta name="keywords" content="HTML, Casa Salvi, IISSI, gestión, personal">
@@ -123,34 +123,34 @@
 
     <div class = "entrada">
 
-            <table id = "tabla_menu">
+        <table id = "tabla_menu">
 
-                <tr>
-                    <th>1º plato:</th>
-                    <td><?php echo $primerPlato; ?></td>
-                </tr>
+            <tr>
+                <th>1º plato:</th>
+                <td><?php echo $primerPlato; ?></td>
+            </tr>
 
-                <tr>
-                    <th>2º plato:</th>
-                    <td><?php echo $segundoPlato; ?></td>
-                </tr>
+            <tr>
+                <th>2º plato:</th>
+                <td><?php echo $segundoPlato; ?></td>
+            </tr>
 
-                <tr>
-                    <th>Postre:</th>
-                    <td><?php echo $postre; ?></td>
-                </tr>
+            <tr>
+                <th>Postre:</th>
+                <td><?php echo $postre; ?></td>
+            </tr>
 
-                <tr>
-                    <th>Bebida:</th>
-                    <td><?php echo $bebida; ?></td>
-                </tr>
+            <tr>
+                <th>Bebida:</th>
+                <td><?php echo $bebida; ?></td>
+            </tr>
 
-                <tr>
-                    <th>Precio:</th>
-                    <td><?php echo $precio; ?> €</td>
-                </tr>
+            <tr>
+                <th>Precio:</th>
+                <td><?php echo $precio; ?> €</td>
+            </tr>
 
-            <table>
+        <table>
 
     </div>
     
@@ -197,7 +197,7 @@
                 <div id = "sumatorio"></div>
 		        <div id = "errorSumatorio"></div>
 
-                <div>
+                <div class = "submit">
                     <input type = "submit" value = "Modificar"/>
                 </div>
 
@@ -211,7 +211,9 @@
 
     <br>
 
-    <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
+    <div class = "desconexion">
+        <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
+    </div>
 
     <br>
 

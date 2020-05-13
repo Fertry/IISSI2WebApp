@@ -44,7 +44,7 @@
 	<meta charset="UTF-8">
 	<meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/personalPass.css"/>
+    <link rel="stylesheet" type="text/css" href="css/personalPassCSS.css"/>
 	<meta name="classification" content="Restaurante">
 	<meta name="description" content="Gestión del restaurante">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, gestión, personal">
@@ -91,47 +91,49 @@
 
     ?>
 
-    <div class = "formulario">
-
         <main>
 
             <h2> Cambio de contraseña </h2>
+            
+            <div class = "formulario">
 
-            <form id = "cambio", method = "post" action = "validacion_formulario_cambio.php" onsubmit = "return Confirmar();">
-                
-                <fieldset>
-                    <legend>
-                        Cambio de Credenciales
-                    </legend>
+                <form id = "cambio", method = "post" action = "validacion_formulario_cambio.php" onsubmit = "return Confirmar();">
                     
-                    <div>
-                        <label for = "actualPass">Contraseña actual: </label>
-                        <input id = "actualPass" name = "actualPass" type = "password" placeholder = "" size = "30" required autofocus/>
-                    </div>
+                    <fieldset>
+                        <legend>
+                            Cambio de Credenciales
+                        </legend>
+                        
+                        <div>
+                            <label for = "actualPass">Contraseña actual: </label>
+                            <input id = "actualPass" name = "actualPass" type = "password" placeholder = "" size = "30" required autofocus/>
+                        </div>
 
-                    <div>
-                        <label for = "newPassword">Nueva contraseña: </label>
-                        <input id = "newPassword" name = "newPassword" type = "password" placeholder = "" size = "30" required/>
-                    </div>
+                        <div>
+                            <label for = "newPassword">Nueva contraseña: </label>
+                            <input id = "newPassword" name = "newPassword" type = "password" placeholder = "" size = "30" required/>
+                        </div>
 
-                    <div>
-                        <label for = "newPasswordConfirmation">Confirmar contraseña: </label>
-                        <input id = "newPasswordConfirmation" name = "newPasswordConfirmation" type = "password" placeholder = "" size = "30" required/>
-                    </div>
+                        <div>
+                            <label for = "newPasswordConfirmation">Confirmar contraseña: </label>
+                            <input id = "newPasswordConfirmation" name = "newPasswordConfirmation" type = "password" placeholder = "" size = "30" required/>
+                        </div>
 
-                    <div id = "errorDeCambio"></div>
+                        <div id = "errorDeCambio"></div>
 
-                    <div> 
-                        <input type = "submit" value = "Cambiar"/>
-                    </div>
+                        <div id = "submit"> 
+                            <input type = "submit" value = "Cambiar"/>
+                        </div>
 
-            </form>
+                </form>
+
+            </div>
 
         </main>
 
+    <div class = "desconexion">
+        <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
     </div>
-
-    <a href = "desconexion.php"><button type = "button">Desconexión</button></a>
 
     <br>
 

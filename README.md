@@ -60,17 +60,17 @@
 
 ##### CSS (hojas de estilo en cascada [backend])
 
-* css/about.css - Hoja de estilos de about.php
+* css/aboutCSS.css - Hoja de estilos de about.php
 * css/carta2.css - Hoja de estilos de carta.php 
 * css/confirmacionReserva.css - Hoja de estilos de confirmacion_reserva.php
 * css/gestionReservas.css - Hoja de estilos de area_personal.php
 * css/index.css - Hoja de estilos de index.php  
 * css/listadoProductos.css - Hoja de estilos de area_personal_productos.php
-* css/personalPass.css - Hoja de estilos de area_personal_pass.php    
-* css/personalProducto.css - Hoja de estilos de area_personal_productos.php
+* css/personalPassCSS.css - Hoja de estilos de area_personal_pass.php    
+* css/personalProductoCSS.css - Hoja de estilos de area_personal_productos.php
 * css/personalProvisional2.css - Hoja de estilos de area_personal.php   
 * css/reserva.css - Hoja de estilos de reservas.php 
-* css/restaurante.css - Hoja de estilos genérica del restaurante
+* css/actualizarMenuCSS.css - Hoja de estilos de actualizar_menu.php
 * css/ubicacion.css - Hoja de estilos de ubicacion.php 
 
 ##### JavaScript (funciones JS [backend])
@@ -80,6 +80,10 @@
 ##### SQL (base de datos de IISSI 1 [backend])
 
 * sql/IISSI.sql - Base de datos SQL trabajada en IISSI 1.
+* 0. Borrado de tablas.sql - Borrado de tablas.
+* 1. Creacion de tablas.sql - Creación de tablas.
+* 2. Secuencias, triggers y procedimientos.sql - Secuencias, triggers y procedimientos de insertado y actualizado.
+* 3. Carga de datos.sql - Datos de prueba.
 
 ##### Otros Elementos (imágenes, PDFs, etc.)
 
