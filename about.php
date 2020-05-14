@@ -13,7 +13,7 @@
 	<meta name="description" content="About">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, about, informacion">
 
-	<title>About</title>
+	<title>Información</title>
     
 </head>
 
@@ -214,7 +214,7 @@
 
             <ul>
 
-                <li> <i> sql/IISSI.sql                                    </i> - Base de datos SQL trabajada en IISSI 1.                            </li>
+                <li> <i> sql/IISSI (Código completo).sql                  </i> - Base de datos SQL trabajada en IISSI 1.                            </li>
                 <li> <i> sql/0. Borrado de tablas.sql                     </i> - Borrado de tablas.                                                 </li>
                 <li> <i> sql/1. Creacion de tablas.sql                    </i> - Creación de tablas.                                                </li>
                 <li> <i> sql/2. Secuencias, triggers y procedimientos.sql </i> - Secuencias, triggers y procedimientos de insertado y actualizado.  </li>
