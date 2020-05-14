@@ -42,3 +42,24 @@ function Confirmar() {
     }
 
 }
+
+// Comprueba que la fecha de la reserva no sea anterior a hoy:
+function Verificar() {
+
+    var fechaIntroducida = document.getElementById("fecha");
+    var fecha = String(fechaIntroducida.value);
+    var fechaFinal = new Date(fecha);
+    var today = new Date();
+
+    if (fechaFinal < today) {
+
+        document.getElementById("errorDeFecha").innerHTML = "¡Las fecha no puede ser anterior a hoy!";
+        return false;
+        
+    } else {
+
+        return true;
+
+    }
+    
+}

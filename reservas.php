@@ -47,6 +47,10 @@
 	<meta name="description" content="Formulario de reserva para restaurante">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, forms, reserva">
 
+    <!-- Scripts para la validación de la fecha -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="js/validacion.js" type="text/javascript"></script>
+
 	<title>Formulario de Reserva</title>
     
 </head>
@@ -84,10 +88,8 @@
     <h4><i>Todos los campos son obligatorios</i></h4>
     <div class = "formulario">
 
-            <form id = "formulario", method="post" action="validacion_formulario_reserva.php">
+            <form id = "formulario", method="post" action="validacion_formulario_reserva.php" onsubmit = "return Verificar();">
                 
-                
-
                 <fieldset>
                     <legend>
                         Detalles de Contacto
@@ -131,6 +133,8 @@
                         <input id = "fecha" name = "fecha" type = "date" required/>
                     </div>
 
+                    <div id = "errorDeFecha"></div>
+
                 </fieldset>
 	</div>
                 <div class = "botonReservar"> 
@@ -138,8 +142,6 @@
                 </div>
             
             </form>
-
-    
 
     </main>
 

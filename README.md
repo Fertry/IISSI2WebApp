@@ -79,7 +79,7 @@
 
 ##### SQL (base de datos de IISSI 1 [backend])
 
-* sql/IISSI.sql - Base de datos SQL trabajada en IISSI 1.
+* sql/IISSI (Código completo).sql - Base de datos SQL trabajada en IISSI 1.
 * 0. Borrado de tablas.sql - Borrado de tablas.
 * 1. Creacion de tablas.sql - Creación de tablas.
 * 2. Secuencias, triggers y procedimientos.sql - Secuencias, triggers y procedimientos de insertado y actualizado.
