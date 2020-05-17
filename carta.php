@@ -16,6 +16,7 @@
     // La página por defecto será la primera a menos que se cambie y el tamaño por defecto será de 5:
     $pagina_seleccionada = isset($_GET["PAG_NUM"]) ? (int)$_GET["PAG_NUM"] : (isset($paginacion) ? (int)$paginacion["PAG_NUM"] : 1);
     $pag_tam = isset($_GET["PAG_TAM"]) ? (int)$_GET["PAG_TAM"] : (isset($paginacion) ? (int)$paginacion["PAG_TAM"] : 5);
+    $pMax = isset($_GET["precioMax"]) ? (int)$_GET["precioMax"] : (isset($paginacion) ? (int)$paginacion["precioMax"] : 50); 
 
     if ($pagina_seleccionada < 1) {
 
@@ -27,7 +28,13 @@
 
         $pag_tam = 5;
 
-    }	
+    }
+    
+    if ($pMax < 1) {
+
+        $pMax = 50;
+
+    }
 
     unset($_SESSION["paginacion"]);
 
@@ -35,7 +42,7 @@
     $conexion = abrirConexionBD();
 
     // Consulta: nombre y precio de todos los platos disponibles:
-    $query = "SELECT nombre, precioProducto FROM Productos";
+    $query = "SELECT nombre, precioProducto FROM Productos WHERE precioProducto <= $pMax";
 
     // Se comprueba que el tamaño de página, página seleccionada y total de registros son conformes.
     $total_registros = total_consulta($conexion, $query);
@@ -56,10 +63,11 @@
     // Guardamos los valores generados:
     $paginacion["PAG_NUM"] = $pagina_seleccionada;
     $paginacion["PAG_TAM"] = $pag_tam;
+    $paginacion["precioMax"] = $pMax;
     $_SESSION["paginacion"] = $paginacion;
 
     // Datos que se van a mostrar: 
-    $filas = consulta_paginada($conexion, $query, $pagina_seleccionada, $pag_tam);
+    $filas = consulta_paginada($conexion, $query, $pagina_seleccionada, $pag_tam, $pMax);
 
     // Productos del menú:
     $primerPlato = consulta_menu_primero($conexion);
@@ -146,16 +154,27 @@
                 <div>
 
                     <input id="PAG_NUM" name = "PAG_NUM" type = "hidden" value = "<?php echo $pagina_seleccionada?>"/>
-
+                    
                 </div>
 
                 <div>
 
-                    Mostrando 
-                    <input id = "PAG_TAM" name = "PAG_TAM" type="number" min = "1" max = "<?php echo $total_registros; ?>" value = "<?php echo $pag_tam?>" autofocus/>
-                    entradas de <?php echo $total_registros?>
+                    <div>
+                        Mostrando 
+                        <input id = "PAG_TAM" name = "PAG_TAM" type="number" min = "1" max = "<?php echo $total_registros; ?>" value = "<?php echo $pag_tam?>" autofocus/>
+                        entradas de <?php echo $total_registros?>
 
-                    <input type = "submit" value = "Cambiar">
+                        <input type = "submit" value = "Cambiar">
+                    </div>
+                    
+                    <br>
+
+                    <div>
+                        Filtrar por precio máximo: 
+                        <input id = "precioMax" name = "precioMax" type = "number" min = "1" max = "50" size = "20" value = "<?php echo $pMax?>"/>
+
+                        <input type = "submit" value = "Filtrar">
+                    </div>
 
                 </div>
 

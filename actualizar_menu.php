@@ -68,7 +68,7 @@
     <meta charset="UTF-8">
     <meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/actualizarMenuCSS.css"/>
+    <link rel="stylesheet" type="text/css" href="css/actMenu.css"/>
     <meta name="classification" content="Restaurante">
     <meta name="description" content="Gestión del restaurante">
     <meta name="keywords" content="HTML, Casa Salvi, IISSI, gestión, personal">
@@ -169,6 +169,8 @@
                 <div> 
                     <label for = "nombrePrimero"> Nombre  del 1º plato: </label>
                     <input id = "nombrePrimero" name = "nombrePrimero" type="text" placeholder = "Nombre primer plato" size = "30" required/>
+                </div>
+                <div>
                     <label for = "precioPrimero"> Precio 1º plato: </label>
                     <input id = "precioPrimero"  name = "precioPrimero" type = "number" min = 1 size = "10" requied>
                 </div>
@@ -176,6 +178,8 @@
                 <div> 
                     <label for = "nombreSegundo"> Nombre del 2º plato: </label>
                     <input id = "nombreSegundo" name = "nombreSegundo" type="text" placeholder = "Nombre segundo plato" size = "30" required/>
+                </div>
+                <div>
                     <label for = "precioSegundo"> Precio 2º plato: </label>
                     <input id = "precioSegundo"  name = "precioSegundo" type = "number" min = 1 size = "10" requied>
                 </div>
@@ -183,6 +187,8 @@
                 <div> 
                     <label for = "nombrePostre"> Nombre del postre: </label>
                     <input id = "nombrePostre" name = "nombrePostre" type="text" placeholder = "Nombre del postre" size = "30" required/>
+                </div>
+                <div>
                     <label for = "precioPostre"> Precio del postre: </label>
                     <input id = "precioPostre"  name = "precioPostre" type = "number" min = 1 size = "10" requied>
                 </div>
@@ -190,6 +196,8 @@
                 <div> 
                     <label for = "nombreBebida"> Nombre de la bebida: </label>
                     <input id = "nombreBebida" name = "nombreBebida" type="text" placeholder = "Nombre de la bebida" size = "30" required/>
+                </div>
+                <div>
                     <label for = "precioBebida"> Precio de la bebida: </label>
                     <input id = "precioBebida"  name = "precioBebida" type = "number" min = 1 size = "10" requied>
                 </div>

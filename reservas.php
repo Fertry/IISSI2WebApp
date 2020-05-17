@@ -42,7 +42,7 @@
 	<meta charset="UTF-8">
 	<meta name="author" content="Casa Salvi">
     <link rel="icon" href="images/icono.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/reserva.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reservaCSS.css"/>
 	<meta name="classification" content="Restaurante">
 	<meta name="description" content="Formulario de reserva para restaurante">
 	<meta name="keywords" content="HTML, Casa Salvi, IISSI, forms, reserva">

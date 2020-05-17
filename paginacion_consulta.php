@@ -1,13 +1,14 @@
 <?php
 
-    function consulta_paginada($conexion, $query, $pag_num, $pag_size) {
+    function consulta_paginada($conexion, $query, $pag_num, $pag_size, $pMax) {
 
         try {
 
             $first = ($pag_num - 1) * $pag_size + 1;
             $last  = $pag_num * $pag_size;
-			$paged_query = "SELECT * FROM(SELECT ROWNUM RNUM, AUX.* FROM(SELECT nombre, precioProducto FROM Productos) AUX WHERE ROWNUM <= :last) WHERE RNUM >= :first";
+			$paged_query = "SELECT * FROM(SELECT ROWNUM RNUM, AUX.* FROM(SELECT nombre, precioProducto FROM Productos WHERE precioProducto <= :pMax) AUX WHERE ROWNUM <= :last) WHERE RNUM >= :first";
             $stmt = $conexion -> prepare($paged_query);
+            $stmt -> bindParam(':pMax', $pMax);
 			$stmt -> bindParam(':first', $first);
 			$stmt -> bindParam(':last', $last);
             $stmt -> execute();
