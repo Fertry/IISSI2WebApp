@@ -182,8 +182,8 @@
                 <li> <i> css/personalPassCSS.css      </i> - Hoja de estilos de area_personal_pass.php          </li>
                 <li> <i> css/personalProductoCSS.css  </i> - Hoja de estilos de area_personal_productos.php     </li>
                 <li> <i> css/personalProvisional2.css </i> - Hoja de estilos de area_personal.php               </li>
-                <li> <i> css/reserva.css              </i> - Hoja de estilos de reservas.php                    </li>
-                <li> <i> css/actualizarMenuCSS.css    </i> - Hoja de estilos de actualizar_menu.php             </li>
+                <li> <i> css/reservaCSS.css           </i> - Hoja de estilos de reservas.php                    </li>
+                <li> <i> css/actualizacionMenu.css    </i> - Hoja de estilos de actualizar_menu.php             </li>
                 <li> <i> css/ubicacion.css            </i> - Hoja de estilos de ubicacion.php                   </li>
                 <li> <i> <a href = "#indice"> Volver al índice </a> </i> </li>
                  

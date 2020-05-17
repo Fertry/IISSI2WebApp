@@ -69,8 +69,8 @@
 * css/personalPassCSS.css - Hoja de estilos de area_personal_pass.php    
 * css/personalProductoCSS.css - Hoja de estilos de area_personal_productos.php
 * css/personalProvisional2.css - Hoja de estilos de area_personal.php   
-* css/reserva.css - Hoja de estilos de reservas.php 
-* css/actualizarMenuCSS.css - Hoja de estilos de actualizar_menu.php
+* css/reservaCSS.css - Hoja de estilos de reservas.php 
+* css/actualizacionMenu.css - Hoja de estilos de actualizar_menu.php
 * css/ubicacion.css - Hoja de estilos de ubicacion.php 
 
 ##### JavaScript (funciones JS [backend])
