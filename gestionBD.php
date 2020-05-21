@@ -24,7 +24,7 @@ function abrirConexionBD() {
         
 	} catch(PDOException $error) {
 
-        $_SESSION["errores"] = $error->GetMessage();
+        // $_SESSION["erroresBD"] = $error -> GetMessage();
         header("Location: index.php");
 
 	}

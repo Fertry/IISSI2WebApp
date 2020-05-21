@@ -233,10 +233,11 @@
 
             <ul>
 
-                <li> <i> /images (carpeta)                         </i> - Carpeta que contiene todas las imágenes del proyecto.                              </li>
-                <li> <i> IC-G2 Restaurante Casa Salvi - Mockup.pdf </i> - PDF del 2º entregable (Mockup del proyecto).                                       </li>
-                <li> <i> README.md                                 </i> - Fichero similar a about.php pero en formato 'Markdown'.                            </li>
-                <li> <i> /.git                                     </i> - Carpeta (oculta por defecto en sistemas Windows) de GitHub (control de versiones). </li>
+                <li> <i> /images (carpeta)                                                      </i> - Carpeta que contiene todas las imágenes del proyecto.                              </li>
+                <li> <i> documents/IC-G2 Restaurante Casa Salvi - Mockup.pdf                    </i> - PDF del 2º entregable (Mockup del proyecto).                                       </li>
+                <li> <i> documents/Documento de Evidencias IISSI 2 - Restaurante Casa Salvi.pdf </i> - Documento de evidencias del proyecto.                                              </li>
+                <li> <i> README.md                                                              </i> - Fichero similar a about.php pero en formato 'Markdown'.                            </li>
+                <li> <i> /.git                                                                  </i> - Carpeta (oculta por defecto en sistemas Windows) de GitHub (control de versiones). </li>
                 <li> <i> <a href = "#indice"> Volver al índice </a> </i> </li>
 
             </ul>

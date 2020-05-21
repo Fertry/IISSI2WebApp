@@ -88,7 +88,9 @@
 ##### Otros Elementos (imágenes, PDFs, etc.)
 
 * /images (carpeta) - Carpeta que contiene todas las imágenes del proyecto.
-* IC-G2 Restaurante Casa Salvi - Mockup.pdf - PDF del 2º entregable (Mockup del proyecto).
+* documents/IC-G2 Restaurante Casa Salvi - Mockup.pdf - PDF del 2º entregable (Mockup del proyecto).
+* documents/Documento de Evidencias IISSI 2 - Restaurante Casa Salvi.pdf
+* /.git - Carpeta (oculta por defecto en sistemas Windows) de GitHub (control de versiones).
 * README.md - Este mismo fichero.
 
 ##### Funcionalidades (explicación de la aplicación web)
