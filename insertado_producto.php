@@ -136,7 +136,7 @@
 
 							<div>
 								<label for = "precioProducto"> Precio: </label>
-								<input id = "precioProducto" name = "precioProducto" type="number" min = 1 placeholder = "Precio" size = "20" required/>
+								<input id = "precioProducto" name = "precioProducto" type="number" min = "1" max = "50" placeholder = "Precio" size = "20" required/>
 							</div>
 
 							<!--
@@ -172,7 +172,7 @@
 
 							<div>
 								<label for = "nuevoPrecioProducto"> Precio: </label>
-								<input id = "nuevoPrecioProducto" name = "nuevoPrecioProducto" type="number" min = 1 placeholder = "Nuevo precio" size = "20" required/>
+								<input id = "nuevoPrecioProducto" name = "nuevoPrecioProducto" type="number" min = "1" max = "50" placeholder = "Nuevo precio" size = "20" required/>
 							</div>
 
 							<div class = "submit">

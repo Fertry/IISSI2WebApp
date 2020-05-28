@@ -107,7 +107,7 @@
 
                     <div>
                         <label for = "edad">Edad: </label>
-                        <input id = "edad" name = "edad" type = "number" placeholder = "" size = "10" required/>
+                        <input id = "edad" name = "edad" type = "number" placeholder = "" size = "10" min = "18" max = "90" required/>
                     </div>
 
                     <div>
@@ -125,7 +125,7 @@
 
                     <div>
                         <label for = "numeroPersonas">Nº Personas: </label>
-                        <input id = "numeroPersonas" name = "numeroPersonas" type = "number" placeholder = "10 máximo" size = "15" required/>
+                        <input id = "numeroPersonas" name = "numeroPersonas" type = "number" placeholder = "10 máximo" size = "15" min = "1" max = "10" required/>
                     </div>
 
                     <div>
