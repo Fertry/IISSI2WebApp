@@ -46,14 +46,61 @@
         $seleccionarId = $modificarPrecio["IdProductoSeleccionado"];
         $modificarPrecio = $modificarPrecio["nuevoPrecioProducto"];
 
-        // Consulta SQL que modifica el producto:
-        modificarPrecioProducto($seleccionarId, $modificarPrecio, $conexion);
+        // Comprobar que existe el id:
+        $existe = existenciaId($seleccionarId, $conexion);
 
-        // Cerramos la conexión:
-        cerrarConexionBD($conexion);
+        if ($existe != 1) {
 
-        // Redirigimos a insertado_producto.php de nuevo:
-        Header("Location: insertado_producto.php");
+            $erroresActualizado[] = "<p>No se encuentra ningún producto para el Id especificado</p>";
+            $_SESSION["erroresActualizado"] = $erroresActualizado;
+            
+            // Cerramos la conexión:
+            cerrarConexionBD($conexion);
+
+            // Redirigimos a insertado_producto.php de nuevo:
+            Header("Location: insertado_producto.php");
+
+        } else {
+
+            // Consulta SQL que modifica el producto:
+            modificarPrecioProducto($seleccionarId, $modificarPrecio, $conexion);
+
+            // Cerramos la conexión:
+            cerrarConexionBD($conexion);
+    
+            // Redirigimos a insertado_producto.php de nuevo:
+            Header("Location: insertado_producto.php");
+
+        }
+
+    }
+
+    function existenciaId($seleccionarId, $conexion) {
+
+        global $erroresActualizado;
+
+        try {
+
+            $existencia = "SELECT COUNT(idProducto) AS TOTAL FROM Productos WHERE idProducto = :idSeleccionado";
+
+            $stmt = $conexion -> prepare($existencia);
+            $stmt -> bindParam(':idSeleccionado', $seleccionarId);
+            $stmt -> execute();
+
+            $result = $stmt -> fetch();
+            $total = $result['TOTAL'];
+
+            return $total;
+
+        } catch (PDOException $e)  {
+
+            // Header("Location: insertado_producto.php");
+
+            // echo "Error: " . $e -> GetMessage();
+            $erroresActualizado[] = "<p>No se encuentra ningún producto para el Id especificado</p>";
+            return $erroresActualizado;
+
+        }
 
     }
     
@@ -62,7 +109,7 @@
         global $erroresActualizado;
 
         try {
- 
+
             $consulta = "UPDATE Productos SET precioProducto = :precio WHERE idProducto = :id";
             
             $stmt = $conexion -> prepare($consulta);
@@ -76,10 +123,10 @@
 
         } catch (PDOException $e) {
 
-            // echo "Error: " . $e -> GetMessage();
-            Header("Location: insertado_producto.php");
+            // Header("Location: insertado_producto.php");
 
-            $erroresActualizado[] = "<p>No se encuentra ningún producto para el nombre especificado</p>";
+            // echo "Error: " . $e -> GetMessage();
+            $erroresActualizado[] = "<p>Se ha producido un error al cambiar el precio</p>";
             return $erroresActualizado;
 
         }
